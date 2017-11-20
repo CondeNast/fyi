@@ -1,3 +1,3 @@
-CnNodeBuild(project: "easy-fyi", nodeVersion: "nsolid-2.3.0-argon", npmVersion: "2.15.5" ) {
+CnNodeBuild( project: "easy-fyi", nodeVersion: "nsolid-2.4.1-carbon", npmVersion: "3.10.10" ) {
     sh "npm install"
 }
