@@ -1,0 +1,20 @@
+{
+  "name": "easy-fyi",
+  "version": "1.0.0",
+  "description": "This is an FYI creation tool that will allow the creation of FYIs from emails, slackbots, or external forms. It is intended to wrap the Confluence API and provide a user interface for the most simple cases. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John K. Paul",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@condenast/cn-vault": "^2.3.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-react-views": "^0.10.4",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "request-promise-native": "^1.0.5"
+  }
+}
