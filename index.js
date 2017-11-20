@@ -17,9 +17,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 CNVault.getInstance()
   .getSecrets([CONFLUENCE_SECRET_KEY]).then(([confluenceSecrets]) => {
-    console.log(confluenceSecrets)
 
   app.get('/', function (req, res) {
+    res.render('index');
+  });
+
+  app.get('/ping', function (req, res) {
     res.render('index');
   });
 
@@ -49,6 +52,7 @@ CNVault.getInstance()
   });
 
     
-  app.listen(3000, () => console.log('easy-fyi app listening on port 3000!'))
+  const port = process.env.NODE_PORT || 3000;
+  app.listen(port, () => console.log('easy-fyi app listening on port ' + port))
 
 });
