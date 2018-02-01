@@ -15,6 +15,9 @@
     "express-react-views": "^0.10.4",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "request-promise-native": "^1.0.5"
+    "request-promise-native": "^1.0.5",
+    "sequelize": "^4.32.2",
+    "sequelize-cli": "^3.2.0",
+    "sqlite3": "^3.1.13"
   }
 }
