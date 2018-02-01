@@ -13,6 +13,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
+    "pryjs": "^1.0.3",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "request-promise-native": "^1.0.5",

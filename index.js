@@ -19,30 +19,6 @@ CNVault.getInstance()
   .getSecrets([CONFLUENCE_SECRET_KEY]).then(([confluenceSecrets]) => {
 
   app.get('/', function (req, res) {
-    const models = require('./db/models');
-    const options = {
-      url: 'https://cnissues.atlassian.net/wiki/rest/api/content/search?cql=parent=123212691&limit=200&expand=body.storage',
-      json: true,
-    }
-
-    models.Fyi.destroy({
-        where: {},
-          truncate: true
-    }).then(function(){
-
-      rp.get(options).auth(confluenceSecrets['confluence-username'], confluenceSecrets['confluence-access-token']).then(data => {
-
-        asyncForEach(data.results, fyi => {
-          //console.log(fyi)
-        
-          return models.Fyi.create({
-              title: fyi.title,
-              description: fyi.body.storage.value
-          });
-        })
-
-      }, err => console.error(err))
-    });
 
     res.render('index');
   });
@@ -82,14 +58,3 @@ CNVault.getInstance()
 
 });
 
-async function asyncForEach(array, callback) {
-  let funcs = [];
-  for( let i = 0; i < array.length; i++ ){
-    funcs.push( () => callback(array[i]) )  
-  }
-  funcs.reduce((promise, func) =>
-                   promise.then(result => func().then(Array.prototype.concat.bind(result))),
-                   Promise.resolve([])).then(() => {})
-                   .catch(console.error.bind(console))
-
-}

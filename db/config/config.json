@@ -5,7 +5,7 @@
     "database": "database_development",
     "host": "127.0.0.1",
     "dialect": "sqlite",
-    "storage": "db/easy-fyi.sqlite"
+    "storage": "easy-fyi.sqlite"
   },
   "test": {
     "username": "root",
