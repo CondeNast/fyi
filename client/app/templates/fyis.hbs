@@ -1,0 +1,11 @@
+{{outlet}}
+<div class="jumbo">
+  <div class="right tomster"></div>
+  <h2>Welcome!</h2>
+  <p>We hope you find exactly what you're looking for in a place to stay.</p>
+  <ul>
+      {{#each model as |fyi|}}
+          <li>Hello, {{fyi.title}}!</li>
+            {{/each}}
+  </ul>
+</div>
