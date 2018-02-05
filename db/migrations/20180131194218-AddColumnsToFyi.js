@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return Promise.all([
       queryInterface.addColumn('Fyis', 'description', {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT
       }),
       queryInterface.addColumn('Fyis', 'originalId', {
         type: Sequelize.INTEGER
