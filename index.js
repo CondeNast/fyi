@@ -1,3 +1,5 @@
+(async function(){
+
 const express = require('express')
 const bodyParser = require('body-parser');
 const rp = require('request-promise-native');
@@ -28,46 +30,45 @@ const router = createController(models.Fyi, {
 });
 app.use('/api/v1/fyis', router);
 
-CNVault.getInstance()
-  .getSecrets([CONFLUENCE_SECRET_KEY]).then(([confluenceSecrets]) => {
+let [confluenceSecrets] = await CNVault.getInstance().getSecrets([CONFLUENCE_SECRET_KEY]);
 
-  app.get('/', function (req, res) {
+app.get('/', function (req, res) {
 
-    res.render('index');
-  });
-
-  app.get('/ping', function (req, res) {
-    res.render('index');
-  });
-
-  app.post('/create-fyi', function (req, res) {
-    const options = {
-      url: 'https://cnissues.atlassian.net/wiki/rest/api/content/',
-      json: true,
-      body: {
-          "type": "page",
-          "title": req.body.name,
-          "ancestors": [{
-              "id": 123212691
-          }],
-          "space": {
-              "key": "ARCH"
-          },
-          "body": {
-              "storage": {
-                  "value":req.body.content,
-                  "representation": "storage"
-              }
-          }
-      }
-    }
-    rp.post(options).auth(confluenceSecrets['confluence-username'], confluenceSecrets['confluence-access-token'])
-    res.render('success');
-  });
-
-    
-  const port = process.env.NODE_PORT || 3000;
-  app.listen(port, () => console.log('easy-fyi app listening on port ' + port))
-
+  res.render('index');
 });
 
+app.get('/ping', function (req, res) {
+  res.render('index');
+});
+
+app.post('/create-fyi', function (req, res) {
+  const options = {
+    url: 'https://cnissues.atlassian.net/wiki/rest/api/content/',
+    json: true,
+    body: {
+        "type": "page",
+        "title": req.body.name,
+        "ancestors": [{
+            "id": 123212691
+        }],
+        "space": {
+            "key": "ARCH"
+        },
+        "body": {
+            "storage": {
+                "value":req.body.content,
+                "representation": "storage"
+            }
+        }
+    }
+  }
+  rp.post(options).auth(confluenceSecrets['confluence-username'], confluenceSecrets['confluence-access-token'])
+  res.render('success');
+});
+
+  
+const port = process.env.NODE_PORT || 3000;
+app.listen(port, () => console.log('easy-fyi app listening on port ' + port))
+
+
+})();
