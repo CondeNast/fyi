@@ -25,9 +25,7 @@ app.use(function(req, res, next) {
 
 const { createController } = require('sequelize-rest-handlers');
 const models = require('./db/models');
-const router = createController(models.Fyi, {
-  //overrideOutputName: 'data'
-});
+const router = createController(models.Fyi);
 app.use('/api/v1/fyis', router);
 
 let [confluenceSecrets] = await CNVault.getInstance().getSecrets([CONFLUENCE_SECRET_KEY]);
@@ -49,7 +47,7 @@ app.post('/create-fyi', function (req, res) {
         "type": "page",
         "title": req.body.name,
         "ancestors": [{
-            "id": 123212691
+            "id": 209682505
         }],
         "space": {
             "key": "ARCH"
