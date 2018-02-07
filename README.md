@@ -12,6 +12,7 @@ This package uses Node.JS v8+ and cn-vault
 ```shell
 
 $ npm i
+$ ./node_modules/.bin/sequelize db:seed:all
 $ source ./node_modules/.bin/authenticate-vault && node index.js
 
 ```
