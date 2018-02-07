@@ -4,7 +4,7 @@
   "description": "This is an FYI creation tool that will allow the creation of FYIs from emails, slackbots, or external forms. It is intended to wrap the Confluence API and provide a user interface for the most simple cases. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "John K. Paul",
   "license": "UNLICENSED",
@@ -22,5 +22,9 @@
     "sequelize-cli": "^3.2.0",
     "sequelize-rest-handlers": "^2.0.0-beta1",
     "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "jest": "^22.2.1",
+    "jest-diff": "^22.1.0"
   }
 }
