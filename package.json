@@ -4,9 +4,9 @@
   "description": "",
   "author": "John K. Paul <john@johnkpaul.com>",
   "license": "ISC",
-  "repository": "https://github.com/johnkpaul/easy-fyi.git",
-  "homepage": "https://github.com/johnkpaul/easy-fyi",
-  "bugs": "https://github.com/johnkpaul/easy-fyi/issues",
+  "repository": "https://github.com/CondeNast/easy-fyi.git",
+  "homepage": "https://github.com/CondeNast/easy-fyi",
+  "bugs": "https://github.com/CondeNast/easy-fyi/issues",
   "keywords": [
     "probot",
     "github",

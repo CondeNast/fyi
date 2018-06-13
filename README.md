@@ -1,23 +1,17 @@
 # easy-fyi
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that 
+This is a FYI github app that will allow the automation of FYI request workflow.
 
-## Setup
+### Requirements
 
-```sh
-# Install dependencies
-npm install
+This package uses Node.JS v8+, probot and cn-vault
 
-# Run the bot
-npm start
+
+### Usage
+
+```shell
+
+$ npm i
+$ source ./node_modules/.bin/authenticate-vault && npm start
+
 ```
-
-## Contributing
-
-If you have suggestions for how easy-fyi could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
-
-For more, check out the [Contributing Guide](CONTRIBUTING.md).
-
-## License
-
-[ISC](LICENSE) © 2018 John K. Paul <john@johnkpaul.com>
