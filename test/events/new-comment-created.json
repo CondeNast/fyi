@@ -1,0 +1,31 @@
+{
+    "event": "issue_comment",
+    "payload": {
+        "action": "created",
+        "issue": {
+          "id": 1,
+          "title": "Request FYI for new repo: testing-things"
+        },
+        "comment": {
+          "body": "/yes hal",
+          "user": {
+            "login": "jill"
+          }
+        },
+        "repository": {
+            "name": "fyis",
+            "owner": {
+                "login": "CondeNast"
+            }
+        },
+        "organization": {
+          "login":"CondeNast"
+        },
+        "sender": {
+          "login": "joe"
+        },
+        "installation": {
+            "id": 1
+        }
+    }
+}
