@@ -1,0 +1,18 @@
+robot.log(`new repo: ${context.payload.repository.name} created by ${context.payload.sender.login}`)
+
+// how to get repo info
+let { data: {id: fyisRepoId } } = await context.github.repos.get({
+  owner: 'CondeNast',
+  repo: 'fyis'})
+
+// how to create an issue
+const params = context.issue({
+  owner: 'CondeNast',
+  repo: 'fyis',
+  title: `Request FYI for new repo: ${context.payload.repository.name}`
+})
+return context.github.issues.create(params)
+
+// how to create a comment for an issue (works in issue.created event)
+const params = context.issue({body: 'Hello World!'})
+return context.github.issues.createComment(params)
