@@ -1,10 +1,31 @@
-// You can import your modules
-// const index = require('../index')
+const {createRobot} = require('probot')
+const app = require('..')
+const payload = require('./fixtures/payload')
 
-test('that we can run tests', () => {
-  // your real tests go here
-  expect(1 + 2 + 3).toBe(6)
+describe('arch-bot', () => {
+  let robot
+  let github
+
+  beforeEach(() => {
+    robot = createRobot()
+    app(robot)
+    github = {
+      issues: {
+        create: jest.fn().mockReturnValue(Promise.resolve({}))
+      }
+    }
+    robot.auth = () => Promise.resolve(github)
+  })
+
+  describe('new repo created', () => {
+    it('creates an issue in fyi repo', async () => {
+      await robot.receive(payload)
+      expect(github.issues.create).toHaveBeenCalledWith({
+        number: undefined,
+        owner: 'CondeNast',
+        repo: 'fyis',
+        title: 'Request FYI for new repo: testing-things'
+      })
+    })
+  })
 })
-
-// For more information about testing with Jest see:
-// https://facebook.github.io/jest/

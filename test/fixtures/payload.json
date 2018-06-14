@@ -1,0 +1,21 @@
+{
+    "event": "repository",
+    "payload": {
+        "action": "created",
+        "repository": {
+            "name": "testing-things",
+            "owner": {
+                "login": "CondeNast"
+            }
+        },
+        "organization": {
+          "login":"CondeNast"
+        },
+        "sender": {
+          "login": "joe"
+        },
+        "installation": {
+            "id": 1
+        }
+    }
+}
