@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Event = sequelize.define('Event', {
     github_project: DataTypes.STRING,
@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     actor: DataTypes.STRING
   }, {})
 
-  Event.associate = function(models) {
+  Event.associate = function (models) {
     // associations can be defined here
   }
 
