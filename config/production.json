@@ -1,0 +1,9 @@
+{
+  "database": {
+    "username": "production_user",
+    "password": null,
+    "database": "easy-fyi-prod",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
