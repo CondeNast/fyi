@@ -28,11 +28,12 @@ module.exports = robot => {
   })
 
   commands(robot, 'yes', async (context, command) => {
-    const labels = command.arguments ? command.arguments.split(/, */) : []
     // retrieve repo info from issue meta
     const { repoName, repoSenderLogin } = await metadata(context, context.payload.issue).get()
-    // add system lables to this issue
-    // await metadata(context).set('system', args[0])
+    // await metadata(context).set('system', args[0]) //if we wanted to set the system in the issue metadata
+
+    // add system labels to this issue
+    const labels = command.arguments ? command.arguments.split(/, */) : []
     labels.push('pending-completion')
     await context.github.issues.addLabels(context.issue({labels}))
     await context.github.issues.deleteLabel(context.issue({name: 'pending-approval'}))
@@ -54,10 +55,23 @@ module.exports = robot => {
     }))
   })
   commands(robot, 'no', async (context, command) => {
-    // TODO add label `ignore` to this issue
-    // TODO post command activity comment in this issue (user, action)
-    // TODO  delete command comment
-    // TODO close this issue
+    // add label `ignore` to this issue
+    const labels = command.arguments ? command.arguments.split(/, */) : []
+    labels.push('completed-skip')
+    await context.github.issues.addLabels(context.issue({labels}))
+    await context.github.issues.deleteLabel(context.issue({name: 'pending-approval'}))
+    // delete command comment
+    await context.github.issues.deleteComment(context.issue({
+      comment_id: context.payload.comment.id
+    }))
+    // post command activity comment in this issue (user, action)
+    await context.github.issues.createComment(context.issue({
+      body: `@${context.payload.sender.login} skipped the request for FYI`
+    }))
+    // close this issue
+    await context.github.issues.edit(context.issue({
+      state: 'closed'
+    }))
   })
   commands(robot, 'close', async (context, command) => {
   })

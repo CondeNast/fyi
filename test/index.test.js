@@ -1,7 +1,8 @@
 const {createRobot} = require('probot')
 const app = require('..')
 const newRepoCreatedEvent = require('./events/new-repo-created')
-const newCommentCreatedEvent = require('./events/new-comment-created')
+const newCommentCreatedApproveEvent = require('./events/new-comment-created-approve')
+const newCommentCreatedSkipEvent = require('./events/new-comment-created-skip')
 
 describe('arch-bot', () => {
   let robot
@@ -13,6 +14,7 @@ describe('arch-bot', () => {
     github = {
       issues: {
         create: jest.fn().mockReturnValue(Promise.resolve({})),
+        edit: jest.fn().mockReturnValue(Promise.resolve({})),
         addLabels: jest.fn().mockReturnValue(Promise.resolve({})),
         createComment: jest.fn().mockReturnValue(Promise.resolve({})),
         deleteComment: jest.fn().mockReturnValue(Promise.resolve({})),
@@ -36,14 +38,12 @@ describe('arch-bot', () => {
   })
   describe('fyi request approval', () => {
     it('creates an issue in new repo', async () => {
-      await robot.receive(newCommentCreatedEvent)
-      // create issue in new repo
+      await robot.receive(newCommentCreatedApproveEvent)
       expect(github.issues.create).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'my-awesome-project',
         title: 'Add FYI for this repo',
         assignee: 'awesome-coder'
       }))
-      // udpate fyis repo
       expect(github.issues.deleteLabel).toHaveBeenCalledWith(expect.objectContaining({
         name: 'pending-approval'
       }))
@@ -58,6 +58,29 @@ describe('arch-bot', () => {
       expect(github.issues.createComment).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
         body: '@gautamarora approved the request for FYI'
+      }))
+    })
+  })
+  describe('fyi request skip', () => {
+    it('closes issue in fyi repo', async () => {
+      await robot.receive(newCommentCreatedSkipEvent)
+      expect(github.issues.addLabels).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'fyis',
+        labels: ['hal', 'completed-skip']
+      }))
+      expect(github.issues.deleteLabel).toHaveBeenCalledWith(expect.objectContaining({
+        name: 'pending-approval'
+      }))
+      expect(github.issues.deleteComment).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'fyis',
+        comment_id: 12
+      }))
+      expect(github.issues.createComment).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'fyis',
+        body: '@gautamarora skipped the request for FYI'
+      }))
+      expect(github.issues.edit).toHaveBeenCalledWith(expect.objectContaining({
+        state: 'closed'
       }))
     })
   })
