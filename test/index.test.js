@@ -2,7 +2,7 @@ const {createRobot} = require('probot')
 const app = require('..')
 const newRepoCreatedEvent = require('./events/new-repo-created')
 const newCommentCreatedEvent = require('./events/new-comment-created')
-const models = require('../models')
+// const models = require('../models')
 
 describe('arch-bot', () => {
   let robot
@@ -24,7 +24,7 @@ describe('arch-bot', () => {
   })
 
   afterAll(async () => {
-    await models.sequelize.close();
+    // await models.sequelize.close();
   })
 
   describe('new repo created', () => {
