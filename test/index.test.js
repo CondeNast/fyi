@@ -12,7 +12,10 @@ describe('arch-bot', () => {
     app(robot)
     github = {
       issues: {
-        create: jest.fn().mockReturnValue(Promise.resolve({}))
+        create: jest.fn().mockReturnValue(Promise.resolve({})),
+        addLabels: jest.fn().mockReturnValue(Promise.resolve({})),
+        createComment: jest.fn().mockReturnValue(Promise.resolve({})),
+        deleteComment: jest.fn().mockReturnValue(Promise.resolve({}))
       }
     }
     robot.auth = () => Promise.resolve(github)
@@ -21,23 +24,37 @@ describe('arch-bot', () => {
   describe('new repo created', () => {
     it('creates an issue in fyi repo', async () => {
       await robot.receive(newRepoCreatedEvent)
-      expect(github.issues.create).toHaveBeenCalledWith({
-        number: undefined,
-        owner: 'CondeNast',
+      expect(github.issues.create).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
-        title: 'Request FYI for new repo: testing-things'
-      })
+        title: 'Approve FYI request for new repo: my-awesome-project',
+        body: expect.stringMatching(/Repository Name: my-awesome-project\nCreated By: awesome-coder/) && expect.stringMatching(/\n\n<!-- probot = {"1":{"repoName":"my-awesome-project","repoSenderLogin":"awesome-coder"}} -->/),
+        labels: ['pending'],
+        assignees: ['johnkpaul', 'gautamarora']
+      }))
     })
   })
-  describe('new comment created', () => {
-    it('creates an issue in fyi repo', async () => {
+  describe('fyi request approval', () => {
+    it('creates an issue in new repo', async () => {
       await robot.receive(newCommentCreatedEvent)
-      expect(github.issues.create).toHaveBeenCalledWith({
-        number: undefined,
-        owner: 'CondeNast',
+      // create issue in new repo
+      expect(github.issues.create).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'my-awesome-project',
+        title: 'Add FYI for this repo',
+        assignee: 'awesome-coder'
+      }))
+      // udpate fyis repo
+      expect(github.issues.addLabels).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
-        title: 'Request FYI for new repo: testing-things'
-      })
+        labels: ['hal']
+      }))
+      expect(github.issues.deleteComment).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'fyis',
+        comment_id: 12
+      }))
+      expect(github.issues.createComment).toHaveBeenCalledWith(expect.objectContaining({
+        repo: 'fyis',
+        body: '@gautamarora approved the request for FYI'
+      }))
     })
   })
 })

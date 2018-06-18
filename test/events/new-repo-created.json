@@ -3,7 +3,7 @@
     "payload": {
         "action": "created",
         "repository": {
-            "name": "testing-things",
+            "name": "my-awesome-project",
             "owner": {
                 "login": "CondeNast"
             }
@@ -12,7 +12,7 @@
           "login":"CondeNast"
         },
         "sender": {
-          "login": "joe"
+          "login": "awesome-coder"
         },
         "installation": {
             "id": 1

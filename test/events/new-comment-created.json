@@ -4,12 +4,14 @@
         "action": "created",
         "issue": {
           "id": 1,
-          "title": "Request FYI for new repo: testing-things"
+          "title": "Request FYI for new repo: testing-things",
+          "body": "Repository Name: my-awesome-project\nCreated By: awesome-coder\nApprove with /yes, Ignore with /no\n\n<!-- probot = {\"1\":{\"repoName\":\"my-awesome-project\",\"repoSenderLogin\":\"awesome-coder\"}} -->"
         },
         "comment": {
+          "id": 12,
           "body": "/yes hal",
           "user": {
-            "login": "jill"
+            "login": "gautamarora"
           }
         },
         "repository": {
@@ -22,7 +24,7 @@
           "login":"CondeNast"
         },
         "sender": {
-          "login": "joe"
+          "login": "gautamarora"
         },
         "installation": {
             "id": 1

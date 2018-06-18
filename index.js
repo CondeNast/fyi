@@ -33,7 +33,7 @@ module.exports = robot => {
   commands(robot, 'yes', async (context, command) => {
     const labels = command.arguments ? command.arguments.split(/, */) : []
     // retrieve repo info from issue meta
-    const { repoName, repoSenderLogin } = await metadata(context).get()
+    const { repoName, repoSenderLogin } = await metadata(context, context.payload.issue).get()
     // add system lables to this issue
     // await metadata(context).set('system', args[0])
     await context.github.issues.addLabels(context.issue({labels}))
