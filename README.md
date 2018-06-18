@@ -27,7 +27,7 @@ Any portion of our company that has software backing it. By way of example, Copi
 
 ### Requirements
 
-This package uses Node.JS v8+, probot and cn-vault
+This package uses Node.JS v8+, probot and cn-vault. It assumes [Postgres.app](https://postgresapp.com/) is already installed for local development and a database schema is created with the name `easy-fyi-development`. 
 
 
 ### Usage

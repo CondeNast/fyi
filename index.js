@@ -1,5 +1,6 @@
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
+// const Event = require('./models').Event
 
 module.exports = robot => {
   robot.log('arch bot loaded!')
@@ -14,6 +15,13 @@ module.exports = robot => {
     data[prefix]['repoName'] = repoName
     data[prefix]['repoSenderLogin'] = repoSenderLogin
     // end - calculate probot metadata
+
+    // await Event.create({
+      // github_project: repoName,
+      // system: repoName,
+      // event: Event.event_types['new_repo_created'],
+      // actor: repoSenderLogin
+    // })
 
     // create issue in FYI repo
     return context.github.issues.create(context.issue({

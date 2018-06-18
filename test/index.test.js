@@ -24,6 +24,10 @@ describe('arch-bot', () => {
     robot.auth = () => Promise.resolve(github)
   })
 
+  afterAll(async () => {
+    // await models.sequelize.close();
+  })
+
   describe('new repo created', () => {
     it('creates an issue in fyi repo', async () => {
       await robot.receive(newRepoCreatedEvent)
