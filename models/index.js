@@ -8,11 +8,7 @@ var env       = process.env.NODE_ENV || 'development';
 var config    = require('config').database;
 var db        = {};
 
-if (config.use_env_variable) {
-  var sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 fs
   .readdirSync(__dirname)
@@ -32,5 +28,12 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+sequelize.authenticate().then(()=>{}, (e) => {
+
+  if(env === "development"){
+    throw new Error(`You don't seem to have your database setup correctly.  Here is your db config\n\n\n${JSON.stringify(config, null, 4)}`);
+  }
+
+})
 
 module.exports = db;

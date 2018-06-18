@@ -1,4 +1,4 @@
-let username = require("os").userInfo().username
+let username = require("os").userInfo().username;
 
 module.exports = {
   "database": {
