@@ -15,7 +15,8 @@ describe('arch-bot', () => {
         create: jest.fn().mockReturnValue(Promise.resolve({})),
         addLabels: jest.fn().mockReturnValue(Promise.resolve({})),
         createComment: jest.fn().mockReturnValue(Promise.resolve({})),
-        deleteComment: jest.fn().mockReturnValue(Promise.resolve({}))
+        deleteComment: jest.fn().mockReturnValue(Promise.resolve({})),
+        deleteLabel: jest.fn().mockReturnValue(Promise.resolve({}))
       }
     }
     robot.auth = () => Promise.resolve(github)
@@ -28,7 +29,7 @@ describe('arch-bot', () => {
         repo: 'fyis',
         title: 'Approve FYI request for new repo: my-awesome-project',
         body: expect.stringMatching(/Repository Name: my-awesome-project\nCreated By: awesome-coder/) && expect.stringMatching(/\n\n<!-- probot = {"1":{"repoName":"my-awesome-project","repoSenderLogin":"awesome-coder"}} -->/),
-        labels: ['pending'],
+        labels: ['pending-approval'],
         assignees: ['johnkpaul', 'gautamarora']
       }))
     })
@@ -43,9 +44,12 @@ describe('arch-bot', () => {
         assignee: 'awesome-coder'
       }))
       // udpate fyis repo
+      expect(github.issues.deleteLabel).toHaveBeenCalledWith(expect.objectContaining({
+        name: 'pending-approval'
+      }))
       expect(github.issues.addLabels).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
-        labels: ['hal']
+        labels: ['hal', 'pending-completion']
       }))
       expect(github.issues.deleteComment).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',

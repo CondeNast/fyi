@@ -5,9 +5,6 @@ module.exports = robot => {
   robot.log('arch bot loaded!')
 
   robot.on('repository.created', async context => {
-    // TODO - check if an issue for this repo already exists
-    // create new issue
-
     // start - calculate probot metadata
     const repoName = context.payload.repository.name
     const repoSenderLogin = context.payload.sender.login
@@ -24,7 +21,7 @@ module.exports = robot => {
       repo: 'fyis',
       title: `Approve FYI request for new repo: ${context.payload.repository.name}`,
       body: `Repository Name: ${context.payload.repository.name}\nCreated By: ${context.payload.sender.login}\nApprove with /yes, Ignore with /no\n\n<!-- probot = ${JSON.stringify(data)} -->`,
-      labels: ['pending'],
+      labels: ['pending-approval'],
       assignees: ['johnkpaul', 'gautamarora']
     }))
     // metadata(context).set('repo', context.payload.repository.name)
@@ -36,7 +33,9 @@ module.exports = robot => {
     const { repoName, repoSenderLogin } = await metadata(context, context.payload.issue).get()
     // add system lables to this issue
     // await metadata(context).set('system', args[0])
+    labels.push('pending-completion')
     await context.github.issues.addLabels(context.issue({labels}))
+    await context.github.issues.deleteLabel(context.issue({name: 'pending-approval'}))
     // create issue in new repo
     await context.github.issues.create(context.issue({
       owner: 'choosenearme',
