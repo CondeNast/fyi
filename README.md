@@ -29,6 +29,16 @@ Any portion of our company that has software backing it. By way of example, Copi
 
 This package uses Node.JS v8+, probot and cn-vault. It assumes [Postgres.app](https://postgresapp.com/) is already installed for local development and a database schema is created with the name `easy-fyi-development`. 
 
+### Integration test setup
+
+create a test account and test database in postgres
+
+`psql
+CREATE ROLE test_account LOGIN;
+GRANT <<Replace with your username>> TO test_account;
+CREATE DATABASE "easy-fyi-test";
+`
+
 
 ### Usage
 

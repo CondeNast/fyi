@@ -16,7 +16,8 @@
     "dev": "nodemon --exec \"npm start\"",
     "start": "probot run ./index.js",
     "lint": "standard --fix",
-    "test": "standard --fix && jest",
+    "test": "standard --fix && jest --roots test",
+    "integration_test": "standard --fix && jest --roots integration_test",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "sequelize": "sequelize"
   },
@@ -33,6 +34,7 @@
   "devDependencies": {
     "jest": "^22.4.3",
     "nodemon": "^1.17.2",
+    "pryjs": "^1.0.3",
     "smee-client": "^1.0.1",
     "standard": "^10.0.3"
   },
