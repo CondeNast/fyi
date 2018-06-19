@@ -3,14 +3,19 @@ const app = require('..')
 const newRepoCreatedEvent = require('./events/new-repo-created')
 const newCommentCreatedApproveEvent = require('./events/new-comment-created-approve')
 const newCommentCreatedSkipEvent = require('./events/new-comment-created-skip')
+const models = require('../models')
+const Event = models.Event
 
 describe('arch-bot', () => {
   let robot
   let github
+  let createMock
 
   beforeEach(() => {
     robot = createRobot()
     app(robot)
+    createMock = jest.spyOn(Event, 'create')
+    createMock.mockImplementation(() => true)
     github = {
       issues: {
         create: jest.fn().mockReturnValue(Promise.resolve({})),
@@ -25,7 +30,8 @@ describe('arch-bot', () => {
   })
 
   afterAll(async () => {
-    // await models.sequelize.close();
+    createMock.mockRestore()
+    await models.sequelize.close()
   })
 
   describe('new repo created', () => {
