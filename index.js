@@ -61,6 +61,13 @@ module.exports = robot => {
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} approved the request for FYI`
     }))
+
+    await Event.create({
+      github_project: repoName,
+      system: repoName,
+      event: Event.event_types['fyi_requested_via_github'],
+      actor: repoSenderLogin
+    })
   })
   commands(robot, 'no', async (context, command) => {
     // add label `ignore` to this issue
