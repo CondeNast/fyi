@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "dev": "nodemon --exec \"npm start\"",
-    "start": "probot run ./index.js",
+    "start": "PRIVATE_KEY=`node scripts/github.private.key.vault.js` probot run ./index.js",
     "lint": "standard --fix",
     "test": "standard --fix && jest --roots test",
     "integration_test": "standard --fix && jest --roots integration_test",
@@ -22,6 +22,7 @@
     "sequelize": "sequelize"
   },
   "dependencies": {
+    "@condenast/cn-vault": "^2.5.0",
     "config": "^1.30.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
