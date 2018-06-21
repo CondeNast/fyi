@@ -5,5 +5,10 @@
     "database": "easy-fyi-prod",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "github": {
+    "listening_to_orgs": ["condenast","condenast-copilot"],
+    "fyi_repo_org":"condenast",
+    "fyi_repo_name":"fyis"
   }
 }
