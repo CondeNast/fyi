@@ -13,7 +13,7 @@
     "probot-app"
   ],
   "scripts": {
-    "dev": "nodemon --exec \"npm start\"",
+    "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
     "start": "PRIVATE_KEY=`node scripts/github.private.key.vault.js` probot run ./index.js",
     "lint": "standard --fix",
     "test": "standard --fix && jest --roots test",
