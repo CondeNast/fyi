@@ -45,7 +45,9 @@ CREATE DATABASE "easy-fyi-test";
 ```shell
 
 $ npm i
-$ source ./node_modules/.bin/authenticate-vault && npm start
+$ source ./node_modules/.bin/authenticate-vault
+$ npm run sequelize -- db:migrate
+$ npm start
 
 ```
 
