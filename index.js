@@ -1,3 +1,20 @@
+if (require.main === module) {
+  const { spawn } = require('child_process')
+  let start = spawn('npm', ['start'], {env: process.env})
+
+  start.stdout.on('data', (data) => {
+    process.stdout.write(`stdout: ${data}`)
+  })
+
+  start.stderr.on('data', (data) => {
+    process.stderr.write(`stderr: ${data}`)
+  })
+
+  start.on('close', (code) => {
+    process.stdout.write(`child process exited with code ${code}`)
+  })
+}
+
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
