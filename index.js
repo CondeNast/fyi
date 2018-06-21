@@ -121,8 +121,6 @@ module.exports = robot => {
 
   robot.on('issues.closed', async context => {
     const { repoName, repoIssueNumber } = await metadata(context, context.payload.issue).get()
-    console.log(repoName, repoIssueNumber)
-
     await context.github.issues.deleteLabel(context.issue({
       owner: 'choosenearme',
       repo: repoName,
@@ -154,11 +152,28 @@ module.exports = robot => {
   })
 
   commands(robot, 'reject', async (context, command) => {
+    const { repoName, repoIssueNumber } = await metadata(context, context.payload.issue).get()
+    const comment = command.arguments
+
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} rejected the FYI.`
     }))
     await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'}))
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-rejected'}))
+    await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
+    await context.github.issues.edit(context.issue({
+      owner: 'choosenearme',
+      repo: repoName,
+      number: repoIssueNumber,
+      state: 'open'
+    }))
+    if(comment) {
+      await context.github.issues.createComment(context.issue({
+        owner: 'choosenearme',
+        repo: repoName,
+        number: repoIssueNumber,
+        body: `Request has been re-opened with comment: ${comment}`
+      }))
+    }
   })
 
   commands(robot, 'close', async (context, command) => {
@@ -182,7 +197,7 @@ module.exports = robot => {
   })
   commands(robot, 'help', async (context, command) => {
     await context.github.issues.createComment(context.issue({
-      body: `Here are commands you can run:\n  - \`/approve \[fyi name\]\` to approve requests\n  - \`/skip\` to skip requests\n  - \`/verify\` to verify completed FYIs\n  - \`/reject\` to reject submitted FYIs\n  - \`/close\` to close this issue\n  - \`/remind\` to post a reminder on the requested issue`
+      body: `Here are commands you can run:\n  - \`/approve \[fyi name\]\` to approve requests\n  - \`/skip\` to skip requests\n  - \`/verify\` to verify completed FYIs\n  - \`/reject \[comment\]\` to reject submitted FYIs with optional comment\n  - \`/close\` to close this issue\n  - \`/remind\` to post a reminder on the requested issue`
     }))
   })
 }
