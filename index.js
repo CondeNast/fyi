@@ -18,6 +18,7 @@ if (require.main === module) {
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
+const config = require('config')
 
 module.exports = robot => {
   robot.log('arch bot loaded!')
@@ -28,9 +29,13 @@ module.exports = robot => {
     const repoSenderLogin = context.payload.sender.login
     const prefix = context.payload.installation.id
     let data = {}
+    let json
     data[prefix] = {}
     data[prefix]['repoName'] = repoName
     data[prefix]['repoSenderLogin'] = repoSenderLogin
+    data[prefix]['environment'] = process.env.NODE_ENV || 'development'
+    data[prefix]['username'] = config.get('username')
+    json = JSON.stringify(data)
     // end - calculate probot metadata
 
     // create issue in FYI repo
@@ -38,7 +43,7 @@ module.exports = robot => {
       owner: 'choosenearme',
       repo: 'fyis',
       title: `Approve FYI request for new repo: ${context.payload.repository.name}`,
-      body: `Repository Name: ${context.payload.repository.name}\nCreated By: ${context.payload.sender.login}\n\n<!-- probot = ${JSON.stringify(data)} -->`,
+      body: `Repository Name: ${context.payload.repository.name}\nCreated By: ${context.payload.sender.login}\n\n<!-- probot = ${json} -->`,
       labels: ['fyi-approval'],
       assignees: ['johnkpaul', 'gautamarora']
     }))

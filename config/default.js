@@ -1,6 +1,7 @@
 let username = require('os').userInfo().username
 
 module.exports = {
+  'username': username,
   'database': {
     'username': username,
     'password': null,
