@@ -61,12 +61,12 @@ describe('arch-bot', () => {
         repo: 'fyis',
         labels: ['hal', 'pending-completion']
       }))
-      //TODO remove this
+      // TODO remove this
       expect(github.issues.deleteComment).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
         comment_id: 12
       }))
-      //TODO replace with check that metadata gets updated with new repo issue id
+      // TODO replace with check that metadata gets updated with new repo issue id
 
       expect(github.issues.createComment).toHaveBeenCalledWith(expect.objectContaining({
         repo: 'fyis',
