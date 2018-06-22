@@ -7,11 +7,11 @@ module.exports = {
     'database': 'easy-fyi-development',
     'host': '127.0.0.1',
     'dialect': 'postgres'
-  }, 
-  github: {
-    listening_to_orgs: ['choosenearme', 'mage-contest'],
-    fyi_repo_org: 'choosenearme',
-    fyi_repo_name: 'fyis'
+  },
+  'github': {
+    'subscribedOrgs': ['choosenearme', 'mage-contest'],
+    'adminOrg': 'choosenearme',
+    'adminRepo': 'fyis',
+    'adminUsers': ['johnkpaul', 'gautamarora']
   }
-
 }
