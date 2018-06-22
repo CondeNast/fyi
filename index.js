@@ -75,7 +75,7 @@ module.exports = robot => {
       return
     }
     // retrieve issue data info from issue
-    const { repoName, repoCreator } = await metadata(context, context.payload.issue).get()
+    const { repoName, repoCreator } = await metadata(context, context.payload.issue).get() || {}
     const fyiRepoIssue = context.payload.issue.number
     const fyiName = command.arguments ? command.arguments : repoName
 
@@ -143,7 +143,10 @@ module.exports = robot => {
     if (await block('issues.closed', context)) {
       return
     }
-    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get()
+    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
+    if(!repoName || !repoIssue) {
+      return
+    }
     await context.github.issues.deleteLabel(context.issue({
       owner: 'choosenearme',
       repo: repoName,
@@ -181,7 +184,10 @@ module.exports = robot => {
     if (await block('reject', context)) {
       return
     }
-    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get()
+    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
+    if(!repoName || !repoIssue) {
+      return
+    }
     const comment = command.arguments
 
     await context.github.issues.createComment(context.issue({
@@ -221,7 +227,10 @@ module.exports = robot => {
     if (await block('remind', context)) {
       return
     }
-    const { repoName, repoCreator, repoIssue } = await metadata(context, context.payload.issue).get()
+    const { repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    if(!repoName || !repoIssue || !repoCreator) {
+      return
+    }
     await context.github.issues.createComment(context.issue({
       owner: 'choosenearme',
       repo: repoName,

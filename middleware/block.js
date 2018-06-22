@@ -11,12 +11,12 @@ module.exports = async (event, context) => {
       return true // yes, block this
     }
   } else if (event === 'issues.closed') {
-    // only respond to issue closed event in subscribed orgs
-    if (!config.subscribedOrgs.includes(repoOrg)) {
+    // only respond to issue closed event in non-admin repo of subscribed orgs
+    if (!config.subscribedOrgs.includes(repoOrg) || config.adminRepo === repoName) {
       return true
     }
     // ...and it was a FYI request issue
-    const { type } = await metadata(context, context.payload.issue).get()
+    const { type } = await metadata(context, context.payload.issue).get() || {}
     if (!type === 'fyi') {
       return true
     }
