@@ -1,6 +1,6 @@
 if (require.main === module) {
   const { spawn } = require('child_process')
-  let start = spawn('npm', ['start'], {env: process.env})
+  let start = spawn('npm', ['start'], {env: {...process.env, PORT: process.env.NODE_PORT || 8081}})
 
   start.stdout.on('data', (data) => {
     process.stdout.write(`stdout: ${data}`)
@@ -19,6 +19,7 @@ const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
 const config = require('config').github
+const configDB = require('config').database
 const block = require('./middleware/block')
 
 module.exports = robot => {
@@ -32,19 +33,30 @@ module.exports = robot => {
     const repoCreator = context.payload.sender.login
     const prefix = context.payload.installation.id
     let data = {}
+    let json
     data[prefix] = {}
     data[prefix]['type'] = 'fyi'
     data[prefix]['repoName'] = repoName
     data[prefix]['repoCreator'] = repoCreator
-    // end - calculate probot metadata
+
+    //calculate labels for dev and stag
+    let labels = ['fyi-approval']
+    let environment = process.env.NODE_ENV || 'development'
+    let username = configDB.get('username')
+
+    if(environment === 'development') {
+      labels.push(`dev-${username}`)
+    } else if(environment === 'staging') {
+      labels.push(`stg`)
+    }
 
     // create issue in FYI repo
     await context.github.issues.create(context.issue({
       owner: config.adminOrg,
       repo: config.adminRepo,
-      title: `Approve FYI request for new repo: ${context.payload.repository.name}`,
-      body: `Repository Name: ${context.payload.repository.name}\nCreated By: ${context.payload.sender.login}\n\n<!-- probot = ${JSON.stringify(data)} -->`,
-      labels: ['fyi-approval'],
+      title: `Approve FYI request for new repo: ${repoName}`,
+      body: `Repository Name: ${repoName}\nCreated By: ${repoName}\n\n<!-- probot = ${json} -->`,
+      labels,
       assignees: config.adminUsers
     }))
     // metadata(context).set('repo', context.payload.repository.name)
@@ -80,10 +92,9 @@ module.exports = robot => {
     data[prefix]['repoName'] = config.adminRepo,
     data[prefix]['repoIssue'] = fyiRepoIssue
     data[prefix]['fyiName'] = fyiName
-    // end - calculate probot metadata
 
     // create issue in new repo
-    const { data: { html_url: newRepoIssueUrl, number: newrepoIssue } } = await context.github.issues.create(context.issue({
+    const { data: { html_url: newRepoIssueUrl, number: newRepoIssue } } = await context.github.issues.create(context.issue({
       owner: 'choosenearme',
       repo: repoName,
       title: `Add FYI for ${fyiName}`,
@@ -96,7 +107,7 @@ module.exports = robot => {
     // }))
 
     //update fyis repo with the issue id from new repo
-    await metadata(context).set('repoIssue', newrepoIssue)
+    await metadata(context).set('repoIssue', newRepoIssue)
 
     // post command activity comment in this issue (user, action, new issue link)
     await context.github.issues.createComment(context.issue({
@@ -212,12 +223,11 @@ module.exports = robot => {
     if(await block('remind', context)) {
       return
     }
-    const { repoName, repoCreator, mber } = await metadata(context, context.payload.issue).get()
-    console.log(repoName, repoCreator, mber)
+    const { repoName, repoCreator, repoIssue } = await metadata(context, context.payload.issue).get()
     await context.github.issues.createComment(context.issue({
       owner: 'choosenearme',
       repo: repoName,
-      number: mber,
+      number: repoIssue,
       body: `Reminder to add the requested FYI. cc @${repoCreator}`
     }))
   })

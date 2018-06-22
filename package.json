@@ -30,6 +30,7 @@
     "probot": "^6.0.0",
     "probot-commands": "^1.0.1",
     "probot-metadata": "^1.0.0",
+    "smee-client": "^1.0.1",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0"
   },
@@ -37,7 +38,6 @@
     "jest": "^22.4.3",
     "nodemon": "^1.17.2",
     "pryjs": "^1.0.3",
-    "smee-client": "^1.0.1",
     "standard": "^10.0.3"
   },
   "engines": {
