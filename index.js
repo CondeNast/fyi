@@ -1,6 +1,6 @@
 if (require.main === module) {
   const { spawn } = require('child_process')
-  let start = spawn('npm', ['start'], {env: process.env})
+  let start = spawn('npm', ['start'], {env: {...process.env, PORT: process.env.NODE_PORT || 8081}})
 
   start.stdout.on('data', (data) => {
     process.stdout.write(`stdout: ${data}`)
