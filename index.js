@@ -19,6 +19,7 @@ const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
 const confluence = require('./services/confluence')
+const messaging = require('./messaging')
 const config = require('config').github
 const configDB = require('config').database
 const block = require('./middleware/block')
@@ -98,11 +99,17 @@ module.exports = robot => {
     let editLink = await confluence.getEditLink(repoName)
 
     // create issue in new repo
+    let body = messaging['new-fyi-requested']({
+      fyiName,
+      json,
+      editLink
+    })
+
     const { data: { html_url: newRepoIssueUrl, number: newRepoIssue } } = await context.github.issues.create(context.issue({
       owner: 'choosenearme',
       repo: repoName,
       title: `Add FYI for ${fyiName}`,
-      body: `In order to increase awareness of technical work across the technology team, the Architecture team would like you to write an FYI for ${fyiName}.\n\nAn FYI is a very short description of new technical work addressing:\n  - What are the project goals, in plain language, at a very high level?\n  - Who is the main point of contact for the FYI?\n  - Where can people look for further details?\n  - When will the work happen?\n\nIf you'd like to see some examples, we have quite a few [here](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/123212691/FYIs#FYIs-FYIlist). They are intended to be very quick and easy to write. TODO - Attached is also a video showing how to create one in Confluence.\n\nPlease reply to this issue and cc @johnkpaul & @gautamarora if you'd like to have a meeting to walk through how to do this. We can schedule something and show you pretty easily, if it would help.\n\n<!-- probot = ${json} -->`,
+      body: body,
       assignee: repoCreator
     }))
     // delete command comment
@@ -246,8 +253,10 @@ module.exports = robot => {
     if (await block('help', context)) {
       return
     }
+    let body = messaging["help"]()
+    
     await context.github.issues.createComment(context.issue({
-      body: `Here are commands you can run:\n  - \`/approve [fyi name]\` to approve requests\n  - \`/skip\` to skip requests\n  - \`/verify\` to verify completed FYIs\n  - \`/reject [comment]\` to reject submitted FYIs with optional comment\n  - \`/close\` to close this issue\n  - \`/remind\` to post a reminder on the requested issue`
+      body: body
     }))
   })
 }
