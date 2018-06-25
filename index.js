@@ -18,6 +18,7 @@ if (require.main === module) {
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
+const confluence = require('./services/confluence')
 const config = require('config').github
 const configDB = require('config').database
 const block = require('./middleware/block')
@@ -93,6 +94,9 @@ module.exports = robot => {
     data[prefix]['fyiName'] = fyiName
     let json = JSON.stringify(data)
 
+    // create Confluence page
+    let editLink = await confluence.getEditLink(repoName)
+
     // create issue in new repo
     const { data: { html_url: newRepoIssueUrl, number: newRepoIssue } } = await context.github.issues.create(context.issue({
       owner: 'choosenearme',
@@ -144,7 +148,7 @@ module.exports = robot => {
       return
     }
     const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    if(!repoName || !repoIssue) {
+    if (!repoName || !repoIssue) {
       return
     }
     await context.github.issues.deleteLabel(context.issue({
@@ -185,7 +189,7 @@ module.exports = robot => {
       return
     }
     const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    if(!repoName || !repoIssue) {
+    if (!repoName || !repoIssue) {
       return
     }
     const comment = command.arguments
@@ -228,7 +232,7 @@ module.exports = robot => {
       return
     }
     const { repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
-    if(!repoName || !repoIssue || !repoCreator) {
+    if (!repoName || !repoIssue || !repoCreator) {
       return
     }
     await context.github.issues.createComment(context.issue({

@@ -14,5 +14,8 @@ module.exports = {
     'adminOrg': 'choosenearme',
     'adminRepo': 'fyis',
     'adminUsers': ['johnkpaul', 'gautamarora']
+  },
+  'confluence': {
+    'fyiPageId': '209682505'
   }
 }
