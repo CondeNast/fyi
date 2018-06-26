@@ -2,15 +2,20 @@
   "name": "easy-fyi",
   "version": "1.0.0",
   "description": "",
-  "author": "John K. Paul <john@johnkpaul.com>",
   "license": "ISC",
+  "private": true,
   "repository": "https://github.com/CondeNast/easy-fyi.git",
   "homepage": "https://github.com/CondeNast/easy-fyi",
   "bugs": "https://github.com/CondeNast/easy-fyi/issues",
   "keywords": [
     "probot",
     "github",
-    "probot-app"
+    "probot-app",
+    "fyi"
+  ],
+  "contributors": [
+    "John K. Paul <john@johnkpaul.com>",
+    "Gautam Arora <gautamsarora@gmail.com>"
   ],
   "scripts": {
     "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
