@@ -18,7 +18,7 @@ if (require.main === module) {
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const Event = require('./models').Event
-const confluence = require('./services/confluence')
+const Fyi = require('./models').Fyi
 const messaging = require('./messaging')
 const config = require('config').github
 const configDB = require('config').database
@@ -95,14 +95,13 @@ module.exports = robot => {
     data[prefix]['fyiName'] = fyiName
     let json = JSON.stringify(data)
 
-    // create Confluence page
-    let editLink = await confluence.getEditLink(repoName)
+    let fyi = await Fyi.forRepoName(repoName)
 
     // create issue in new repo
     let body = messaging['new-fyi-requested']({
-      fyiName,
+      fyiName: fyi.name,
       json,
-      editLink
+      editLink: fyi.editLink
     })
 
     const { data: { html_url: newRepoIssueUrl, number: newRepoIssue } } = await context.github.issues.create(context.issue({
@@ -253,8 +252,8 @@ module.exports = robot => {
     if (await block('help', context)) {
       return
     }
-    let body = messaging["help"]()
-    
+    let body = messaging['help']()
+
     await context.github.issues.createComment(context.issue({
       body: body
     }))

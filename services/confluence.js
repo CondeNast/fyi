@@ -3,9 +3,6 @@ const rp = require('request-promise-native')
 const config = require('config')
 
 module.exports = {
-  getEditLink: async (pageTitle, pageContent = '') => {
-    return createNewPageInConfluence(pageTitle, pageContent).then((data) => data._links.base + data._links.editui)
-  },
   createNewPageInConfluence: createNewPageInConfluence
 }
 
