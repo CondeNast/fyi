@@ -87,7 +87,7 @@ module.exports = robot => {
     const fyiName = command.arguments ? command.arguments : repoName
 
     // update labels this issue
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'}))
+    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'})).catch(() => ({})) // noop
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
     // start - calculate probot metadata
@@ -143,7 +143,7 @@ module.exports = robot => {
       return
     }
     // add label skip to this issue
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'}))
+    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-skipped']}))
     // post command activity comment in this issue (user, action)
     await context.github.issues.createComment(context.issue({
@@ -160,17 +160,12 @@ module.exports = robot => {
       return
     }
     const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    // malformed JSON check
-    // this check is to handle malformed metadata json (possibly created if comment was manually edited)
-    if (!repoOrg || !repoName || !repoIssue) {
-      return
-    }
     await context.github.issues.deleteLabel(context.issue({
       owner: repoOrg,
       repo: repoName,
       number: repoIssue,
       name: 'fyi-requested'
-    }))
+    })).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({
       owner: repoOrg,
       repo: repoName,
@@ -191,7 +186,7 @@ module.exports = robot => {
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} verified the FYI.`
     }))
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'}))
+    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-completed']}))
     await context.github.issues.edit(context.issue({
       state: 'closed'
@@ -212,7 +207,7 @@ module.exports = robot => {
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} rejected the FYI.`
     }))
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'}))
+    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
     await context.github.issues.edit(context.issue({
       owner: repoOrg,
@@ -235,8 +230,8 @@ module.exports = robot => {
       return
     }
     // TODO which labels need to be removed for manual close
-    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-requested'}))
-    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'}))
+    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-requested'})).catch(()=>({}))
+    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(()=>({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-closed']}))
     await context.github.issues.edit(context.issue({
       state: 'closed'
@@ -247,10 +242,6 @@ module.exports = robot => {
       return
     }
     const { repoOrg, repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
-    // malformed JSON check
-    if (!repoName || !repoIssue || !repoCreator) {
-      return
-    }
     await context.github.issues.createComment(context.issue({
       owner: repoOrg,
       repo: repoName,
