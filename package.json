@@ -20,7 +20,8 @@
     "integration_test": "standard --fix && jest --roots integration_test",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "sequelize": "sequelize",
-    "sequelize-db:migrate": "sequelize -- db:migrate"
+    "sequelize-db:migrate": "sequelize -- db:migrate",
+    "repl": "node repl"
   },
   "dependencies": {
     "@condenast/cn-vault": "^2.5.0",
