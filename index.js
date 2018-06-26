@@ -26,6 +26,7 @@ const block = require('./middleware/block')
 
 module.exports = robot => {
   robot.log('🤖  Arch Bot is listening...')
+  robot.router.use(require('@condenast/express-dogstatsd')({}));
   robot.on('repository.created', async context => {
     if (await block('repository.created', context)) {
       return
