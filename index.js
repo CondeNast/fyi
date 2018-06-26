@@ -20,7 +20,7 @@ const commands = require('probot-commands')
 const Event = require('./models').Event
 const Fyi = require('./models').Fyi
 const messaging = require('./messaging')
-const config = require('config').github
+const configGH = require('config').github
 const configDB = require('config').database
 const block = require('./middleware/block')
 
@@ -31,12 +31,14 @@ module.exports = robot => {
       return
     }
     // start - calculate probot metadata
+    const repoOrg = context.payload.organization.login
     const repoName = context.payload.repository.name
     const repoCreator = context.payload.sender.login
     const prefix = context.payload.installation.id
     let data = {}
     data[prefix] = {}
     data[prefix]['type'] = 'fyi'
+    data[prefix]['repoOrg'] = repoOrg
     data[prefix]['repoName'] = repoName
     data[prefix]['repoCreator'] = repoCreator
     let json = JSON.stringify(data)
@@ -54,12 +56,12 @@ module.exports = robot => {
 
     // create issue in FYI repo
     await context.github.issues.create(context.issue({
-      owner: config.adminOrg,
-      repo: config.adminRepo,
+      owner: configGH.adminOrg,
+      repo: configGH.adminRepo,
       title: `Approve FYI request for new repo: ${repoName}`,
       body: `Repository Name: ${repoName}\nCreated By: ${repoName}\n\n<!-- probot = ${json} -->`,
       labels,
-      assignees: config.adminUsers
+      assignees: configGH.adminUsers
     }))
     // metadata(context).set('repo', context.payload.repository.name)
 
@@ -77,7 +79,9 @@ module.exports = robot => {
       return
     }
     // retrieve issue data info from issue
-    const { repoName, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    const { repoOrg, repoName, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    const fyiRepoOrg = context.payload.organization.login
+    const fyiRepoName = context.payload.repository.name
     const fyiRepoIssue = context.payload.issue.number
     const fyiName = command.arguments ? command.arguments : repoName
 
@@ -90,7 +94,8 @@ module.exports = robot => {
     let data = {}
     data[prefix] = {}
     data[prefix]['type'] = 'fyi'
-    data[prefix]['repoName'] = config.adminRepo
+    data[prefix]['repoOrg'] = fyiRepoOrg
+    data[prefix]['repoName'] = fyiRepoName
     data[prefix]['repoIssue'] = fyiRepoIssue
     data[prefix]['fyiName'] = fyiName
     let json = JSON.stringify(data)
@@ -105,7 +110,7 @@ module.exports = robot => {
     })
 
     const { data: { html_url: newRepoIssueUrl, number: newRepoIssue } } = await context.github.issues.create(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       title: `Add FYI for ${fyiName}`,
       body: body,
@@ -153,26 +158,28 @@ module.exports = robot => {
     if (await block('issues.closed', context)) {
       return
     }
-    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    if (!repoName || !repoIssue) {
+    const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
+    //malformed JSON check
+    //this check is to handle malformed metadata json (possibly created if comment was manually edited)
+    if (!repoOrg || !repoName || !repoIssue) {
       return
     }
     await context.github.issues.deleteLabel(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       number: repoIssue,
       name: 'fyi-requested'
     }))
     await context.github.issues.addLabels(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       number: repoIssue,
       labels: ['fyi-verification']}))
     await context.github.issues.createComment(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       number: repoIssue,
-      body: `FYI is ready for review. cc @johnkpaul @gautamarora`
+      body: `FYI is ready for review.`
     }))
   })
 
@@ -194,8 +201,9 @@ module.exports = robot => {
     if (await block('reject', context)) {
       return
     }
-    const { repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    if (!repoName || !repoIssue) {
+    const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
+    //malformed JSON check
+    if (!repoOrg || !repoName || !repoIssue) {
       return
     }
     const comment = command.arguments
@@ -206,14 +214,14 @@ module.exports = robot => {
     await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
     await context.github.issues.edit(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       number: repoIssue,
       state: 'open'
     }))
     if (comment) {
       await context.github.issues.createComment(context.issue({
-        owner: 'choosenearme',
+        owner: repoOrg,
         repo: repoName,
         number: repoIssue,
         body: `Request has been re-opened with comment: ${comment}`
@@ -237,12 +245,13 @@ module.exports = robot => {
     if (await block('remind', context)) {
       return
     }
-    const { repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    const { repoOrg, repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    //malformed JSON check
     if (!repoName || !repoIssue || !repoCreator) {
       return
     }
     await context.github.issues.createComment(context.issue({
-      owner: 'choosenearme',
+      owner: repoOrg,
       repo: repoName,
       number: repoIssue,
       body: `Reminder to add the requested FYI. cc @${repoCreator}`
