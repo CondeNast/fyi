@@ -26,7 +26,7 @@ const block = require('./middleware/block')
 
 module.exports = robot => {
   robot.log('🤖  Arch Bot is listening...')
-  robot.router.use(require('@condenast/express-dogstatsd')({}));
+  robot.router.use(require('@condenast/express-dogstatsd')({}))
   robot.on('repository.created', async context => {
     if (await block('repository.created', context)) {
       return
@@ -160,8 +160,8 @@ module.exports = robot => {
       return
     }
     const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    //malformed JSON check
-    //this check is to handle malformed metadata json (possibly created if comment was manually edited)
+    // malformed JSON check
+    // this check is to handle malformed metadata json (possibly created if comment was manually edited)
     if (!repoOrg || !repoName || !repoIssue) {
       return
     }
@@ -203,7 +203,7 @@ module.exports = robot => {
       return
     }
     const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    //malformed JSON check
+    // malformed JSON check
     if (!repoOrg || !repoName || !repoIssue) {
       return
     }
@@ -247,7 +247,7 @@ module.exports = robot => {
       return
     }
     const { repoOrg, repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
-    //malformed JSON check
+    // malformed JSON check
     if (!repoName || !repoIssue || !repoCreator) {
       return
     }
