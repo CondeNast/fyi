@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   Fyi.associate = function (models) {
     // associations can be defined here
   }
-  Fyi.forRepoName = async function (repoName) {
-    let [fyi, created] = await Fyi.findOrCreate({where: {name: repoName}})
+  Fyi.forName = async function (name) {
+    let [fyi, created] = await Fyi.findOrCreate({where: {name: name}})
     if (created) {
-      let confluenceApiData = await confluence.createNewPageInConfluence(repoName)
+      let confluenceApiData = await confluence.createNewPage(name)
       fyi.confluenceApiData = confluenceApiData
       fyi.save()
     }

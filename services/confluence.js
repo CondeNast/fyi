@@ -3,10 +3,10 @@ const rp = require('request-promise-native')
 const config = require('config')
 
 module.exports = {
-  createNewPageInConfluence: createNewPageInConfluence
+  createNewPage
 }
 
-async function createNewPageInConfluence (pageTitle, pageContent = '') {
+async function createNewPage (pageTitle, pageContent = '') {
   const secrets = await CNVault
 
   const options = {

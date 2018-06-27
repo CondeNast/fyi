@@ -97,7 +97,7 @@ module.exports = robot => {
     data[prefix]['fyiName'] = fyiName
     let json = JSON.stringify(data)
 
-    let fyi = await Fyi.forRepoName(repoName)
+    let fyi = await Fyi.forName(fyiName)
 
     // create issue in new repo
     let body = messaging['new-fyi-requested']({
