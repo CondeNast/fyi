@@ -22,15 +22,13 @@ const Fyi = require('./models').Fyi
 const messaging = require('./messaging')
 const configGH = require('config').github
 const configDB = require('config').database
-const block = require('./middleware/block')
+const filter = require('./middleware/filter')
 
 module.exports = robot => {
   robot.log('🤖  Arch Bot is listening...')
   robot.router.use(require('@condenast/express-dogstatsd')({}))
   robot.on('repository.created', async context => {
-    if (await block('repository.created', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     // start - calculate probot metadata
     const repoOrg = context.payload.organization.login
     const repoName = context.payload.repository.name
@@ -76,9 +74,7 @@ module.exports = robot => {
   })
 
   commands(robot, 'approve', async (context, command) => {
-    if (await block('approve', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     // retrieve issue data info from issue
     const { repoOrg, repoName, repoCreator } = await metadata(context, context.payload.issue).get() || {}
     const fyiRepoOrg = context.payload.organization.login
@@ -139,9 +135,7 @@ module.exports = robot => {
     })
   })
   commands(robot, 'skip', async (context, command) => {
-    if (await block('skip', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     // add label skip to this issue
     await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-skipped']}))
@@ -156,9 +150,7 @@ module.exports = robot => {
   })
 
   robot.on('issues.closed', async context => {
-    if (await block('issues.closed', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
     await context.github.issues.deleteLabel(context.issue({
       owner: repoOrg,
@@ -180,9 +172,7 @@ module.exports = robot => {
   })
 
   commands(robot, 'verify', async (context, command) => {
-    if (await block('verify', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} verified the FYI.`
     }))
@@ -194,9 +184,7 @@ module.exports = robot => {
   })
 
   commands(robot, 'reject', async (context, command) => {
-    if (await block('reject', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     const { repoOrg, repoName, repoIssue } = await metadata(context, context.payload.issue).get() || {}
     // malformed JSON check
     if (!repoOrg || !repoName || !repoIssue) {
@@ -226,9 +214,7 @@ module.exports = robot => {
   })
 
   commands(robot, 'close', async (context, command) => {
-    if (await block('close', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     // TODO which labels need to be removed for manual close
     // await context.github.issues.deleteLabel(context.issue({name: 'fyi-requested'})).catch(()=>({}))
     // await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(()=>({}))
@@ -238,9 +224,7 @@ module.exports = robot => {
     }))
   })
   commands(robot, 'remind', async (context, command) => {
-    if (await block('remind', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     const { repoOrg, repoName, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
     await context.github.issues.createComment(context.issue({
       owner: repoOrg,
@@ -250,9 +234,7 @@ module.exports = robot => {
     }))
   })
   commands(robot, 'help', async (context, command) => {
-    if (await block('help', context)) {
-      return
-    }
+    if (await filter('repository.created', context)) return
     let body = messaging['help']()
 
     await context.github.issues.createComment(context.issue({
