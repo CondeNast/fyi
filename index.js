@@ -53,12 +53,19 @@ module.exports = robot => {
       labels.push(`stg`)
     }
 
+    let body = messaging['approve-fyi-request']({
+      repoName,
+      repoOrg,
+      repoCreator,
+      json
+    })
+
     // create issue in FYI repo
     await context.github.issues.create(context.issue({
       owner: configGH.adminOrg,
       repo: configGH.adminRepo,
       title: `Approve FYI request for new repo: ${repoName}`,
-      body: `Repository Name: ${repoName}\nCreated By: ${repoName}\n\n<!-- probot = ${json} -->`,
+      body,
       labels,
       assignees: configGH.adminUsers
     }))
