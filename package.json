@@ -37,7 +37,7 @@
     "pg-hstore": "^2.3.2",
     "probot": "^7.0.0",
     "probot-commands": "^1.0.1",
-    "probot-metadata": "^1.0.0",
+    "probot-metadata": "git+https://git@github.com/gautamarora/metadata.git",
     "request-promise-native": "^1.0.5",
     "sequelize": "^4.37.10",
     "sequelize-cli": "^4.0.0",
