@@ -15,6 +15,7 @@ if (require.main === module) {
   })
 }
 
+const octokit = require('@octokit/rest')()
 const metadata = require('probot-metadata')
 const commands = require('probot-commands')
 const configGH = require('config').github
@@ -33,7 +34,7 @@ module.exports = robot => {
     const repoOrg = context.payload.organization.login
     const repoName = context.payload.repository.name
     const repoCreator = context.payload.sender.login
-    const prefix = context.payload.installation.id
+    const prefix = process.env.APP_ID
     let data = {}
     data[prefix] = {}
     data[prefix]['type'] = 'fyi'
@@ -59,9 +60,19 @@ module.exports = robot => {
       repoCreator,
       json
     })
-
     // create issue in FYI repo
-    await context.github.issues.create(context.issue({
+    let octokit = context.github
+    if(repoOrg !== configGH.adminOrg) {
+      octokit = await robot.auth()
+      const installation = await octokit.request({
+        method: 'GET',
+        url: '/orgs/:org/installation',
+        headers: { accept: 'application/vnd.github.machine-man-preview+json' },
+        org: configGH.adminOrg
+      })
+      octokit = await robot.auth(installation.data.id)
+    }
+    let result = await octokit.issues.create(context.issue({
       owner: configGH.adminOrg,
       repo: configGH.adminRepo,
       title: `Approve FYI request for new repo: ${repoName}`,
@@ -94,7 +105,7 @@ module.exports = robot => {
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
     // start - calculate probot metadata
-    const prefix = context.payload.installation.id
+    const prefix = process.env.APP_ID
     let data = {}
     data[prefix] = {}
     data[prefix]['type'] = 'fyi'

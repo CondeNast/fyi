@@ -35,7 +35,7 @@
     "handlebars": "^4.0.11",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
-    "probot": "^6.0.0",
+    "probot": "^7.0.0",
     "probot-commands": "^1.0.1",
     "probot-metadata": "^1.0.0",
     "request-promise-native": "^1.0.5",
