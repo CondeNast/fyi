@@ -63,8 +63,8 @@ module.exports = robot => {
       json
     })
     // create issue in Admin repo
-    let github = await reauth(robot, context, adminOrg);
-    let result = await github.issues.create(context.issue({
+    let github = await reauth(robot, context, adminOrg)
+    await github.issues.create(context.issue({
       owner: adminOrg,
       repo: adminRepo,
       title: `Approve FYI request for new repo: ${repo}`,
@@ -72,7 +72,6 @@ module.exports = robot => {
       labels,
       assignees: adminUsers
     }))
-    // metadata(context).set('repo', context.payload.repository.name)
 
     // add event to db
     await Event.create({
@@ -111,7 +110,7 @@ module.exports = robot => {
     let fyi = await Fyi.forName(fyiName)
 
     // create issue in new repo
-    let github = await reauth(robot, context, org);
+    let github = await reauth(robot, context, org)
     let body = messaging['new-fyi-requested']({
       fyiName: fyi.name,
       json,
@@ -159,11 +158,11 @@ module.exports = robot => {
   robot.on('issues.closed', async context => {
     if (await filter('issues.closed', context)) return
 
-    //TODO - edge case, if there are multiple issues created for same new repo
+    // TODO - edge case, if there are multiple issues created for same new repo
     // closing all of them will call this everytime each of them is closed.
-    //can prevent by doing a check to only process if issue in fyi repo is still open
+    // can prevent by doing a check to only process if issue in fyi repo is still open
     const { org: adminOrg, repo: adminRepo, repoIssue: adminRepoIssue } = await metadata(context, context.payload.issue).get() || {}
-    let github = await reauth(robot, context, adminOrg);
+    let github = await reauth(robot, context, adminOrg)
     await github.issues.deleteLabel(context.issue({
       owner: adminOrg,
       repo: adminRepo,
@@ -199,12 +198,7 @@ module.exports = robot => {
   commands(robot, 'reject', async (context, command) => {
     if (await filter('reject', context)) return
 
-    let adminOrg = context.payload.organization.login
     const { org, repo, repoIssue } = await metadata(context, context.payload.issue).get() || {}
-    // malformed JSON check
-    if (!org || !repo || !repoIssue) {
-      return
-    }
     const comment = command.arguments
 
     await context.github.issues.createComment(context.issue({
@@ -213,7 +207,7 @@ module.exports = robot => {
     await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
-    let github = await reauth(robot, context, org);
+    let github = await reauth(robot, context, org)
     await github.issues.edit(context.issue({
       owner: org,
       repo: repo,
@@ -243,9 +237,8 @@ module.exports = robot => {
   commands(robot, 'remind', async (context, command) => {
     if (await filter('remind', context)) return
 
-    let adminOrg = context.payload.organization.login
     const { org, repo, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
-    let github = await reauth(robot, context, org);
+    let github = await reauth(robot, context, org)
     await github.issues.createComment(context.issue({
       owner: org,
       repo: repo,

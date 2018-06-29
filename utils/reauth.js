@@ -1,7 +1,7 @@
 module.exports = async (robot, context, targetOrg) => {
   let github = context.github
   let srcOrg = context.payload.organization.login
-  if(srcOrg !== targetOrg) {
+  if (srcOrg !== targetOrg) {
     github = await robot.auth()
     const installation = await github.request({
       method: 'GET',

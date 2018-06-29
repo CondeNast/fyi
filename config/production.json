@@ -10,10 +10,7 @@
     "subscribedOrgs": ["condenast","condenast-copilot"],
     "adminOrg":"condenast",
     "adminRepo":"fyis",
-    "adminUsers": ["johnkpaul", "gautamarora"],
-    "listening_to_orgs": ["condenast","condenast-copilot"],
-    "fyi_repo_org":"condenast",
-    "fyi_repo_name":"fyis"
+    "adminUsers": ["johnkpaul", "gautamarora"]
   },
   "confluence": {
     "fyiPageId": "123212691"
