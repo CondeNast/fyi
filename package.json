@@ -24,7 +24,7 @@
     "test": "standard --fix && jest --roots test",
     "integration_test": "standard --fix && jest --roots integration_test",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
-    "sequelize": "sequelize",
+    "sequelize": "eval `node scripts/startup.env.js`;sequelize",
     "repl": "node repl"
   },
   "dependencies": {
