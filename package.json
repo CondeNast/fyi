@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
-    "start": "PRIVATE_KEY=`node scripts/github.private.key.vault.js` probot run ./index.js",
+    "start": "eval \"`node scripts/startup.env.js`\";probot run ./index.js",
     "lint": "standard --fix",
     "test": "standard --fix && jest --roots test",
     "integration_test": "standard --fix && jest --roots integration_test",
