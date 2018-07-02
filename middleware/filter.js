@@ -21,9 +21,9 @@ module.exports = async (event, context) => {
       return true
     }
   } else if (['approve', 'skip', 'verify', 'reject', 'close', 'remind', 'help'].includes(event)) { // commands
-    // commands only work for admin users in the admin repo of the admin org
+    // only respond to commands by admin users in the admin repo of the admin org
     const issuer = context.payload.sender.login
-    if (!config.adminUsers.includes(issuer) || !config.adminOrg === repoOrg || !config.adminRepo === repoName) {
+    if (!config.adminUsers.includes(issuer) || config.adminOrg !== repoOrg || config.adminRepo !== repoName) {
       return true
     }
   }
