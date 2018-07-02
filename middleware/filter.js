@@ -17,7 +17,7 @@ module.exports = async (event, context) => {
     }
     // ...and it was a FYI request issue
     const { type } = await metadata(context, context.payload.issue).get() || {}
-    if (!type === 'fyi') {
+    if (type !== 'fyi') {
       return true
     }
   } else if (['approve', 'skip', 'verify', 'reject', 'close', 'remind', 'help'].includes(event)) { // commands
