@@ -1,7 +1,7 @@
 {
   "github": {
-    "subscribedOrgs": ["condenast","condenast-copilot"],
-    "adminOrg":"condenast",
+    "subscribedOrgs": ["choosenearme","mage-contest"],
+    "adminOrg":"choosenearme",
     "adminRepo":"fyis",
     "adminUsers": ["johnkpaul", "gautamarora"]
   },
