@@ -30,14 +30,12 @@ module.exports = async (event, context) => {
   // metadata validation
   // only for events that use metadata
   if (['issues.closed', 'approve', 'reject', 'remind'].includes(event)) {
-    // note: note checking for repoIssue or repoCreator which are used in some events
-    const { repoOrg, repoName } = await metadata(context, context.payload.issue).get() || {}
-    // malformed JSON check
-    // this check is to handle malformed metadata json (possibly created if comment was manually edited)
-    if (!repoOrg || !repoName) {
-      return
+    // malformed JSON check (possibly created if comment was manually edited)
+    // note: not checking for repoIssue or repoCreator as this is just for json parsing validation
+    const { org, repo } = await metadata(context, context.payload.issue).get() || {}
+    if (!org || !repo) {
+      return true
     }
   }
-
   return false // do not block
 }
