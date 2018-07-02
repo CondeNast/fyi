@@ -1,0 +1,11 @@
+{
+  "github": {
+    "subscribedOrgs": ["condenast","condenast-copilot"],
+    "adminOrg":"condenast",
+    "adminRepo":"fyis",
+    "adminUsers": ["johnkpaul", "gautamarora"]
+  },
+  "confluence": {
+    "fyiPageId": "123212691"
+  }
+}

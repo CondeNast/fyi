@@ -1,20 +1,59 @@
 {
   "name": "easy-fyi",
   "version": "1.0.0",
-  "description": "This is an FYI creation tool that will allow the creation of FYIs from emails, slackbots, or external forms. It is intended to wrap the Confluence API and provide a user interface for the most simple cases. ",
-  "main": "index.js",
+  "description": "",
+  "license": "ISC",
+  "private": true,
+  "repository": "https://github.com/CondeNast/easy-fyi.git",
+  "homepage": "https://github.com/CondeNast/easy-fyi",
+  "bugs": "https://github.com/CondeNast/easy-fyi/issues",
+  "keywords": [
+    "probot",
+    "github",
+    "probot-app",
+    "fyi"
+  ],
+  "contributors": [
+    "John K. Paul <john@johnkpaul.com>",
+    "Gautam Arora <gautamsarora@gmail.com>"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
+    "start": "eval \"`node scripts/startup.env.js`\";probot run ./index.js",
+    "lint": "standard --fix",
+    "test": "standard --fix && jest --roots test",
+    "integration_test": "standard --fix && jest --roots integration_test",
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage",
+    "sequelize": "eval `node scripts/startup.env.js`;sequelize",
+    "repl": "node repl"
   },
-  "author": "John K. Paul",
-  "license": "UNLICENSED",
   "dependencies": {
-    "@condenast/cn-vault": "^2.3.1",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "express-react-views": "^0.10.4",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
-    "request-promise-native": "^1.0.5"
+    "@condenast/cn-vault": "^2.5.0",
+    "@condenast/express-dogstatsd": "^1.1.0",
+    "config": "^1.30.0",
+    "handlebars": "^4.0.11",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "probot": "^7.0.0",
+    "probot-commands": "^1.0.1",
+    "probot-metadata": "git+https://git@github.com/gautamarora/metadata.git",
+    "request-promise-native": "^1.0.5",
+    "sequelize": "^4.37.10",
+    "sequelize-cli": "^4.0.0",
+    "smee-client": "^1.0.1"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "nodemon": "^1.17.2",
+    "pryjs": "^1.0.3",
+    "standard": "^10.0.3"
+  },
+  "engines": {
+    "node": ">= 8.3.0"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   }
 }
