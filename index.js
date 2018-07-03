@@ -22,6 +22,7 @@ const fyiRejected = require('./handlers/github/commands/fyiRejected')
 const fyiReminder = require('./handlers/github/commands/fyiReminder')
 const fyiClosed = require('./handlers/github/commands/fyiClosed')
 const help = require('./handlers/github/commands/help')
+const digest = require('./handlers/digest')
 
 module.exports = robot => {
   robot.log('🤖  Arch Bot is listening...')
@@ -33,6 +34,9 @@ module.exports = robot => {
 
   // http api
   robot.router.post('/repos', repoIdentified(robot))
+
+  // pages
+  robot.router.get('/digest*', digest)
 
   // github commands
   commands(robot, 'request', async (context, command) => fyiRequested(context, command, robot))

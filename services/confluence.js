@@ -3,7 +3,18 @@ const rp = require('request-promise-native')
 const config = require('config')
 
 module.exports = {
-  createNewPage
+  createNewPage,
+  get
+}
+
+async function get (url) {
+  const secrets = await CNVault
+
+  const options = {
+    url,
+    json: true
+  }
+  return rp.get(options).auth(secrets['confluence-username'], secrets['confluence-access-token'])
 }
 
 async function createNewPage (pageTitle, pageContent = '') {

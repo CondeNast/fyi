@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       viewLink: function () {
         return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
+      },
+      contentUrl: function () {
+        return this.confluenceApiData._links.self + '?expand=body.storage'
+      },
+      confluenceContent: async function () {
+        return confluence.get(this.contentUrl)
       }
     }
   })
