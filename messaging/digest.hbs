@@ -1,0 +1,18 @@
+{{subject}}
+
+<p>
+The FYI process helps all of us in Condé Nast Technology better understand the technology that we’re all building together. You can explore the existing FYIs here: https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/123212691/FYIs
+</p>
+
+<p>
+If you’d like more info on FYIs, ask us in the #architecture slack channel. For more information about any project, each FYI contains the points of contact that you can reach out to. 
+</p>
+
+<p>
+Here are some of the newest projects that our engineering teams have been working on: 
+</p>
+
+{{#each fyis}}
+  <h1><b><a href="{{this.viewLink}}">{{this.title}}</a></b></h1>
+  <p>{{{this.body}}}</p>
+{{/each}}
