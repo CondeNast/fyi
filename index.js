@@ -42,7 +42,7 @@ module.exports = robot => {
     const fyiName = command.arguments ? command.arguments : repo
 
     // update labels this issue
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'})).catch(() => ({})) // noop
+    await context.github.issues.removeLabel(context.issue({name: 'fyi-approval'})).catch(() => ({})) // noop
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
     // start - calculate probot metadata
@@ -92,7 +92,7 @@ module.exports = robot => {
     if (await filter('skip', context)) return
 
     // add label skip to this issue
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-approval'})).catch(() => ({}))
+    await context.github.issues.removeLabel(context.issue({name: 'fyi-approval'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-skipped']}))
     // post command activity comment in this issue (user, action)
     await context.github.issues.createComment(context.issue({
@@ -112,7 +112,7 @@ module.exports = robot => {
     // can prevent by doing a check to only process if issue in fyi repo is still open
     const { org: adminOrg, repo: adminRepo, repoIssue: adminRepoIssue } = await metadata(context, context.payload.issue).get() || {}
     let github = await reauth(robot, context, adminOrg)
-    await github.issues.deleteLabel(context.issue({
+    await github.issues.removeLabel(context.issue({
       owner: adminOrg,
       repo: adminRepo,
       number: adminRepoIssue,
@@ -137,7 +137,7 @@ module.exports = robot => {
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} verified the FYI.`
     }))
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
+    await context.github.issues.removeLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-completed']}))
     await context.github.issues.edit(context.issue({
       state: 'closed'
@@ -153,7 +153,7 @@ module.exports = robot => {
     await context.github.issues.createComment(context.issue({
       body: `@${context.payload.sender.login} rejected the FYI.`
     }))
-    await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
+    await context.github.issues.removeLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
     let github = await reauth(robot, context, org)
@@ -176,8 +176,8 @@ module.exports = robot => {
   commands(robot, 'close', async (context, command) => {
     if (await filter('close', context)) return
     // TODO which labels need to be removed for manual close
-    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-requested'})).catch(()=>({}))
-    // await context.github.issues.deleteLabel(context.issue({name: 'fyi-verification'})).catch(()=>({}))
+    // await context.github.issues.removeLabel(context.issue({name: 'fyi-requested'})).catch(()=>({}))
+    // await context.github.issues.removeLabel(context.issue({name: 'fyi-verification'})).catch(()=>({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-closed']}))
     await context.github.issues.edit(context.issue({
       state: 'closed'
