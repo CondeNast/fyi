@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     getterMethods: {
       editLink: function () {
         return this.confluenceApiData._links.base + this.confluenceApiData._links.editui
+      },
+      viewLink: function () {
+        return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
       }
     }
   })
