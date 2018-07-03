@@ -73,11 +73,18 @@ module.exports = robot => {
       assignee: repoCreator
     }))
 
+    let bodyForAdminRepo = messaging['fyi-has-been-approved']({
+      approver: context.payload.sender.login,
+      fyiName,
+      repoIssueUrl,
+      viewLink: fyi.viewLink
+    })
+
     // update fyis repo with the issue id from new repo
     await metadata(context).set('repoIssue', repoIssue)
     // post command activity comment in this issue (user, action, new issue link)
     await context.github.issues.createComment(context.issue({
-      body: `@${context.payload.sender.login} approved the request for FYI.\n\nFYI Name: ${fyiName}\nIssue: ${repoIssueUrl}`
+      body: bodyForAdminRepo
     }))
 
     // add event to db
@@ -110,7 +117,8 @@ module.exports = robot => {
     // TODO - edge case, if there are multiple issues created for same new repo
     // closing all of them will call this everytime each of them is closed.
     // can prevent by doing a check to only process if issue in fyi repo is still open
-    const { org: adminOrg, repo: adminRepo, repoIssue: adminRepoIssue } = await metadata(context, context.payload.issue).get() || {}
+    const { fyiName, org: adminOrg, repo: adminRepo, repoIssue: adminRepoIssue } = await metadata(context, context.payload.issue).get() || {}
+    let fyi = await Fyi.forName(fyiName)
     let github = await reauth(robot, context, adminOrg)
     await github.issues.deleteLabel(context.issue({
       owner: adminOrg,
@@ -127,7 +135,7 @@ module.exports = robot => {
       owner: adminOrg,
       repo: adminRepo,
       number: adminRepoIssue,
-      body: `FYI is ready for review.`
+      body: `[FYI](${fyi.viewLink}) is ready for review.`
     }))
   })
 
