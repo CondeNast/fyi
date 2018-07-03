@@ -1,7 +1,7 @@
 {
   "github": {
-    "subscribedOrgs": ["condenast","condenast-copilot"],
-    "adminOrg":"condenast",
+    "subscribedOrgs": ["CondeNast","CondeNast-Copilot"],
+    "adminOrg":"CondeNast",
     "adminRepo":"fyis",
     "adminUsers": ["johnkpaul", "gautamarora"]
   },
