@@ -5,8 +5,6 @@ const reauth = require('../../../utils/reauth')
 const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
-const Fyi = require('../../../models').Fyi
-
 
 module.exports = async (context, robot) => {
   if (await filter('repository.created', context)) return

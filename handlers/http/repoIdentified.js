@@ -29,7 +29,7 @@ module.exports = (robot) => {
       context.github = githubServices(robot, data.org)
 
       repoCreatedHandler(context, robot)
-        .then( () => response.send(JSON.stringify({success: true})) )
+        .then(() => response.send(JSON.stringify({success: true})))
     })
   }
 }

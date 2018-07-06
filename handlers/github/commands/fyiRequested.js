@@ -1,6 +1,4 @@
 const metadata = require('probot-metadata')
-const configGH = require('config').github
-const configDB = require('config').database
 const filter = require('../../../middleware/filter')
 const reauth = require('../../../utils/reauth')
 const logPrefix = require('../../../utils/logPrefix')
