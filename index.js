@@ -23,7 +23,7 @@ const repoIdentified = require('./handlers/http/repoIdentified')
 const fyiRequested = require('./handlers/github/commands/fyiRequested')
 const fyiSkipped = require('./handlers/github/commands/fyiSkipped')
 const fyiSubmitted = require('./handlers/github/events/fyiSubmitted')
-const fyiVerified = require('./handlers/github/commands/fyiVerified')
+const fyiAccepted = require('./handlers/github/commands/fyiAccepted')
 const fyiRejected = require('./handlers/github/commands/fyiRejected')
 const fyiReminder = require('./handlers/github/commands/fyiReminder')
 const fyiClosed = require('./handlers/github/commands/fyiClosed')
@@ -42,11 +42,11 @@ module.exports = robot => {
   robot.router.post('/repo', repoIdentified(robot))
 
   //github commands
-  commands(robot, 'approve', async (context, command) => fyiRequested(context, command, robot))
+  commands(robot, 'request', async (context, command) => fyiRequested(context, command, robot))
   commands(robot, 'skip', async (context, command) => fyiSkipped(context, command, robot))
-  commands(robot, 'verify', async (context, command) => fyiVerified(context, command, robot))
+  commands(robot, 'accept', async (context, command) => fyiAccepted(context, command, robot))
   commands(robot, 'reject', async (context, command) => fyiRejected(context, command, robot))
   commands(robot, 'close', async (context, command) => fyiClosed(context, command, robot))
   commands(robot, 'remind', async (context, command) => fyiReminder(context, command, robot))
-  commands(robot, 'help', )
+  commands(robot, 'help', async (context, command) => help(context, command, robot))
 }

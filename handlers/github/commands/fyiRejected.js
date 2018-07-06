@@ -17,7 +17,7 @@ module.exports = async (context, command, robot) => {
   await context.github.issues.createComment(context.issue({
     body: `@${context.payload.sender.login} rejected the FYI.`
   }))
-  await context.github.issues.removeLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
+  await context.github.issues.removeLabel(context.issue({name: 'fyi-submitted'})).catch(() => ({}))
   await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
   let github = await reauth(robot, context, org)
