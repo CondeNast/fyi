@@ -10,13 +10,7 @@ if (require.main === module) {
     process.stdout.write(`child process exited with code ${code}`)
   })
 }
-const metadata = require('probot-metadata')
 const commands = require('probot-commands')
-const filter = require('./middleware/filter')
-const reauth = require('./utils/reauth')
-const messaging = require('./messaging')
-const Event = require('./models').Event
-const Fyi = require('./models').Fyi
 
 const repoCreated = require('./handlers/github/events/repoCreated')
 const repoIdentified = require('./handlers/http/repoIdentified')
@@ -29,19 +23,18 @@ const fyiReminder = require('./handlers/github/commands/fyiReminder')
 const fyiClosed = require('./handlers/github/commands/fyiClosed')
 const help = require('./handlers/github/commands/help')
 
-
 module.exports = robot => {
   robot.log('🤖  Arch Bot is listening...')
   robot.router.use(require('@condenast/express-dogstatsd')({}))
 
-  //github events
+  // github events
   robot.on('repository.created', (context) => repoCreated(context, robot))
   robot.on('issues.closed', (context) => fyiSubmitted(context, robot))
 
-  //http api
+  // http api
   robot.router.post('/repo', repoIdentified(robot))
 
-  //github commands
+  // github commands
   commands(robot, 'request', async (context, command) => fyiRequested(context, command, robot))
   commands(robot, 'skip', async (context, command) => fyiSkipped(context, command, robot))
   commands(robot, 'accept', async (context, command) => fyiAccepted(context, command, robot))
