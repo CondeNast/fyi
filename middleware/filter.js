@@ -20,7 +20,7 @@ module.exports = async (event, context) => {
     if (type !== 'fyi') {
       return true
     }
-  } else if (['approve', 'skip', 'verify', 'reject', 'close', 'remind', 'help'].includes(event)) { // commands
+  } else if (['request', 'skip', 'accept', 'reject', 'close', 'remind', 'help'].includes(event)) { // commands
     // only respond to commands by admin users in the admin repo of the admin org
     const issuer = context.payload.sender.login
     if (!config.adminUsers.includes(issuer) || config.adminOrg !== repoOrg || config.adminRepo !== repoName) {
@@ -29,7 +29,7 @@ module.exports = async (event, context) => {
   }
   // metadata validation
   // only for events that use metadata
-  if (['issues.closed', 'approve', 'reject', 'remind'].includes(event)) {
+  if (['issues.closed', 'request', 'accept', 'remind'].includes(event)) {
     // malformed JSON check (possibly created if comment was manually edited)
     // note: not checking for repoIssue or repoCreator as this is just for json parsing validation
     const { org, repo } = await metadata(context, context.payload.issue).get() || {}

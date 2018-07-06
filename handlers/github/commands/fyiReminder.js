@@ -17,6 +17,6 @@ module.exports = async (context, command, robot) => {
     owner: org,
     repo: repo,
     number: repoIssue,
-    body: `Reminder to add the requested FYI. cc @${repoCreator}`
+    body: `Reminder to complete the requested FYI. cc @${repoCreator}`
   }))
 }

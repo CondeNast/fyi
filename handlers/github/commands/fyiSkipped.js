@@ -12,7 +12,7 @@ module.exports = async (context, command, robot) => {
     if (await filter('skip', context)) return
 
     // add label skip to this issue
-    await context.github.issues.removeLabel(context.issue({name: 'fyi-approval'})).catch(() => ({}))
+    await context.github.issues.removeLabel(context.issue({name: 'repo-created'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-skipped']}))
     // post command activity comment in this issue (user, action)
     await context.github.issues.createComment(context.issue({

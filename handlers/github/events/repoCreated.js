@@ -2,6 +2,7 @@ const configGH = require('config').github
 const configDB = require('config').database
 const filter = require('../../../middleware/filter')
 const reauth = require('../../../utils/reauth')
+const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
 const Fyi = require('../../../models').Fyi
@@ -15,6 +16,8 @@ module.exports = async (context, robot) => {
   const org = context.payload.organization.login
   const repo = context.payload.repository.name
   const repoCreator = context.payload.sender.login
+  const LOG_PREFIX = logPrefix('repo.created', org, repo)
+
   const prefix = process.env.APP_ID
   let data = {}
   data[prefix] = {}
@@ -25,7 +28,7 @@ module.exports = async (context, robot) => {
   let json = JSON.stringify(data)
 
     // calculate labels for dev and stag
-  let labels = ['fyi-approval']
+  let labels = ['repo-created']
   let environment = process.env.NODE_ENV || 'development'
   let username = configDB.get('username')
 
@@ -35,29 +38,31 @@ module.exports = async (context, robot) => {
     labels.push(`stg`)
   }
 
-  let body = messaging['approve-fyi-request']({
+  let body = messaging['repo-created']({
     repo,
     org,
     repoCreator,
     json
   })
-    // create issue in Admin repo
+
   let github = await reauth(robot, context, adminOrg)
 
   await github.issues.create(context.issue({
     owner: adminOrg,
     repo: adminRepo,
-    title: `Approve FYI request for new repo: ${repo}`,
+    title: `Repo created: ${org}/${repo}`,
     body,
     labels,
     assignees: adminUsers
   }))
+  context.log(`${LOG_PREFIX} new repo issue created`)
 
     // add event to db
   await Event.create({
     github_project: repo,
     system: repo,
-    event: Event.event_types['new_repo_created'],
+    event: Event.event_types['repo_created'],
     actor: repoCreator
   })
+  context.log(`${LOG_PREFIX} repo created event logged`)
 }

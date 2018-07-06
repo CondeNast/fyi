@@ -9,12 +9,12 @@ const Fyi = require('../../../models').Fyi
 
 
 module.exports = async (context, command, robot) => {
-    if (await filter('verify', context)) return
+    if (await filter('accept', context)) return
 
     await context.github.issues.createComment(context.issue({
-      body: `@${context.payload.sender.login} verified the FYI.`
+      body: `@${context.payload.sender.login} accepted the FYI.`
     }))
-    await context.github.issues.removeLabel(context.issue({name: 'fyi-verification'})).catch(() => ({}))
+    await context.github.issues.removeLabel(context.issue({name: 'fyi-submitted'})).catch(() => ({}))
     await context.github.issues.addLabels(context.issue({labels: ['fyi-completed']}))
     await context.github.issues.edit(context.issue({
       state: 'closed'

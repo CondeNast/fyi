@@ -1,3 +1,4 @@
+const metadata = require('probot-metadata')
 const configGH = require('config').github
 const configDB = require('config').database
 const filter = require('../../../middleware/filter')
@@ -26,11 +27,11 @@ module.exports = async (context, robot) => {
     owner: adminOrg,
     repo: adminRepo,
     number: adminRepoIssue,
-    labels: ['fyi-verification']}))
+    labels: ['fyi-submitted']}))
   await github.issues.createComment(context.issue({
     owner: adminOrg,
     repo: adminRepo,
     number: adminRepoIssue,
-    body: `[FYI](${fyi.viewLink}) is ready for review.`
+    body: `[FYI](${fyi.viewLink}) has been submitted.`
   }))
 }
