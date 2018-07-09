@@ -16,15 +16,16 @@ module.exports = async (context, command, robot) => {
   const adminIssue = context.payload.issue.number
   const fyiName = command.arguments ? command.arguments : repo
 
-  const LOG_PREFIX = logPrefix('request', org, repo)
+  const LOG_PREFIX = logPrefix('fyiRequested', org, repo)
+  const LOG_PREFIX_ADMIN = logPrefix('fyiRequested', adminOrg, adminRepo)
+  context.log(`${LOG_PREFIX_ADMIN} command recieved`)
 
-  context.log(`${LOG_PREFIX} command recieved`)
   // update labels this issue
   await context.github.issues.removeLabel(context.issue({name: 'repo-created'})).catch(() => ({})) // noop
   // await context.github.issues.removeLabel(context.issue({name: 'repo-identified'})).catch(() => ({}))
-  context.log(`${LOG_PREFIX} repo created/identified label removed`)
+  context.log(`${LOG_PREFIX_ADMIN} repo-created label removed`)
   await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
-  context.log(`${LOG_PREFIX} fyi requested label added`)
+  context.log(`${LOG_PREFIX_ADMIN} fyi-requested label added`)
 
   // start - calculate probot metadata
   const prefix = process.env.APP_ID
@@ -37,9 +38,9 @@ module.exports = async (context, command, robot) => {
   data[prefix]['fyiName'] = fyiName
   let json = JSON.stringify(data)
 
-  context.log(`${LOG_PREFIX} loading fyi model for ${fyiName} ...`)
+  context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
   let fyi = await Fyi.forName(fyiName)
-  context.log(`${LOG_PREFIX} fyi model loaded`)
+  context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
   // create issue in new repo
   let github = await authGH({robot, context, org})
   let body = messaging['fyi-request']({
@@ -54,7 +55,7 @@ module.exports = async (context, command, robot) => {
     body: body,
     assignee: repoCreator
   }))
-  context.log(`${LOG_PREFIX} issue in new repo created`)
+  context.log(`${LOG_PREFIX} request issue created`)
 
   let bodyForAdminRepo = messaging['fyi-requested']({
     requester: context.payload.sender.login,
@@ -64,12 +65,12 @@ module.exports = async (context, command, robot) => {
   })
   // update fyis repo with the issue id from new repo
   await metadata(context).set('repoIssue', repoIssue)
-  context.log(`${LOG_PREFIX} updated admin issue body with new repo issue id`)
+  context.log(`${LOG_PREFIX_ADMIN} admin issue updated with request issue id`)
   // post command activity comment in this issue (user, action, new issue link)
   await context.github.issues.createComment(context.issue({
     body: bodyForAdminRepo
   }))
-  context.log(`${LOG_PREFIX} posted comment in admin issue with repo issue info`)
+  context.log(`${LOG_PREFIX_ADMIN} comment posted`)
 
   // add event to db
   await Event.create({
@@ -78,5 +79,5 @@ module.exports = async (context, command, robot) => {
     event: Event.event_types['fyi_requested'],
     actor: repoCreator
   })
-  context.log(`${LOG_PREFIX} fyi requested event logged`)
+  context.log(`${LOG_PREFIX} fyi_requested event logged`)
 }
