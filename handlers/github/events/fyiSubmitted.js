@@ -1,6 +1,6 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
-const reauth = require('../../../utils/reauth')
+const authGH = require('../../../services/github')
 const Fyi = require('../../../models').Fyi
 
 module.exports = async (context, robot) => {
@@ -11,7 +11,7 @@ module.exports = async (context, robot) => {
   // can prevent by doing a check to only process if issue in fyi repo is still open
   const { fyiName, org: adminOrg, repo: adminRepo, repoIssue: adminRepoIssue } = await metadata(context, context.payload.issue).get() || {}
   let fyi = await Fyi.forName(fyiName)
-  let github = await reauth(robot, context, adminOrg)
+  let github = await authGH({robot, context, org: adminOrg})
   await github.issues.removeLabel(context.issue({
     owner: adminOrg,
     repo: adminRepo,
