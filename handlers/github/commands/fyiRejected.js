@@ -1,6 +1,6 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
-const reauth = require('../../../utils/reauth')
+const authGH = require('../../../services/github')
 
 module.exports = async (context, command, robot) => {
   if (await filter('reject', context)) return
@@ -14,7 +14,7 @@ module.exports = async (context, command, robot) => {
   await context.github.issues.removeLabel(context.issue({name: 'fyi-submitted'})).catch(() => ({}))
   await context.github.issues.addLabels(context.issue({labels: ['fyi-requested']}))
 
-  let github = await reauth(robot, context, org)
+  let github = await authGH({robot, context, org})
   await github.issues.edit(context.issue({
     owner: org,
     repo: repo,

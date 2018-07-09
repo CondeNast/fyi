@@ -1,7 +1,7 @@
 const configGH = require('config').github
 const configDB = require('config').database
 const filter = require('../../../middleware/filter')
-const reauth = require('../../../utils/reauth')
+const authGH = require('../../../services/github')
 const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
@@ -43,7 +43,7 @@ module.exports = async (context, robot) => {
     json
   })
 
-  let github = await reauth(robot, context, adminOrg)
+  let github = await authGH({robot, context, org: adminOrg})
 
   await github.issues.create(context.issue({
     owner: adminOrg,

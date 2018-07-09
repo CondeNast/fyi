@@ -1,5 +1,5 @@
 const repoCreatedHandler = require('../github/events/repoCreated')
-const githubServices = require('../../services/github')
+const authGH = require('../../services/github')
 
 module.exports = (robot) => {
   return (request, response) => {
@@ -26,7 +26,7 @@ module.exports = (robot) => {
         return Object.assign(start, issueData)
       }
 
-      context.github = githubServices(robot, data.org)
+      context.github = auth({robot, org: data.org})
 
       repoCreatedHandler(context, robot)
         .then(() => response.send(JSON.stringify({success: true})))

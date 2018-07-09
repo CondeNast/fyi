@@ -1,6 +1,6 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
-const reauth = require('../../../utils/reauth')
+const authGH = require('../../../services/github')
 const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
@@ -41,7 +41,7 @@ module.exports = async (context, command, robot) => {
   let fyi = await Fyi.forName(fyiName)
   context.log(`${LOG_PREFIX} fyi model loaded`)
   // create issue in new repo
-  let github = await reauth(robot, context, org)
+  let github = await authGH({robot, context, org})
   let body = messaging['fyi-request']({
     fyiName: fyi.name,
     json,
