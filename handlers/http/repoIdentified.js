@@ -26,7 +26,7 @@ module.exports = (robot) => {
         return Object.assign(start, issueData)
       }
 
-      context.github = auth({robot, org: data.org})
+      context.github = authGH({robot, org: data.org})
 
       repoCreatedHandler(context, robot)
         .then(() => response.send(JSON.stringify({success: true})))

@@ -14,7 +14,10 @@ module.exports = async (context, robot) => {
   const org = context.payload.organization.login
   const repo = context.payload.repository.name
   const repoCreator = context.payload.sender.login
-  const LOG_PREFIX = logPrefix('repo.created', org, repo)
+
+  const LOG_PREFIX = logPrefix('repoCreated', org, repo)
+  const LOG_PREFIX_ADMIN = logPrefix('repoCreated', adminOrg, adminRepo)
+  context.log(`${LOG_PREFIX} event recieved`)
 
   const prefix = process.env.APP_ID
   let data = {}
@@ -53,7 +56,7 @@ module.exports = async (context, robot) => {
     labels,
     assignees: adminUsers
   }))
-  context.log(`${LOG_PREFIX} new repo issue created`)
+  context.log(`${LOG_PREFIX_ADMIN} issue created`)
 
     // add event to db
   await Event.create({
@@ -62,5 +65,5 @@ module.exports = async (context, robot) => {
     event: Event.event_types['repo_created'],
     actor: repoCreator
   })
-  context.log(`${LOG_PREFIX} repo created event logged`)
+  context.log(`${LOG_PREFIX} repo_created event logged`)
 }
