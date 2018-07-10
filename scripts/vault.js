@@ -4,9 +4,15 @@ let EASY_FYI_SECRET_PATH
 const env = process.env.NODE_ENV || 'development'
 
 if (env === 'production') {
-  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production`
+  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
 } else {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
 }
 
-module.exports = CNVault.getInstance().getSecrets([EASY_FYI_SECRET_PATH]).then(([secrets]) => secrets)
+let p = CNVault.getInstance().getSecrets([EASY_FYI_SECRET_PATH])
+
+module.exports = p.then(([secrets]) => secrets, (err) => {
+  // fallback for new production secret path
+  // TODO remove after deployment
+  return CNVault.getInstance().getSecrets([`secret/architecture/easy-fyi/production`]).then(([secrets]) => secrets)
+})
