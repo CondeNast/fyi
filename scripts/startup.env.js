@@ -7,17 +7,24 @@ module.exports = () => {
     keys += `export PRIVATE_KEY="${secrets['github-private-key']}"`
     keys += `;export WEBHOOK_PROXY_URL="${secrets['webhook-proxy-url']}"`
     keys += `;export WEBHOOK_SECRET="${secrets['webhook-secret']}"`
-    if (env !== 'development') {
-      let databaseConfig = {
-        database: {
-          username: secrets['database-username'],
-          password: secrets['database-password'],
-          host: secrets['database-host'],
-          database: secrets['database-name']
-        }
+    let configOverride = {
+      slack: {
+        webhook: secrets['slack-webhook-url']
       }
-      keys += `;export NODE_CONFIG='${JSON.stringify(databaseConfig)}'`
     }
+
+    if (env !== 'development') {
+      Object.assign(configOverride,
+                    {
+                      database: {
+                        username: secrets['database-username'],
+                        password: secrets['database-password'],
+                        host: secrets['database-host'],
+                        database: secrets['database-name']
+                      }
+                    })
+    }
+    keys += `;export NODE_CONFIG='${JSON.stringify(configOverride)}'`
     console.log(keys)
   })
 }
