@@ -33,6 +33,6 @@ module.exports = async (context, command, robot) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} issue closed`)
 
-  await slack.post({type: 'fyi-accepted', fyi})
+  await slack.post({type: 'fyi-accepted', context, fyi})
   context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 }
