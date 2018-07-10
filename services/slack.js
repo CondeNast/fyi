@@ -25,8 +25,7 @@ async function post ({type, org, repo, repoCreator, adminOrg, adminRepo, adminIs
       channel,
       icon_url: `https://avatars0.githubusercontent.com/in/6732?s=88`,
       username: 'archbot',
-      text,
-      link_names: 1
+      text
     },
     json: true
   }).catch((error) => {
