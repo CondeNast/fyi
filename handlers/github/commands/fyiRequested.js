@@ -76,7 +76,7 @@ module.exports = async (context, command, robot) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} comment posted`)
 
-  await slack.post({type: 'fyi-requested', adminOrg, adminRepo, adminIssue, fyi})
+  await slack.post({type: 'fyi-requested', context, adminOrg, adminRepo, adminIssue, fyi})
   context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 
   // add event to db

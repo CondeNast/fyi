@@ -8,7 +8,7 @@ module.exports = {
   post
 }
 
-async function post ({type, org, repo, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
+async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
   let text
   if(type === 'fyi-requested') {
     let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
@@ -29,6 +29,6 @@ async function post ({type, org, repo, repoCreator, adminOrg, adminRepo, adminIs
     },
     json: true
   }).catch((error) => {
-    console.log(error)
+    context.log.error(error)
   });
 }
