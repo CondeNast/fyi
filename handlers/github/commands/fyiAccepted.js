@@ -1,4 +1,5 @@
 const filter = require('../../../middleware/filter')
+const logPrefix = require('../../../utils/logPrefix')
 
 module.exports = async (context, command, robot) => {
   if (await filter('accept', context)) return

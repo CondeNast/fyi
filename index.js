@@ -32,7 +32,7 @@ module.exports = robot => {
   robot.on('issues.closed', (context) => fyiSubmitted(context, robot))
 
   // http api
-  robot.router.post('/repo', repoIdentified(robot))
+  robot.router.post('/repos', repoIdentified(robot))
 
   // github commands
   commands(robot, 'request', async (context, command) => fyiRequested(context, command, robot))

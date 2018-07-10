@@ -1,4 +1,5 @@
 const filter = require('../../../middleware/filter')
+const logPrefix = require('../../../utils/logPrefix')
 
 module.exports = async (context, command, robot) => {
   if (await filter('skip', context)) return
@@ -6,7 +7,7 @@ module.exports = async (context, command, robot) => {
   const adminOrg = context.payload.organization.login
   const adminRepo = context.payload.repository.name
 
-  const LOG_PREFIX_ADMIN = logPrefix('fyiReminder', adminOrg, adminRepo)
+  const LOG_PREFIX_ADMIN = logPrefix('fyiSkipped', adminOrg, adminRepo)
   context.log(`${LOG_PREFIX_ADMIN} command recieved`)
   // add label skip to this issue
   await context.github.issues.removeLabel(context.issue({name: 'repo-created'})).catch(() => ({}))
