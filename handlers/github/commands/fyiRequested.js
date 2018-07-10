@@ -76,8 +76,8 @@ module.exports = async (context, command, robot) => {
   await Event.create({
     github_project: repo,
     system: repo,
-    event: Event.event_types['fyi_requested'],
+    event: Event.event_types['fyi_requested_via_github'],
     actor: repoCreator
   })
-  context.log(`${LOG_PREFIX} fyi_requested event logged`)
+  context.log(`${LOG_PREFIX} fyi_requested_via_github event logged`)
 }

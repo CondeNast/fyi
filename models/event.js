@@ -13,12 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Event.event_types = {
-    new_repo_created: 'new_repo_created',
+    new_repo_created: 'repo_created',
     fyi_requested_via_github: 'fyi_requested_via_github',
     fyi_requested_via_jira: 'fyi_requested_via_jira'
   }
 
   Object.freeze(Event.event_types)
-
   return Event
 }
