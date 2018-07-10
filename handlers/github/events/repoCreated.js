@@ -62,7 +62,7 @@ module.exports = async (context, robot) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} issue created`)
 
-    // add event to db
+  // add event to db
   await Event.create({
     github_project: repo,
     system: repo,
