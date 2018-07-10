@@ -1,6 +1,7 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
 const authGH = require('../../../services/github')
+const logPrefix = require('../../../utils/logPrefix')
 
 module.exports = async (context, command, robot) => {
   if (await filter('reject', context)) return
