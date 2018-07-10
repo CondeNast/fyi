@@ -7,5 +7,8 @@
   },
   "confluence": {
     "fyiPageId": "123212691"
+  },
+  "slack": {
+    "channel": "architecture"
   }
 }

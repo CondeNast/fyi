@@ -1,6 +1,7 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
 const authGH = require('../../../services/github')
+const slack = require('../../../services/slack')
 const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
@@ -41,6 +42,7 @@ module.exports = async (context, command, robot) => {
   context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
   let fyi = await Fyi.forName(fyiName)
   context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
+
   // create issue in new repo
   let github = await authGH({robot, context, org})
   let body = messaging['fyi-request']({
@@ -48,6 +50,7 @@ module.exports = async (context, command, robot) => {
     json,
     editLink: fyi.editLink
   })
+
   const { data: { html_url: repoIssueUrl, number: repoIssue } } = await github.issues.create(context.issue({
     owner: org,
     repo: repo,
@@ -63,14 +66,18 @@ module.exports = async (context, command, robot) => {
     repoIssueUrl,
     viewLink: fyi.viewLink
   })
-  // update fyis repo with the issue id from new repo
+  // update admin issue body with request issue and fyi name
   await metadata(context).set('repoIssue', repoIssue)
-  context.log(`${LOG_PREFIX_ADMIN} admin issue updated with request issue id`)
+  await metadata(context).set('fyiName', fyiName)
+  context.log(`${LOG_PREFIX_ADMIN} admin issue updated with request issue id & fyi name`)
   // post command activity comment in this issue (user, action, new issue link)
   await context.github.issues.createComment(context.issue({
     body: bodyForAdminRepo
   }))
   context.log(`${LOG_PREFIX_ADMIN} comment posted`)
+
+  await slack.post({type: 'fyi-requested', adminOrg, adminRepo, adminIssue, fyi})
+  context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 
   // add event to db
   await Event.create({
