@@ -15,11 +15,6 @@ module.exports = async (context, command, robot) => {
   const LOG_PREFIX_ADMIN = logPrefix('fyiAccepted', adminOrg, adminRepo)
   context.log(`${LOG_PREFIX_ADMIN} command recieved`)
 
-  context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
-  let fyi = await Fyi.forName(fyiName)
-  context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
-
-
   await context.github.issues.createComment(context.issue({
     body: `@${context.payload.sender.login} accepted the FYI.`
   }))
@@ -33,6 +28,22 @@ module.exports = async (context, command, robot) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} issue closed`)
 
+  let fyi
+  if(fyiName) {
+    context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
+    fyi = await Fyi.forName(fyiName)
+    context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
+  } else { //temporary patch for admin issues created without fyiName
+    const { org, repo, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+    const adminOrg = context.payload.organization.login
+    const adminRepo = context.payload.repository.name
+    const adminIssue = context.payload.issue.number
+    let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
+    fyi = {
+      viewLink: adminIssueUrl,
+      name: repo
+    }
+  }
   await slack.post({type: 'fyi-accepted', context, fyi})
   context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 }
