@@ -12,7 +12,7 @@ async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo
   let text
   if(type === 'fyi-requested') {
     let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
-    text = `FYI Requested for <${adminIssueUrl}|${fyi.name}>`
+    text = `FYI Requested from ${repoCreator} for <${adminIssueUrl}|${fyi.name}>`
   } else if(type === 'fyi-accepted') {
       text = `FYI Accepted for <${fyi.viewLink}|${fyi.name}>`
     }
