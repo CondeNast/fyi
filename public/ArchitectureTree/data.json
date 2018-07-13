@@ -1,0 +1,30 @@
+{
+  "name": "autopilot-gq",
+  "children": [
+    {
+      "name": "Front",
+      "children": [
+        {
+          "name": "Website",
+          "children": [
+            {
+              "name": "Home",
+              "url": "www.my-media-website.com",
+              "dependsOn": [],
+              "technos": [],
+              "host": { "Amazon": ["fo-1", "fo-2"] }
+            },
+            {
+              "name": "Blogs",
+              "url": "blogs.my-media-website.com/*",
+              "dependsOn": [],
+              "technos": [],
+              "host": { "Amazon": ["?"] }
+            }
+          ],
+          "dependsOn": []
+        }
+      ]
+    }
+  ]
+}
