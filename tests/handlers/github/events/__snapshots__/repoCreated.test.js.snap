@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arch Bot Repository Created Creates an Issue in Admin Repository 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "assignees": Array [
+          "johnkpaul",
+          "gautamarora",
+        ],
+        "body": "Repository Name: <a href=\\"https://github.com/choosenearme/my-awesome-project\\">choosenearme/my-awesome-project</a>
+Created By: <a href=\\"https://github.com/awesome-coder\\">awesome-coder</a>
+
+<!-- probot = {\\"6732\\":{\\"type\\":\\"fyi\\",\\"org\\":\\"choosenearme\\",\\"repo\\":\\"my-awesome-project\\",\\"repoCreator\\":\\"awesome-coder\\"}} -->
+",
+        "labels": Array [
+          "repo-created",
+        ],
+        "number": undefined,
+        "owner": "choosenearme",
+        "repo": "fyis",
+        "title": "Repo Created: choosenearme/my-awesome-project",
+      },
+    ],
+  ],
+}
+`;

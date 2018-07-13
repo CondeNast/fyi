@@ -5,11 +5,11 @@
         "repository": {
             "name": "my-awesome-project",
             "owner": {
-                "login": "CondeNast"
+                "login": "choosenearme"
             }
         },
         "organization": {
-          "login":"CondeNast"
+          "login":"choosenearme"
         },
         "sender": {
           "login": "awesome-coder"
