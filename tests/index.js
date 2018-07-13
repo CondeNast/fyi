@@ -1,4 +1,4 @@
-const {createRobot} = require('probot')
+/* const {createRobot} = require('probot')
 const app = require('..')
 const newRepoCreatedEvent = require('./events/new-repo-created')
 const newCommentCreatedApproveEvent = require('./events/new-comment-created-approve')
@@ -98,3 +98,4 @@ describe('arch-bot', () => {
     })
   })
 })
+*/
