@@ -99,7 +99,18 @@ d3.chart.architectureTree = function() {
         node.append("text")
             .attr("dy", ".31em")
             .attr("text-anchor", function(d) { return d.x < 180 ? "start" : "end"; })
-            .attr("transform", function(d) { return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)"; })
+            .attr("transform", function(d) { 
+              var deg
+              if (d.x < 180){
+                deg = "translate(8)";
+              } else if(d.x == 180) {
+                deg = "rotate(-90)translate(-8)"; 
+              } else {
+                deg = "rotate(180)translate(-8)"; 
+              }
+              return deg;
+            
+            })
             .text(function(d) {
                 return d.name;
             });
