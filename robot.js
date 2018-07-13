@@ -29,7 +29,7 @@ module.exports = robot => {
 
   // pages
   robot.router.get('/digest*', digest)
-  robot.router.use('/public', require('express').static('public'))
+  robot.router.use('/visualization', require('express').static('public/visualization'))
 
   // github commands
   commands(robot, 'request', async (context, command) => fyiRequested(context, command, robot))

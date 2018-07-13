@@ -1,8 +1,12 @@
-angular.module('ChartsApp').controller('panelCtrl', function ($scope, $timeout, $window, data, bus) {
+angular.module('ChartsApp').controller('panelCtrl', function ($scope, $timeout, $window, data, bus, $location) {
     'use strict';
 
     var container = angular.element(document.querySelector('#panel')),
         graph = document.querySelector('#graph');
+
+    if(!$location.search().edit){
+      container[0].style.display = "none";
+    }
 
     bus.on('updateData', function(data) {
         var clonedData = angular.copy(data);
@@ -171,6 +175,13 @@ angular.module('ChartsApp').controller('panelCtrl', function ($scope, $timeout, 
 
     $scope.leaveEdit = function() {
         $scope.node = angular.copy($scope.originalNode);
+        $scope.detail = true;
+        $scope.edit = false;
+        bus.emit('unselect');
+    };
+
+    $scope.saveEdit = function() {
+        data.saveJsonData($scope.node);
         $scope.detail = true;
         $scope.edit = false;
         bus.emit('unselect');

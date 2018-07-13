@@ -9,6 +9,9 @@ module.exports = async (request, response) => {
       name: fyiName,
       children: fyi.dependencies.fyis.map((dep) => {
         return {name: dep}
+      }),
+      dependsOn: fyi.dependencies.fyis.map((dep) => {
+        return dep
       })
     }))
   } catch(e) {

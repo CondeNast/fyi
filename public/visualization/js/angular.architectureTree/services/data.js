@@ -1,6 +1,6 @@
 
 
-angular.module('ChartsApp').service('data', function ($http, $q, bus) {
+angular.module('ChartsApp').service('data', function ($http, $q, $location, bus) {
     'use strict';
 
     var jsonData;
@@ -14,10 +14,21 @@ angular.module('ChartsApp').service('data', function ($http, $q, bus) {
             return $q.when(jsonData);
         }
 
-        return $http.get("/public/ArchitectureTree/data.json").success(function(data) {
+        return $http.get("/fyis/"+$location.search().fyi).success(function(data) {
             setJsonData(data);
             return data;
         });
+    };
+
+    var saveJsonData = function (node) {
+
+        var fyiName = $location.search().fyi;
+        return $http.post("/fyis/"+fyiName, {
+          name: fyiName,
+          dependencies: {
+            fyis: node.dependsOn
+          }
+        })
     };
 
     var emitRefresh = function() {
@@ -182,6 +193,7 @@ angular.module('ChartsApp').service('data', function ($http, $q, bus) {
         fetchJsonData: fetchJsonData,
         getJsonData: getJsonData,
         setJsonData: setJsonData,
+        saveJsonData: saveJsonData,
         emitRefresh: emitRefresh,
         getNodeByName: getNodeByName,
         updateNode: updateNode,
