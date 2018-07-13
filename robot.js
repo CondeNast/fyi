@@ -2,6 +2,8 @@ const commands = require('probot-commands')
 
 const repoCreated = require('./handlers/github/events/repoCreated')
 const repoIdentified = require('./handlers/http/repoIdentified')
+const updateFyiDependencies = require('./handlers/http/updateFyiDependencies')
+const getFyiDependencies = require('./handlers/http/getFyiDependencies')
 const fyiRequested = require('./handlers/github/commands/fyiRequested')
 const fyiSkipped = require('./handlers/github/commands/fyiSkipped')
 const fyiSubmitted = require('./handlers/github/events/fyiSubmitted')
@@ -22,6 +24,8 @@ module.exports = robot => {
 
   // http api
   robot.router.post('/repos', repoIdentified(robot))
+  robot.router.post('/fyis/*', updateFyiDependencies)
+  robot.router.get('/fyis/:fyiName', getFyiDependencies)
 
   // pages
   robot.router.get('/digest*', digest)

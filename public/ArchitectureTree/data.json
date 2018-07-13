@@ -1,30 +1,33 @@
 {
   "name": "autopilot-gq",
   "children": [
-    {
-      "name": "Front",
-      "children": [
-        {
-          "name": "Website",
-          "children": [
             {
-              "name": "Home",
+              "name": "departures",
               "url": "www.my-media-website.com",
-              "dependsOn": [],
+              "dependson": [],
               "technos": [],
-              "host": { "Amazon": ["fo-1", "fo-2"] }
+              "host": { "amazon": ["fo-1", "fo-2"] }
             },
             {
-              "name": "Blogs",
-              "url": "blogs.my-media-website.com/*",
-              "dependsOn": [],
+              "name": "recommendations api",
+              "url": "www.my-media-website.com",
+              "dependson": [],
               "technos": [],
-              "host": { "Amazon": ["?"] }
+              "host": { "amazon": ["fo-1", "fo-2"] }
+            },
+            {
+              "name": "content apis",
+              "url": "www.my-media-website.com",
+              "dependson": [],
+              "technos": [],
+              "host": { "amazon": ["fo-1", "fo-2"] }
+            },
+            {
+              "name": "hal",
+              "url": "blogs.my-media-website.com/*",
+              "dependson": [],
+              "technos": [],
+              "host": { "amazon": ["?"] }
             }
-          ],
-          "dependsOn": []
-        }
-      ]
-    }
   ]
 }

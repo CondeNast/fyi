@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     confluenceUrl: DataTypes.STRING,
     confluenceApiData: DataTypes.JSON,
+    dependencies: DataTypes.JSON,
     content: DataTypes.STRING
   }, {
     getterMethods: {
