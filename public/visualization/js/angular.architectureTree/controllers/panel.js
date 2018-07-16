@@ -160,6 +160,10 @@ angular.module('ChartsApp').controller('panelCtrl', function ($scope, $timeout, 
             }
         });
 
+    data.getFyiList().then(function(d){
+      $scope.fyis = d.data.fyis
+    })
+
     $scope.enterEdit = function(name) {
         $scope.originalNode = getNodeByName(name, $scope.data);
         $scope.node = angular.copy($scope.originalNode);

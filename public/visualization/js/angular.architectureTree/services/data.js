@@ -20,6 +20,10 @@ angular.module('ChartsApp').service('data', function ($http, $q, $location, bus)
         });
     };
 
+    var getFyiList = function () {
+        return $http.get("/fyis")
+    };
+
     var saveJsonData = function (node) {
 
         var fyiName = $location.search().fyi;
@@ -193,6 +197,7 @@ angular.module('ChartsApp').service('data', function ($http, $q, $location, bus)
         fetchJsonData: fetchJsonData,
         getJsonData: getJsonData,
         setJsonData: setJsonData,
+        getFyiList: getFyiList,
         saveJsonData: saveJsonData,
         emitRefresh: emitRefresh,
         getNodeByName: getNodeByName,
