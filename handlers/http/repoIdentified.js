@@ -17,10 +17,10 @@ module.exports = (robot) => {
       let data
       try {
         data = JSON.parse(payload)
-      } catch(e) {
+      } catch (e) {
         return response.send(JSON.stringify({error: e.message, success: false}))
       }
-      const context = require('../../test/events/new-repo-created.json')
+      const context = require('./repo-created.json')
       context.payload.repository.name = data.name
       context.payload.repository.owner.login = data.org
       context.payload.organization.login = data.org

@@ -35,4 +35,3 @@ module.exports = robot => {
   commands(robot, 'remind', async (context, command) => fyiReminder(context, command, robot))
   commands(robot, 'help', async (context, command) => help(context, command, robot))
 }
-

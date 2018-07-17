@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 const { Application } = require('probot')
 const plugin = require('../robot')
 const githubIssue = require('../tests/fixtures/github-issue')

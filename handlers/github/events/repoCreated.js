@@ -49,7 +49,7 @@ module.exports = async (context, robot) => {
   let github = await authGH({robot, context, org: adminOrg})
 
   let title = `Repo Created: ${org}/${repo}`
-  if(context.payload.source === 'API') {
+  if (context.payload.source === 'API') {
     title += ' (identified via API)'
   }
   await github.issues.create(context.issue({

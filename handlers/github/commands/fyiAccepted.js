@@ -29,11 +29,11 @@ module.exports = async (context, command, robot) => {
   context.log(`${LOG_PREFIX_ADMIN} issue closed`)
 
   let fyi
-  if(fyiName) {
+  if (fyiName) {
     context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
     fyi = await Fyi.forName(fyiName)
     context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
-  } else { //temporary patch for admin issues created without fyiName
+  } else { // temporary patch for admin issues created without fyiName
     const { org, repo, repoCreator } = await metadata(context, context.payload.issue).get() || {}
     const adminOrg = context.payload.organization.login
     const adminRepo = context.payload.repository.name

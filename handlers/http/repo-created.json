@@ -1,0 +1,18 @@
+{
+    "event": "repository",
+    "payload": {
+        "action": "created",
+        "repository": {
+            "name": "<NAME>",
+            "owner": {
+                "login": "<ORG>"
+            }
+        },
+        "organization": {
+          "login":"<ORG>"
+        },
+        "sender": {
+          "login": "<CREATOR>"
+        }
+    }
+}
