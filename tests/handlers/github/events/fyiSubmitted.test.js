@@ -1,12 +1,13 @@
-const { Application } = require('probot')
-const plugin = require('../../../../robot')
 const fyiSubmittedEvent = require('../../../fixtures/fyi-submitted')
 const models = require('../../../../models')
 const Fyi = models.Fyi
 
+let app
+let github
+
 describe('Arch Bot', () => {
-  afterAll(async () => {
-    await models.sequelize.close()
+  beforeEach(() => {
+    ({app, github} = require('../../../setup.js'))
   })
 
   describe('FYI Submitted', () => {
@@ -17,5 +18,9 @@ describe('Arch Bot', () => {
       expect(github.issues.createComment).toMatchSnapshot()
       expect(Fyi.forName).toMatchSnapshot()
     })
+  })
+
+  afterAll(async () => {
+    await models.sequelize.close()
   })
 })

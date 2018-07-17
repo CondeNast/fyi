@@ -1,14 +1,15 @@
-const { Application } = require('probot')
-const plugin = require('../../../../robot')
 const fyiRequestedEvent = require('../../../fixtures/fyi-requested')
 const models = require('../../../../models')
 const Event = models.Event
 const Fyi = models.Fyi
 const slack = require('../../../../services/slack')
 
+let app
+let github
+
 describe('Arch Bot', () => {
-  afterAll(async () => {
-    await models.sequelize.close()
+  beforeEach(() => {
+    ({app, github} = require('../../../setup.js'))
   })
 
   describe('FYI Requested', () => {
@@ -22,5 +23,9 @@ describe('Arch Bot', () => {
       expect(slack.post).toMatchSnapshot()
       expect(Event.create).toMatchSnapshot()
     })
+  })
+
+  afterAll(async () => {
+    await models.sequelize.close()
   })
 })
