@@ -30,7 +30,7 @@ async function createNewPage (pageTitle, pageContent = '') {
         'id': config.get('confluence.fyiPageId')
       }],
       'space': {
-        'key': 'ARCH'
+        'key': config.get('confluence.spaceKey')
       },
       'body': {
         'storage': {

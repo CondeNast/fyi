@@ -6,7 +6,8 @@
     "adminUsers": ["johnkpaul", "gautamarora"]
   },
   "confluence": {
-    "fyiPageId": "123212691"
+    "fyiPageId": "123212691",
+    "spaceKey": "ARCH"
   },
   "slack": {
     "channel": "architecture"
