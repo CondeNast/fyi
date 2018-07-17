@@ -13,7 +13,7 @@ describe('Arch Bot', () => {
     it('Creates an Issue in Admin Repository', async () => {
       await app.receive(repoCreatedEvent)
       expect(github.issues.create).toMatchSnapshot()
-      expect(Event.create).toHaveBeenCalledTimes(1)
+      expect(Event.create).toMatchSnapshot()
     })
   })
 })
