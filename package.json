@@ -59,9 +59,7 @@
     ]
   },
   "jest": {
-    "setupFiles": [
-      "./scripts/startup.env.js"
-    ],
-    "setupTestFrameworkScriptFile": "./scripts/setup-tests.js"
+    "notify": true,
+    "setupTestFrameworkScriptFile": "./scripts/setup.jest.js"
   }
 }
