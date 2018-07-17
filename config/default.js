@@ -16,7 +16,8 @@ module.exports = {
     'adminUsers': ['johnkpaul', 'gautamarora']
   },
   'confluence': {
-    'fyiPageId': '209682505'
+    'fyiPageId': '367493172',
+    "spaceKey": "~111165544"
   },
   'slack': {
     'channel': 'easy-fyi-dev'
