@@ -26,3 +26,18 @@ Created By: <a href=\\"https://github.com/gautamarora\\">gautamarora</a>
   ],
 }
 `;
+
+exports[`Arch Bot Repository Created Creates an Issue in Admin Repository 2`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "actor": "gautamarora",
+        "event": "repo_created",
+        "github_project": "sturdy-invention",
+        "system": "sturdy-invention",
+      },
+    ],
+  ],
+}
+`;
