@@ -11,7 +11,7 @@ if (env === 'production') {
 
 let p = CNVault.getInstance().getSecrets([EASY_FYI_SECRET_PATH])
 
-module.exports = p.then(([secrets]) => secrets, (err) => {
+module.exports = p.then(([secrets]) => secrets, () => {
   // fallback for new production secret path
   // TODO remove after deployment
   return CNVault.getInstance().getSecrets([`secret/architecture/easy-fyi/production`]).then(([secrets]) => secrets)

@@ -60,6 +60,6 @@
   },
   "jest": {
     "notify": true,
-    "setupTestFrameworkScriptFile": "./scripts/setup.jest.js"
+    "globalSetup": "./tests/global-setup.js"
   }
 }

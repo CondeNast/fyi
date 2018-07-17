@@ -1,12 +1,13 @@
-const { Application } = require('probot')
-const plugin = require('../../../../robot')
 const repoCreatedEvent = require('../../../fixtures/repo-created')
 const models = require('../../../../models')
 const Event = models.Event
 
+let app
+let github
+
 describe('Arch Bot', () => {
-  afterAll(async () => {
-    await models.sequelize.close()
+  beforeEach(() => {
+    ({app, github} = require('../../../setup.js'))
   })
 
   describe('Repository Created', () => {
@@ -15,5 +16,9 @@ describe('Arch Bot', () => {
       expect(github.issues.create).toMatchSnapshot()
       expect(Event.create).toMatchSnapshot()
     })
+  })
+
+  afterAll(async () => {
+    await models.sequelize.close()
   })
 })

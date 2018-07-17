@@ -1,27 +1,17 @@
-require('dotenv').config()
 const { Application } = require('probot')
 const plugin = require('../robot')
-const githubIssue = require('../tests/fixtures/github-issue')
-
 const models = require('../models')
 const Event = models.Event
 const Fyi = models.Fyi
-const fyiModel = require('../tests/fixtures/fyi-model')
 const slack = require('../services/slack')
 
-global.app = new Application()
+const githubIssue = require('../tests/fixtures/github-issue')
+const fyiModel = require('../tests/fixtures/fyi-model')
+
+let app = new Application()
 app.load(plugin)
 
-global.eventMock = jest.spyOn(Event, 'create')
-eventMock.mockImplementation(() => true)
-
-global.fyiMock = jest.spyOn(Fyi, 'forName')
-fyiMock.mockImplementation(() => fyiModel)
-
-global.slackMock = jest.spyOn(slack, 'post')
-slackMock.mockImplementation(() => true)
-
-global.github = {
+let githubMock = {
   issues: {
     create: jest.fn().mockReturnValue(Promise.resolve(githubIssue)),
     edit: jest.fn().mockReturnValue(Promise.resolve({})),
@@ -34,5 +24,18 @@ global.github = {
     get: jest.fn().mockReturnValue(Promise.resolve(githubIssue))
   }
 }
+app.auth = () => Promise.resolve(githubMock)
 
-app.auth = () => Promise.resolve(github)
+let eventMock = jest.spyOn(Event, 'create')
+eventMock.mockImplementation(() => true)
+
+let fyiMock = jest.spyOn(Fyi, 'forName')
+fyiMock.mockImplementation(() => fyiModel)
+
+let slackMock = jest.spyOn(slack, 'post')
+slackMock.mockImplementation(() => true)
+
+module.exports = {
+  app,
+  github: githubMock
+}

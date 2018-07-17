@@ -5,7 +5,7 @@ module.exports = async (request, response) => {
   let fyis = await Fyi.findAll({
     limit: 5,
     where: {confluenceApiData: {$ne: null}},
-    order: [ [ 'createdAt', 'DESC' ]]
+    order: [[ 'createdAt', 'DESC' ]]
   })
 
   let contents = await Promise.all(fyis.map((fyi) => Promise.all([fyi, fyi.confluenceContent])))
