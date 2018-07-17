@@ -17,9 +17,8 @@ module.exports = async (request, response) => {
     }
   })
 
-
   response.send(messaging.digest({
     fyis: contents,
-    subject: `Welcome ${contents.map((c) => c.title ).join(', ')} 👋`
+    subject: `Welcome ${contents.map((c) => c.title).join(', ')} 👋`
   }))
 }

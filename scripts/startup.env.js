@@ -15,14 +15,14 @@ module.exports = () => {
 
     if (env !== 'development') {
       Object.assign(configOverride,
-                    {
-                      database: {
-                        username: secrets['database-username'],
-                        password: secrets['database-password'],
-                        host: secrets['database-host'],
-                        database: secrets['database-name']
-                      }
-                    })
+        {
+          database: {
+            username: secrets['database-username'],
+            password: secrets['database-password'],
+            host: secrets['database-host'],
+            database: secrets['database-name']
+          }
+        })
     }
     keys += `;export NODE_CONFIG='${JSON.stringify(configOverride)}'`
     console.log(keys)
