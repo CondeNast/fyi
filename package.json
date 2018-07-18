@@ -21,9 +21,10 @@
     "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
     "start": "eval \"`node scripts/startup.env.js`\";probot run ./robot.js",
     "lint": "standard --fix",
-    "test": "jest --roots tests",
-    "test-update": "jest --roots tests --updateSnapshot",
-    "integration_test": "standard --fix && jest --roots integration_test",
+    "test": "npm lint && npm run test:unit && npm run test:integration",
+    "test:unit": "jest --roots tests",
+    "test:unit:update": "npm test -- -u",
+    "test:integration": "jest --roots integration_test",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
     "sequelize": "eval `node scripts/startup.env.js`;sequelize",
     "repl": "node repl"
