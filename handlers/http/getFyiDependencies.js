@@ -15,7 +15,7 @@ module.exports = async (request, response) => {
       })
     }))
   } catch(e) {
-    return response.send(JSON.stringify({error: e.message, success: false}))
+    response.send(JSON.stringify({error: e.message, success: false}))
   }
 
 }
