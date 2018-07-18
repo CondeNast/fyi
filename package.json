@@ -19,13 +19,14 @@
   ],
   "scripts": {
     "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
-    "start": "eval \"`node scripts/startup.env.js`\";probot run ./robot.js",
+    "start": "eval \"`node scripts/startup.env.js`\";probot run ./app.js",
     "lint": "standard --fix",
     "test": "npm lint && npm run test:unit && npm run test:integration",
-    "test:unit": "jest --roots tests",
-    "test:unit:update": "npm test -- -u",
-    "test:integration": "jest --roots integration_test",
+    "test:unit": "jest --roots tests/unit",
+    "test:unit:update": "jest --roots tests/unit --updateSnapshot",
+    "test:integration": "jest --roots tests/integration",
     "test:watch": "jest --watch --notify --notifyMode=change --coverage",
+    "test:unit:coverage": "jest --roots tests/unit --coverage",
     "sequelize": "eval `node scripts/startup.env.js`;sequelize",
     "repl": "node repl"
   },
@@ -61,6 +62,6 @@
   },
   "jest": {
     "notify": true,
-    "globalSetup": "./tests/global-setup.js"
+    "globalSetup": "./tests/unit/global-setup.js"
   }
 }
