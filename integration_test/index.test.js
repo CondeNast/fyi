@@ -1,17 +1,16 @@
-const {createRobot} = require('probot')
-const app = require('..')
-const newRepoCreatedEvent = require('../test/events/new-repo-created')
-const newCommentCreatedApproveEvent = require('../test/events/new-comment-created-approve')
-// const newCommentCreatedSkipEvent = require('./events/new-comment-created-skip')
+const { Application } = require('probot')
+const plugin = require('../robot')
+const repoCreatedEvent = require('./repo-created')
+const fyiAcceptedEvent = require('./fyi-accepted')
 const models = require('../models')
 
-describe('arch-bot', () => {
-  let robot
+describe('Arch Bot', () => {
+  let app
   let github
 
   beforeEach(() => {
-    robot = createRobot()
-    app(robot)
+    app = new Application()
+    app.load(plugin)
     github = {
       issues: {
         create: jest.fn().mockReturnValue(Promise.resolve({})),
@@ -19,30 +18,32 @@ describe('arch-bot', () => {
         addLabels: jest.fn().mockReturnValue(Promise.resolve({})),
         createComment: jest.fn().mockReturnValue(Promise.resolve({})),
         deleteComment: jest.fn().mockReturnValue(Promise.resolve({})),
-        deleteLabel: jest.fn().mockReturnValue(Promise.resolve({}))
+        removeLabel: jest.fn().mockReturnValue(Promise.resolve({}))
       }
     }
-    robot.auth = () => Promise.resolve(github)
+    app.auth = () => Promise.resolve(github)
   })
 
   afterAll(async () => {
     return models.sequelize.close()
   })
 
-  describe('new repo created', () => {
-    it('logs the new repo created event to the event table', async () => {
+  describe('Repo Created', () => {
+    it('Logs the Repo Created event to the Event table', async () => {
       let testActor = 'Actor' + (new Date()).toString()
-      newRepoCreatedEvent.payload.sender.login = testActor
-      await robot.receive(newRepoCreatedEvent)
+      repoCreatedEvent.payload.sender.login = testActor
+      await app.receive(repoCreatedEvent)
 
       let [mostRecentEvent] = await models.Event.findAll({limit: 1, order: [['createdAt', 'DESC']]})
+
+      console.log(mostRecentEvent)
 
       expect(mostRecentEvent.get('actor')).toBe(testActor)
     })
   })
-  describe('fyi request approval', () => {
-    it('logs the approval to the event table', async () => {
-      await robot.receive(newCommentCreatedApproveEvent)
+  describe('FYI Requested', () => {
+    it('Logs the FYI Request to the Event table', async () => {
+      await app.receive(fyiAcceptedEvent)
 
       let [mostRecentEvent] = await models.Event.findAll({limit: 1, order: [['createdAt', 'DESC']]})
 
