@@ -7,6 +7,7 @@ exports[`Arch Bot Help Posts Comment in Issue in Admin Repository 1`] = `
       Object {
         "body": "Here are commands you can run:
   - \`/request [fyi name]\` to request for an FYI to be created
+  - \`/assign (username)\` to add username as assignee to the request issue
   - \`/skip\` to skip requests
   - \`/accept\` to accept submitted FYIs
   - \`/reject [comment]\` to reject submitted FYIs with optional comment
