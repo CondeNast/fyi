@@ -406,6 +406,7 @@ Created By: <a href=\\"https://github.com/gautamarora\\">gautamarora</a>
           },
           "github": Object {
             "issues": Object {
+              "addAssigneesToIssue": [MockFunction],
               "addLabels": [MockFunction] {
                 "calls": Array [
                   Array [

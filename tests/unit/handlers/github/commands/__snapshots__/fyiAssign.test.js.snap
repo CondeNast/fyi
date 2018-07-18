@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arch Bot FYI Assign Assigns Issue to Assignee in Repo Repository 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "assignees": Array [
+          "johnkpaul",
+        ],
+        "number": 1,
+        "owner": "choosenearme",
+        "repo": "stunning-journey",
+      },
+    ],
+  ],
+}
+`;

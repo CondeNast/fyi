@@ -21,7 +21,8 @@ let githubMock = {
     deleteComment: jest.fn().mockReturnValue(Promise.resolve({})),
     deleteLabel: jest.fn().mockReturnValue(Promise.resolve({})),
     set: jest.fn().mockReturnValue(Promise.resolve({})),
-    get: jest.fn().mockReturnValue(Promise.resolve(githubIssue))
+    get: jest.fn().mockReturnValue(Promise.resolve(githubIssue)),
+    addAssigneesToIssue: jest.fn().mockReturnValue(Promise.resolve({}))
   }
 }
 app.auth = () => Promise.resolve(githubMock)
