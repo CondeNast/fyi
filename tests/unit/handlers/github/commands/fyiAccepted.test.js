@@ -30,7 +30,6 @@ describe('Arch Bot', () => {
       expect(Fyi.forName).toMatchSnapshot()
       expect(slack.post).toMatchSnapshot()
     })
-
   })
 
   afterAll(async () => {

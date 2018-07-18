@@ -5,7 +5,7 @@ exports[`Arch Bot FYI Reminder Posts Comment for Issue in Repo Repository 1`] = 
   "calls": Array [
     Array [
       Object {
-        "body": "Reminder to complete the requested FYI. cc @gautamarora",
+        "body": "Reminder: Complete the requested FYI",
         "number": 1,
         "owner": "choosenearme",
         "repo": "super-guacamole",

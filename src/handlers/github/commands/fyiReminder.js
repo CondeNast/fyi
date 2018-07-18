@@ -6,7 +6,7 @@ const logPrefix = require('../../../utils/logPrefix')
 module.exports = async (context, command, app) => {
   if (await filter('remind', context)) return
 
-  const { org, repo, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+  const { org, repo, repoIssue } = await metadata(context, context.payload.issue).get() || {}
 
   const adminOrg = context.payload.organization.login
   const adminRepo = context.payload.repository.name
@@ -20,7 +20,7 @@ module.exports = async (context, command, app) => {
     owner: org,
     repo: repo,
     number: repoIssue,
-    body: `Reminder to complete the requested FYI. cc @${repoCreator}`
+    body: `Reminder: Complete the requested FYI`
   }))
   context.log(`${LOG_PREFIX} comment posted`)
 }
