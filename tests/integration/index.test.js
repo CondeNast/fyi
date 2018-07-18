@@ -1,7 +1,7 @@
 const { Application } = require('probot')
 const plugin = require('../../app')
 const repoCreatedEvent = require('./repo-created')
-const fyiAcceptedEvent = require('./fyi-accepted')
+// const fyiAcceptedEvent = require('./fyi-accepted')
 const models = require('../../src/models')
 
 describe('Arch Bot', () => {

@@ -6,7 +6,7 @@ const logPrefix = require('../../../utils/logPrefix')
 module.exports = async (context, command, app) => {
   if (await filter('assign', context)) return
 
-  const { org, repo, repoIssue, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+  const { org, repo, repoIssue } = await metadata(context, context.payload.issue).get() || {}
   let assignee = (command.arguments).trim().replace(/^@/, '')
 
   const adminOrg = context.payload.organization.login
