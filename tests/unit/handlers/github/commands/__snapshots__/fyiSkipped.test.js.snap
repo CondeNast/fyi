@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arch Bot FYI Skipped Closes Issue in Admin Repository 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "name": "repo-created",
+        "number": 291,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Skipped Closes Issue in Admin Repository 2`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "labels": Array [
+          "fyi-skipped",
+        ],
+        "number": 291,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Skipped Closes Issue in Admin Repository 3`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "body": "@gautamarora skipped the request for FYI.",
+        "number": 291,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Skipped Closes Issue in Admin Repository 4`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "number": 291,
+        "owner": "choosenearme",
+        "repo": "fyis",
+        "state": "closed",
+      },
+    ],
+  ],
+}
+`;

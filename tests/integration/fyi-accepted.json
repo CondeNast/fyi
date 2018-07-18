@@ -1,0 +1,33 @@
+{
+    "event": "issue_comment",
+    "payload": {
+        "action": "created",
+        "issue": {
+          "id": 1,
+          "title": "Add FYI for test-repo",
+          "body": "Repository Name: <a href=\"https://github.com/choosenearme/test-repo\">choosenearme/test-repo</a>\nCreated By: <a href=\"https://github.com/gautamarora\">gautamarora</a>\n\n<!-- probot = {\"1\":{\"type\":\"fyi\",\"org\":\"choosenearme\",\"repo\":\"test-repo\",\"repoCreator\":\"gautamarora\"}} -->"
+        },
+        "comment": {
+          "id": 12,
+          "body": "/request",
+          "user": {
+            "login": "johnkpaul"
+          }
+        },
+        "repository": {
+            "name": "fyis",
+            "owner": {
+                "login": "choosenearme"
+            }
+        },
+        "organization": {
+          "login":"choosenearme"
+        },
+        "sender": {
+          "login": "johnkpaul"
+        },
+        "installation": {
+          "id": 1
+        }
+    }
+}

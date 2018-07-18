@@ -1,0 +1,862 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "name": "repo-created",
+        "number": 284,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 2`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "labels": Array [
+          "fyi-requested",
+        ],
+        "number": 284,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 3`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      "stunning-succotash",
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 4`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "assignee": "gautamarora",
+        "body": "## Instructions
+
+[Click here to begin writing your FYI]()
+
+When completed, please create a file \`FYI.md\` in this repository in the default branch with a link to the page in Confluence. [Here is an example of an \`FYI.md\` file](https://github.com/CondeNast/tny-graphql/blob/master/FYI.md). Once complete, close this issue.
+
+---------
+
+## Background
+
+In order to increase awareness of technical work across the technology team, the Architecture team would like you to write an FYI for [congenial-system]().
+
+An FYI is a very short description of new technical work addressing:
+  - What are the project goals, in plain language, at a very high level?
+  - Who is the main point of contact for the FYI?
+  - Where can people look for further details?
+  - When will the work happen?
+
+If you'd like to see some examples, we have quite a few [here](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/123212691/FYIs#FYIs-FYIlist). They are intended to be very quick and easy to write.
+
+Please reply to this issue and cc @johnkpaul & @gautamarora if you'd like to have a meeting to walk through how to do this. We can schedule something and show you pretty easily, if it would help.
+
+[Click here to begin writing your FYI]()
+
+<!-- probot = {\\"6732\\":{\\"type\\":\\"fyi\\",\\"org\\":\\"choosenearme\\",\\"repo\\":\\"fyis\\",\\"repoIssue\\":284,\\"fyiName\\":\\"stunning-succotash\\"}} -->
+",
+        "number": 284,
+        "owner": "choosenearme",
+        "repo": "stunning-succotash",
+        "title": "Add FYI for stunning-succotash",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 5`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "body": "@gautamarora requested for an FYI to be created.
+
+FYI: [stunning-succotash](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/357302331/congenial-system)
+Issue: 
+",
+        "number": 284,
+        "owner": "choosenearme",
+        "repo": "fyis",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 6`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "adminIssue": 284,
+        "adminOrg": "choosenearme",
+        "adminRepo": "fyis",
+        "context": Context {
+          "event": Object {
+            "event": "issue_comment",
+            "payload": Object {
+              "action": "created",
+              "comment": Object {
+                "author_association": "COLLABORATOR",
+                "body": "/request",
+                "created_at": "2018-07-16T19:40:01Z",
+                "html_url": "https://github.com/choosenearme/fyis/issues/284#issuecomment-405357671",
+                "id": 405357671,
+                "issue_url": "https://api.github.com/repos/choosenearme/fyis/issues/284",
+                "node_id": "MDEyOklzc3VlQ29tbWVudDQwNTM1NzY3MQ==",
+                "updated_at": "2018-07-16T19:40:01Z",
+                "url": "https://api.github.com/repos/choosenearme/fyis/issues/comments/405357671",
+                "user": Object {
+                  "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+                  "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/gautamarora/followers",
+                  "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/gautamarora",
+                  "id": 1215971,
+                  "login": "gautamarora",
+                  "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+                  "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+                  "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+                  "repos_url": "https://api.github.com/users/gautamarora/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+                  "type": "User",
+                  "url": "https://api.github.com/users/gautamarora",
+                },
+              },
+              "installation": Object {
+                "id": 210756,
+              },
+              "issue": Object {
+                "assignee": Object {
+                  "avatar_url": "https://avatars1.githubusercontent.com/u/475621?v=4",
+                  "events_url": "https://api.github.com/users/johnkpaul/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/johnkpaul/followers",
+                  "following_url": "https://api.github.com/users/johnkpaul/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/johnkpaul/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/johnkpaul",
+                  "id": 475621,
+                  "login": "johnkpaul",
+                  "node_id": "MDQ6VXNlcjQ3NTYyMQ==",
+                  "organizations_url": "https://api.github.com/users/johnkpaul/orgs",
+                  "received_events_url": "https://api.github.com/users/johnkpaul/received_events",
+                  "repos_url": "https://api.github.com/users/johnkpaul/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/johnkpaul/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/johnkpaul/subscriptions",
+                  "type": "User",
+                  "url": "https://api.github.com/users/johnkpaul",
+                },
+                "assignees": Array [
+                  Object {
+                    "avatar_url": "https://avatars1.githubusercontent.com/u/475621?v=4",
+                    "events_url": "https://api.github.com/users/johnkpaul/events{/privacy}",
+                    "followers_url": "https://api.github.com/users/johnkpaul/followers",
+                    "following_url": "https://api.github.com/users/johnkpaul/following{/other_user}",
+                    "gists_url": "https://api.github.com/users/johnkpaul/gists{/gist_id}",
+                    "gravatar_id": "",
+                    "html_url": "https://github.com/johnkpaul",
+                    "id": 475621,
+                    "login": "johnkpaul",
+                    "node_id": "MDQ6VXNlcjQ3NTYyMQ==",
+                    "organizations_url": "https://api.github.com/users/johnkpaul/orgs",
+                    "received_events_url": "https://api.github.com/users/johnkpaul/received_events",
+                    "repos_url": "https://api.github.com/users/johnkpaul/repos",
+                    "site_admin": false,
+                    "starred_url": "https://api.github.com/users/johnkpaul/starred{/owner}{/repo}",
+                    "subscriptions_url": "https://api.github.com/users/johnkpaul/subscriptions",
+                    "type": "User",
+                    "url": "https://api.github.com/users/johnkpaul",
+                  },
+                  Object {
+                    "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+                    "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+                    "followers_url": "https://api.github.com/users/gautamarora/followers",
+                    "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+                    "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+                    "gravatar_id": "",
+                    "html_url": "https://github.com/gautamarora",
+                    "id": 1215971,
+                    "login": "gautamarora",
+                    "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+                    "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+                    "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+                    "repos_url": "https://api.github.com/users/gautamarora/repos",
+                    "site_admin": false,
+                    "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+                    "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+                    "type": "User",
+                    "url": "https://api.github.com/users/gautamarora",
+                  },
+                ],
+                "author_association": "NONE",
+                "body": "Repository Name: <a href=\\"https://github.com/choosenearme/stunning-succotash\\">choosenearme/stunning-succotash</a>
+Created By: <a href=\\"https://github.com/gautamarora\\">gautamarora</a>
+
+
+<!-- probot = {\\"6732\\":{\\"type\\":\\"fyi\\",\\"org\\":\\"choosenearme\\",\\"repo\\":\\"stunning-succotash\\",\\"repoCreator\\":\\"gautamarora\\",\\"repoIssue\\":2,\\"fyiName\\":\\"stunning-succotash\\"}} -->",
+                "closed_at": null,
+                "comments": 3,
+                "comments_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/comments",
+                "created_at": "2018-07-16T19:36:47Z",
+                "events_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/events",
+                "html_url": "https://github.com/choosenearme/fyis/issues/284",
+                "id": 341650018,
+                "labels": Array [
+                  Object {
+                    "color": "ededed",
+                    "default": false,
+                    "id": 972678153,
+                    "name": "dev-garora",
+                    "node_id": "MDU6TGFiZWw5NzI2NzgxNTM=",
+                    "url": "https://api.github.com/repos/choosenearme/fyis/labels/dev-garora",
+                  },
+                  Object {
+                    "color": "ededed",
+                    "default": false,
+                    "id": 982916670,
+                    "name": "fyi-requested",
+                    "node_id": "MDU6TGFiZWw5ODI5MTY2NzA=",
+                    "url": "https://api.github.com/repos/choosenearme/fyis/labels/fyi-requested",
+                  },
+                ],
+                "labels_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/labels{/name}",
+                "locked": false,
+                "milestone": null,
+                "node_id": "MDU6SXNzdWUzNDE2NTAwMTg=",
+                "number": 284,
+                "repository_url": "https://api.github.com/repos/choosenearme/fyis",
+                "state": "open",
+                "title": "Repo Created: choosenearme/stunning-succotash",
+                "updated_at": "2018-07-16T19:40:01Z",
+                "url": "https://api.github.com/repos/choosenearme/fyis/issues/284",
+                "user": Object {
+                  "avatar_url": "https://avatars3.githubusercontent.com/in/6732?v=4",
+                  "events_url": "https://api.github.com/users/arch%5Bbot%5D/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/arch%5Bbot%5D/followers",
+                  "following_url": "https://api.github.com/users/arch%5Bbot%5D/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/arch%5Bbot%5D/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/apps/arch",
+                  "id": 33664907,
+                  "login": "arch[bot]",
+                  "node_id": "MDM6Qm90MzM2NjQ5MDc=",
+                  "organizations_url": "https://api.github.com/users/arch%5Bbot%5D/orgs",
+                  "received_events_url": "https://api.github.com/users/arch%5Bbot%5D/received_events",
+                  "repos_url": "https://api.github.com/users/arch%5Bbot%5D/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/arch%5Bbot%5D/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/arch%5Bbot%5D/subscriptions",
+                  "type": "Bot",
+                  "url": "https://api.github.com/users/arch%5Bbot%5D",
+                },
+              },
+              "organization": Object {
+                "avatar_url": "https://avatars3.githubusercontent.com/u/1040101?v=4",
+                "description": null,
+                "events_url": "https://api.github.com/orgs/choosenearme/events",
+                "hooks_url": "https://api.github.com/orgs/choosenearme/hooks",
+                "id": 1040101,
+                "issues_url": "https://api.github.com/orgs/choosenearme/issues",
+                "login": "choosenearme",
+                "members_url": "https://api.github.com/orgs/choosenearme/members{/member}",
+                "node_id": "MDEyOk9yZ2FuaXphdGlvbjEwNDAxMDE=",
+                "public_members_url": "https://api.github.com/orgs/choosenearme/public_members{/member}",
+                "repos_url": "https://api.github.com/orgs/choosenearme/repos",
+                "url": "https://api.github.com/orgs/choosenearme",
+              },
+              "repository": Object {
+                "archive_url": "https://api.github.com/repos/choosenearme/fyis/{archive_format}{/ref}",
+                "archived": false,
+                "assignees_url": "https://api.github.com/repos/choosenearme/fyis/assignees{/user}",
+                "blobs_url": "https://api.github.com/repos/choosenearme/fyis/git/blobs{/sha}",
+                "branches_url": "https://api.github.com/repos/choosenearme/fyis/branches{/branch}",
+                "clone_url": "https://github.com/choosenearme/fyis.git",
+                "collaborators_url": "https://api.github.com/repos/choosenearme/fyis/collaborators{/collaborator}",
+                "comments_url": "https://api.github.com/repos/choosenearme/fyis/comments{/number}",
+                "commits_url": "https://api.github.com/repos/choosenearme/fyis/commits{/sha}",
+                "compare_url": "https://api.github.com/repos/choosenearme/fyis/compare/{base}...{head}",
+                "contents_url": "https://api.github.com/repos/choosenearme/fyis/contents/{+path}",
+                "contributors_url": "https://api.github.com/repos/choosenearme/fyis/contributors",
+                "created_at": "2018-06-14T19:19:00Z",
+                "default_branch": "master",
+                "deployments_url": "https://api.github.com/repos/choosenearme/fyis/deployments",
+                "description": null,
+                "downloads_url": "https://api.github.com/repos/choosenearme/fyis/downloads",
+                "events_url": "https://api.github.com/repos/choosenearme/fyis/events",
+                "fork": false,
+                "forks": 0,
+                "forks_count": 0,
+                "forks_url": "https://api.github.com/repos/choosenearme/fyis/forks",
+                "full_name": "choosenearme/fyis",
+                "git_commits_url": "https://api.github.com/repos/choosenearme/fyis/git/commits{/sha}",
+                "git_refs_url": "https://api.github.com/repos/choosenearme/fyis/git/refs{/sha}",
+                "git_tags_url": "https://api.github.com/repos/choosenearme/fyis/git/tags{/sha}",
+                "git_url": "git://github.com/choosenearme/fyis.git",
+                "has_downloads": true,
+                "has_issues": true,
+                "has_pages": false,
+                "has_projects": true,
+                "has_wiki": true,
+                "homepage": null,
+                "hooks_url": "https://api.github.com/repos/choosenearme/fyis/hooks",
+                "html_url": "https://github.com/choosenearme/fyis",
+                "id": 137399224,
+                "issue_comment_url": "https://api.github.com/repos/choosenearme/fyis/issues/comments{/number}",
+                "issue_events_url": "https://api.github.com/repos/choosenearme/fyis/issues/events{/number}",
+                "issues_url": "https://api.github.com/repos/choosenearme/fyis/issues{/number}",
+                "keys_url": "https://api.github.com/repos/choosenearme/fyis/keys{/key_id}",
+                "labels_url": "https://api.github.com/repos/choosenearme/fyis/labels{/name}",
+                "language": null,
+                "languages_url": "https://api.github.com/repos/choosenearme/fyis/languages",
+                "license": null,
+                "merges_url": "https://api.github.com/repos/choosenearme/fyis/merges",
+                "milestones_url": "https://api.github.com/repos/choosenearme/fyis/milestones{/number}",
+                "mirror_url": null,
+                "name": "fyis",
+                "node_id": "MDEwOlJlcG9zaXRvcnkxMzczOTkyMjQ=",
+                "notifications_url": "https://api.github.com/repos/choosenearme/fyis/notifications{?since,all,participating}",
+                "open_issues": 1,
+                "open_issues_count": 1,
+                "owner": Object {
+                  "avatar_url": "https://avatars3.githubusercontent.com/u/1040101?v=4",
+                  "events_url": "https://api.github.com/users/choosenearme/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/choosenearme/followers",
+                  "following_url": "https://api.github.com/users/choosenearme/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/choosenearme/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/choosenearme",
+                  "id": 1040101,
+                  "login": "choosenearme",
+                  "node_id": "MDEyOk9yZ2FuaXphdGlvbjEwNDAxMDE=",
+                  "organizations_url": "https://api.github.com/users/choosenearme/orgs",
+                  "received_events_url": "https://api.github.com/users/choosenearme/received_events",
+                  "repos_url": "https://api.github.com/users/choosenearme/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/choosenearme/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/choosenearme/subscriptions",
+                  "type": "Organization",
+                  "url": "https://api.github.com/users/choosenearme",
+                },
+                "private": false,
+                "pulls_url": "https://api.github.com/repos/choosenearme/fyis/pulls{/number}",
+                "pushed_at": "2018-06-14T19:19:01Z",
+                "releases_url": "https://api.github.com/repos/choosenearme/fyis/releases{/id}",
+                "size": 0,
+                "ssh_url": "git@github.com:choosenearme/fyis.git",
+                "stargazers_count": 0,
+                "stargazers_url": "https://api.github.com/repos/choosenearme/fyis/stargazers",
+                "statuses_url": "https://api.github.com/repos/choosenearme/fyis/statuses/{sha}",
+                "subscribers_url": "https://api.github.com/repos/choosenearme/fyis/subscribers",
+                "subscription_url": "https://api.github.com/repos/choosenearme/fyis/subscription",
+                "svn_url": "https://github.com/choosenearme/fyis",
+                "tags_url": "https://api.github.com/repos/choosenearme/fyis/tags",
+                "teams_url": "https://api.github.com/repos/choosenearme/fyis/teams",
+                "trees_url": "https://api.github.com/repos/choosenearme/fyis/git/trees{/sha}",
+                "updated_at": "2018-06-14T19:19:00Z",
+                "url": "https://api.github.com/repos/choosenearme/fyis",
+                "watchers": 0,
+                "watchers_count": 0,
+              },
+              "sender": Object {
+                "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+                "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+                "followers_url": "https://api.github.com/users/gautamarora/followers",
+                "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+                "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+                "gravatar_id": "",
+                "html_url": "https://github.com/gautamarora",
+                "id": 1215971,
+                "login": "gautamarora",
+                "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+                "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+                "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+                "repos_url": "https://api.github.com/users/gautamarora/repos",
+                "site_admin": false,
+                "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+                "type": "User",
+                "url": "https://api.github.com/users/gautamarora",
+              },
+            },
+          },
+          "github": Object {
+            "issues": Object {
+              "addAssigneesToIssue": [MockFunction],
+              "addLabels": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "labels": Array [
+                        "fyi-requested",
+                      ],
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                ],
+              },
+              "create": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "assignee": "gautamarora",
+                      "body": "## Instructions
+
+[Click here to begin writing your FYI]()
+
+When completed, please create a file \`FYI.md\` in this repository in the default branch with a link to the page in Confluence. [Here is an example of an \`FYI.md\` file](https://github.com/CondeNast/tny-graphql/blob/master/FYI.md). Once complete, close this issue.
+
+---------
+
+## Background
+
+In order to increase awareness of technical work across the technology team, the Architecture team would like you to write an FYI for [congenial-system]().
+
+An FYI is a very short description of new technical work addressing:
+  - What are the project goals, in plain language, at a very high level?
+  - Who is the main point of contact for the FYI?
+  - Where can people look for further details?
+  - When will the work happen?
+
+If you'd like to see some examples, we have quite a few [here](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/123212691/FYIs#FYIs-FYIlist). They are intended to be very quick and easy to write.
+
+Please reply to this issue and cc @johnkpaul & @gautamarora if you'd like to have a meeting to walk through how to do this. We can schedule something and show you pretty easily, if it would help.
+
+[Click here to begin writing your FYI]()
+
+<!-- probot = {\\"6732\\":{\\"type\\":\\"fyi\\",\\"org\\":\\"choosenearme\\",\\"repo\\":\\"fyis\\",\\"repoIssue\\":284,\\"fyiName\\":\\"stunning-succotash\\"}} -->
+",
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "stunning-succotash",
+                      "title": "Add FYI for stunning-succotash",
+                    },
+                  ],
+                ],
+              },
+              "createComment": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "body": "@gautamarora requested for an FYI to be created.
+
+FYI: [stunning-succotash](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/357302331/congenial-system)
+Issue: 
+",
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                ],
+              },
+              "deleteComment": [MockFunction],
+              "deleteLabel": [MockFunction],
+              "edit": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "body": "
+
+<!-- probot = {\\"6732\\":{\\"repoIssue\\":\\"1\\"}} -->",
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "body": "
+
+<!-- probot = {\\"6732\\":{\\"fyiName\\":\\"stunning-succotash\\"}} -->",
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                ],
+              },
+              "get": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                  Array [
+                    Object {
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                ],
+              },
+              "removeLabel": [MockFunction] {
+                "calls": Array [
+                  Array [
+                    Object {
+                      "name": "repo-created",
+                      "number": 284,
+                      "owner": "choosenearme",
+                      "repo": "fyis",
+                    },
+                  ],
+                ],
+              },
+              "set": [MockFunction],
+            },
+          },
+          "id": undefined,
+          "log": [Function],
+          "payload": Object {
+            "action": "created",
+            "comment": Object {
+              "author_association": "COLLABORATOR",
+              "body": "/request",
+              "created_at": "2018-07-16T19:40:01Z",
+              "html_url": "https://github.com/choosenearme/fyis/issues/284#issuecomment-405357671",
+              "id": 405357671,
+              "issue_url": "https://api.github.com/repos/choosenearme/fyis/issues/284",
+              "node_id": "MDEyOklzc3VlQ29tbWVudDQwNTM1NzY3MQ==",
+              "updated_at": "2018-07-16T19:40:01Z",
+              "url": "https://api.github.com/repos/choosenearme/fyis/issues/comments/405357671",
+              "user": Object {
+                "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+                "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+                "followers_url": "https://api.github.com/users/gautamarora/followers",
+                "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+                "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+                "gravatar_id": "",
+                "html_url": "https://github.com/gautamarora",
+                "id": 1215971,
+                "login": "gautamarora",
+                "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+                "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+                "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+                "repos_url": "https://api.github.com/users/gautamarora/repos",
+                "site_admin": false,
+                "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+                "type": "User",
+                "url": "https://api.github.com/users/gautamarora",
+              },
+            },
+            "installation": Object {
+              "id": 210756,
+            },
+            "issue": Object {
+              "assignee": Object {
+                "avatar_url": "https://avatars1.githubusercontent.com/u/475621?v=4",
+                "events_url": "https://api.github.com/users/johnkpaul/events{/privacy}",
+                "followers_url": "https://api.github.com/users/johnkpaul/followers",
+                "following_url": "https://api.github.com/users/johnkpaul/following{/other_user}",
+                "gists_url": "https://api.github.com/users/johnkpaul/gists{/gist_id}",
+                "gravatar_id": "",
+                "html_url": "https://github.com/johnkpaul",
+                "id": 475621,
+                "login": "johnkpaul",
+                "node_id": "MDQ6VXNlcjQ3NTYyMQ==",
+                "organizations_url": "https://api.github.com/users/johnkpaul/orgs",
+                "received_events_url": "https://api.github.com/users/johnkpaul/received_events",
+                "repos_url": "https://api.github.com/users/johnkpaul/repos",
+                "site_admin": false,
+                "starred_url": "https://api.github.com/users/johnkpaul/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/johnkpaul/subscriptions",
+                "type": "User",
+                "url": "https://api.github.com/users/johnkpaul",
+              },
+              "assignees": Array [
+                Object {
+                  "avatar_url": "https://avatars1.githubusercontent.com/u/475621?v=4",
+                  "events_url": "https://api.github.com/users/johnkpaul/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/johnkpaul/followers",
+                  "following_url": "https://api.github.com/users/johnkpaul/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/johnkpaul/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/johnkpaul",
+                  "id": 475621,
+                  "login": "johnkpaul",
+                  "node_id": "MDQ6VXNlcjQ3NTYyMQ==",
+                  "organizations_url": "https://api.github.com/users/johnkpaul/orgs",
+                  "received_events_url": "https://api.github.com/users/johnkpaul/received_events",
+                  "repos_url": "https://api.github.com/users/johnkpaul/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/johnkpaul/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/johnkpaul/subscriptions",
+                  "type": "User",
+                  "url": "https://api.github.com/users/johnkpaul",
+                },
+                Object {
+                  "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+                  "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+                  "followers_url": "https://api.github.com/users/gautamarora/followers",
+                  "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+                  "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+                  "gravatar_id": "",
+                  "html_url": "https://github.com/gautamarora",
+                  "id": 1215971,
+                  "login": "gautamarora",
+                  "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+                  "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+                  "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+                  "repos_url": "https://api.github.com/users/gautamarora/repos",
+                  "site_admin": false,
+                  "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+                  "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+                  "type": "User",
+                  "url": "https://api.github.com/users/gautamarora",
+                },
+              ],
+              "author_association": "NONE",
+              "body": "Repository Name: <a href=\\"https://github.com/choosenearme/stunning-succotash\\">choosenearme/stunning-succotash</a>
+Created By: <a href=\\"https://github.com/gautamarora\\">gautamarora</a>
+
+
+<!-- probot = {\\"6732\\":{\\"type\\":\\"fyi\\",\\"org\\":\\"choosenearme\\",\\"repo\\":\\"stunning-succotash\\",\\"repoCreator\\":\\"gautamarora\\",\\"repoIssue\\":2,\\"fyiName\\":\\"stunning-succotash\\"}} -->",
+              "closed_at": null,
+              "comments": 3,
+              "comments_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/comments",
+              "created_at": "2018-07-16T19:36:47Z",
+              "events_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/events",
+              "html_url": "https://github.com/choosenearme/fyis/issues/284",
+              "id": 341650018,
+              "labels": Array [
+                Object {
+                  "color": "ededed",
+                  "default": false,
+                  "id": 972678153,
+                  "name": "dev-garora",
+                  "node_id": "MDU6TGFiZWw5NzI2NzgxNTM=",
+                  "url": "https://api.github.com/repos/choosenearme/fyis/labels/dev-garora",
+                },
+                Object {
+                  "color": "ededed",
+                  "default": false,
+                  "id": 982916670,
+                  "name": "fyi-requested",
+                  "node_id": "MDU6TGFiZWw5ODI5MTY2NzA=",
+                  "url": "https://api.github.com/repos/choosenearme/fyis/labels/fyi-requested",
+                },
+              ],
+              "labels_url": "https://api.github.com/repos/choosenearme/fyis/issues/284/labels{/name}",
+              "locked": false,
+              "milestone": null,
+              "node_id": "MDU6SXNzdWUzNDE2NTAwMTg=",
+              "number": 284,
+              "repository_url": "https://api.github.com/repos/choosenearme/fyis",
+              "state": "open",
+              "title": "Repo Created: choosenearme/stunning-succotash",
+              "updated_at": "2018-07-16T19:40:01Z",
+              "url": "https://api.github.com/repos/choosenearme/fyis/issues/284",
+              "user": Object {
+                "avatar_url": "https://avatars3.githubusercontent.com/in/6732?v=4",
+                "events_url": "https://api.github.com/users/arch%5Bbot%5D/events{/privacy}",
+                "followers_url": "https://api.github.com/users/arch%5Bbot%5D/followers",
+                "following_url": "https://api.github.com/users/arch%5Bbot%5D/following{/other_user}",
+                "gists_url": "https://api.github.com/users/arch%5Bbot%5D/gists{/gist_id}",
+                "gravatar_id": "",
+                "html_url": "https://github.com/apps/arch",
+                "id": 33664907,
+                "login": "arch[bot]",
+                "node_id": "MDM6Qm90MzM2NjQ5MDc=",
+                "organizations_url": "https://api.github.com/users/arch%5Bbot%5D/orgs",
+                "received_events_url": "https://api.github.com/users/arch%5Bbot%5D/received_events",
+                "repos_url": "https://api.github.com/users/arch%5Bbot%5D/repos",
+                "site_admin": false,
+                "starred_url": "https://api.github.com/users/arch%5Bbot%5D/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/arch%5Bbot%5D/subscriptions",
+                "type": "Bot",
+                "url": "https://api.github.com/users/arch%5Bbot%5D",
+              },
+            },
+            "organization": Object {
+              "avatar_url": "https://avatars3.githubusercontent.com/u/1040101?v=4",
+              "description": null,
+              "events_url": "https://api.github.com/orgs/choosenearme/events",
+              "hooks_url": "https://api.github.com/orgs/choosenearme/hooks",
+              "id": 1040101,
+              "issues_url": "https://api.github.com/orgs/choosenearme/issues",
+              "login": "choosenearme",
+              "members_url": "https://api.github.com/orgs/choosenearme/members{/member}",
+              "node_id": "MDEyOk9yZ2FuaXphdGlvbjEwNDAxMDE=",
+              "public_members_url": "https://api.github.com/orgs/choosenearme/public_members{/member}",
+              "repos_url": "https://api.github.com/orgs/choosenearme/repos",
+              "url": "https://api.github.com/orgs/choosenearme",
+            },
+            "repository": Object {
+              "archive_url": "https://api.github.com/repos/choosenearme/fyis/{archive_format}{/ref}",
+              "archived": false,
+              "assignees_url": "https://api.github.com/repos/choosenearme/fyis/assignees{/user}",
+              "blobs_url": "https://api.github.com/repos/choosenearme/fyis/git/blobs{/sha}",
+              "branches_url": "https://api.github.com/repos/choosenearme/fyis/branches{/branch}",
+              "clone_url": "https://github.com/choosenearme/fyis.git",
+              "collaborators_url": "https://api.github.com/repos/choosenearme/fyis/collaborators{/collaborator}",
+              "comments_url": "https://api.github.com/repos/choosenearme/fyis/comments{/number}",
+              "commits_url": "https://api.github.com/repos/choosenearme/fyis/commits{/sha}",
+              "compare_url": "https://api.github.com/repos/choosenearme/fyis/compare/{base}...{head}",
+              "contents_url": "https://api.github.com/repos/choosenearme/fyis/contents/{+path}",
+              "contributors_url": "https://api.github.com/repos/choosenearme/fyis/contributors",
+              "created_at": "2018-06-14T19:19:00Z",
+              "default_branch": "master",
+              "deployments_url": "https://api.github.com/repos/choosenearme/fyis/deployments",
+              "description": null,
+              "downloads_url": "https://api.github.com/repos/choosenearme/fyis/downloads",
+              "events_url": "https://api.github.com/repos/choosenearme/fyis/events",
+              "fork": false,
+              "forks": 0,
+              "forks_count": 0,
+              "forks_url": "https://api.github.com/repos/choosenearme/fyis/forks",
+              "full_name": "choosenearme/fyis",
+              "git_commits_url": "https://api.github.com/repos/choosenearme/fyis/git/commits{/sha}",
+              "git_refs_url": "https://api.github.com/repos/choosenearme/fyis/git/refs{/sha}",
+              "git_tags_url": "https://api.github.com/repos/choosenearme/fyis/git/tags{/sha}",
+              "git_url": "git://github.com/choosenearme/fyis.git",
+              "has_downloads": true,
+              "has_issues": true,
+              "has_pages": false,
+              "has_projects": true,
+              "has_wiki": true,
+              "homepage": null,
+              "hooks_url": "https://api.github.com/repos/choosenearme/fyis/hooks",
+              "html_url": "https://github.com/choosenearme/fyis",
+              "id": 137399224,
+              "issue_comment_url": "https://api.github.com/repos/choosenearme/fyis/issues/comments{/number}",
+              "issue_events_url": "https://api.github.com/repos/choosenearme/fyis/issues/events{/number}",
+              "issues_url": "https://api.github.com/repos/choosenearme/fyis/issues{/number}",
+              "keys_url": "https://api.github.com/repos/choosenearme/fyis/keys{/key_id}",
+              "labels_url": "https://api.github.com/repos/choosenearme/fyis/labels{/name}",
+              "language": null,
+              "languages_url": "https://api.github.com/repos/choosenearme/fyis/languages",
+              "license": null,
+              "merges_url": "https://api.github.com/repos/choosenearme/fyis/merges",
+              "milestones_url": "https://api.github.com/repos/choosenearme/fyis/milestones{/number}",
+              "mirror_url": null,
+              "name": "fyis",
+              "node_id": "MDEwOlJlcG9zaXRvcnkxMzczOTkyMjQ=",
+              "notifications_url": "https://api.github.com/repos/choosenearme/fyis/notifications{?since,all,participating}",
+              "open_issues": 1,
+              "open_issues_count": 1,
+              "owner": Object {
+                "avatar_url": "https://avatars3.githubusercontent.com/u/1040101?v=4",
+                "events_url": "https://api.github.com/users/choosenearme/events{/privacy}",
+                "followers_url": "https://api.github.com/users/choosenearme/followers",
+                "following_url": "https://api.github.com/users/choosenearme/following{/other_user}",
+                "gists_url": "https://api.github.com/users/choosenearme/gists{/gist_id}",
+                "gravatar_id": "",
+                "html_url": "https://github.com/choosenearme",
+                "id": 1040101,
+                "login": "choosenearme",
+                "node_id": "MDEyOk9yZ2FuaXphdGlvbjEwNDAxMDE=",
+                "organizations_url": "https://api.github.com/users/choosenearme/orgs",
+                "received_events_url": "https://api.github.com/users/choosenearme/received_events",
+                "repos_url": "https://api.github.com/users/choosenearme/repos",
+                "site_admin": false,
+                "starred_url": "https://api.github.com/users/choosenearme/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/choosenearme/subscriptions",
+                "type": "Organization",
+                "url": "https://api.github.com/users/choosenearme",
+              },
+              "private": false,
+              "pulls_url": "https://api.github.com/repos/choosenearme/fyis/pulls{/number}",
+              "pushed_at": "2018-06-14T19:19:01Z",
+              "releases_url": "https://api.github.com/repos/choosenearme/fyis/releases{/id}",
+              "size": 0,
+              "ssh_url": "git@github.com:choosenearme/fyis.git",
+              "stargazers_count": 0,
+              "stargazers_url": "https://api.github.com/repos/choosenearme/fyis/stargazers",
+              "statuses_url": "https://api.github.com/repos/choosenearme/fyis/statuses/{sha}",
+              "subscribers_url": "https://api.github.com/repos/choosenearme/fyis/subscribers",
+              "subscription_url": "https://api.github.com/repos/choosenearme/fyis/subscription",
+              "svn_url": "https://github.com/choosenearme/fyis",
+              "tags_url": "https://api.github.com/repos/choosenearme/fyis/tags",
+              "teams_url": "https://api.github.com/repos/choosenearme/fyis/teams",
+              "trees_url": "https://api.github.com/repos/choosenearme/fyis/git/trees{/sha}",
+              "updated_at": "2018-06-14T19:19:00Z",
+              "url": "https://api.github.com/repos/choosenearme/fyis",
+              "watchers": 0,
+              "watchers_count": 0,
+            },
+            "sender": Object {
+              "avatar_url": "https://avatars2.githubusercontent.com/u/1215971?v=4",
+              "events_url": "https://api.github.com/users/gautamarora/events{/privacy}",
+              "followers_url": "https://api.github.com/users/gautamarora/followers",
+              "following_url": "https://api.github.com/users/gautamarora/following{/other_user}",
+              "gists_url": "https://api.github.com/users/gautamarora/gists{/gist_id}",
+              "gravatar_id": "",
+              "html_url": "https://github.com/gautamarora",
+              "id": 1215971,
+              "login": "gautamarora",
+              "node_id": "MDQ6VXNlcjEyMTU5NzE=",
+              "organizations_url": "https://api.github.com/users/gautamarora/orgs",
+              "received_events_url": "https://api.github.com/users/gautamarora/received_events",
+              "repos_url": "https://api.github.com/users/gautamarora/repos",
+              "site_admin": false,
+              "starred_url": "https://api.github.com/users/gautamarora/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/gautamarora/subscriptions",
+              "type": "User",
+              "url": "https://api.github.com/users/gautamarora",
+            },
+          },
+        },
+        "fyi": Object {
+          "confluenceApiData": "{\\"id\\":\\"357302331\\",\\"type\\":\\"page\\",\\"status\\":\\"current\\",\\"title\\":\\"congenial-system\\",\\"space\\":{\\"id\\":85524482,\\"key\\":\\"ARCH\\",\\"name\\":\\"Architecture\\",\\"type\\":\\"global\\",\\"status\\":\\"current\\",\\"_expandable\\":{\\"settings\\":\\"/rest/api/space/ARCH/settings\\",\\"metadata\\":\\"\\",\\"operations\\":\\"\\",\\"lookAndFeel\\":\\"/rest/api/settings/lookandfeel?spaceKey=ARCH\\",\\"permissions\\":\\"\\",\\"icon\\":\\"\\",\\"description\\":\\"\\",\\"theme\\":\\"/rest/api/space/ARCH/theme\\",\\"history\\":\\"\\",\\"homepage\\":\\"/rest/api/content/84967650\\"},\\"_links\\":{\\"webui\\":\\"/spaces/ARCH\\",\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/space/ARCH\\"}},\\"history\\":{\\"latest\\":true,\\"createdBy\\":{\\"type\\":\\"known\\",\\"username\\":\\"John_Paul\\",\\"userKey\\":\\"ff80808158d7ed8d0158e0c890830004\\",\\"accountId\\":\\"557058:6666f3fa-9d95-4e9d-8cdb-b563981a1d60\\",\\"profilePicture\\":{\\"path\\":\\"/wiki/aa-avatar/8a5c99302f05b0b4891d04e75e4f7b4f?s=48&d=https%3A%2F%2Fcnissues.atlassian.net%2Fwiki%2Fimages%2Ficons%2Fprofilepics%2Fdefault.png%3FnoRedirect%3Dtrue\\",\\"width\\":48,\\"height\\":48,\\"isDefault\\":false},\\"displayName\\":\\"John Paul\\",\\"_expandable\\":{\\"operations\\":\\"\\",\\"details\\":\\"\\",\\"personalSpace\\":\\"\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/experimental/user?key=ff80808158d7ed8d0158e0c890830004\\"}},\\"createdDate\\":\\"2018-06-26T15:56:11.347Z\\",\\"_expandable\\":{\\"lastUpdated\\":\\"\\",\\"previousVersion\\":\\"\\",\\"contributors\\":\\"\\",\\"nextVersion\\":\\"\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/content/357302331/history\\"}},\\"version\\":{\\"by\\":{\\"type\\":\\"known\\",\\"username\\":\\"John_Paul\\",\\"userKey\\":\\"ff80808158d7ed8d0158e0c890830004\\",\\"accountId\\":\\"557058:6666f3fa-9d95-4e9d-8cdb-b563981a1d60\\",\\"profilePicture\\":{\\"path\\":\\"/wiki/aa-avatar/8a5c99302f05b0b4891d04e75e4f7b4f?s=48&d=https%3A%2F%2Fcnissues.atlassian.net%2Fwiki%2Fimages%2Ficons%2Fprofilepics%2Fdefault.png%3FnoRedirect%3Dtrue\\",\\"width\\":48,\\"height\\":48,\\"isDefault\\":false},\\"displayName\\":\\"John Paul\\",\\"_expandable\\":{\\"operations\\":\\"\\",\\"details\\":\\"\\",\\"personalSpace\\":\\"\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/experimental/user?key=ff80808158d7ed8d0158e0c890830004\\"}},\\"when\\":\\"2018-06-26T15:56:11.347Z\\",\\"friendlyWhen\\":\\"just a moment ago\\",\\"message\\":\\"\\",\\"number\\":1,\\"minorEdit\\":false,\\"confRev\\":\\"confluence$content$357302331.2\\",\\"_expandable\\":{\\"collaborators\\":\\"\\",\\"content\\":\\"/rest/api/content/357302331\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/content/357302331/version/1\\"}},\\"ancestors\\":[{\\"id\\":\\"84967650\\",\\"type\\":\\"page\\",\\"status\\":\\"current\\",\\"title\\":\\"Architecture Home\\",\\"macroRenderedOutput\\":{},\\"extensions\\":{\\"position\\":0},\\"_expandable\\":{\\"childTypes\\":\\"\\",\\"container\\":\\"/rest/api/space/ARCH\\",\\"metadata\\":\\"\\",\\"operations\\":\\"\\",\\"children\\":\\"/rest/api/content/84967650/child\\",\\"restrictions\\":\\"/rest/api/content/84967650/restriction/byOperation\\",\\"history\\":\\"/rest/api/content/84967650/history\\",\\"ancestors\\":\\"\\",\\"body\\":\\"\\",\\"version\\":\\"\\",\\"descendants\\":\\"/rest/api/content/84967650/descendant\\",\\"space\\":\\"/rest/api/space/ARCH\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/content/84967650\\",\\"tinyui\\":\\"/x/4oAQBQ\\",\\"editui\\":\\"/pages/resumedraft.action?draftId=84967650\\",\\"webui\\":\\"/spaces/ARCH/overview\\"}},{\\"id\\":\\"209682505\\",\\"type\\":\\"page\\",\\"status\\":\\"current\\",\\"title\\":\\"Temporary Copy of FYIs\\",\\"macroRenderedOutput\\":{},\\"extensions\\":{\\"position\\":6},\\"_expandable\\":{\\"childTypes\\":\\"\\",\\"container\\":\\"/rest/api/space/ARCH\\",\\"metadata\\":\\"\\",\\"operations\\":\\"\\",\\"children\\":\\"/rest/api/content/209682505/child\\",\\"restrictions\\":\\"/rest/api/content/209682505/restriction/byOperation\\",\\"history\\":\\"/rest/api/content/209682505/history\\",\\"ancestors\\":\\"\\",\\"body\\":\\"\\",\\"version\\":\\"\\",\\"descendants\\":\\"/rest/api/content/209682505/descendant\\",\\"space\\":\\"/rest/api/space/ARCH\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/content/209682505\\",\\"tinyui\\":\\"/x/SYB-D\\",\\"editui\\":\\"/pages/resumedraft.action?draftId=209682505\\",\\"webui\\":\\"/spaces/ARCH/pages/209682505/Temporary+Copy+of+FYIs\\"}}],\\"container\\":{\\"id\\":85524482,\\"key\\":\\"ARCH\\",\\"name\\":\\"Architecture\\",\\"type\\":\\"global\\",\\"status\\":\\"current\\",\\"history\\":{\\"createdBy\\":{\\"type\\":\\"known\\",\\"username\\":\\"bcook\\",\\"userKey\\":\\"ff808081537386f20153769c80040004\\",\\"accountId\\":\\"557058:1a729d12-3ee6-428e-a02b-11020064f223\\",\\"profilePicture\\":{\\"path\\":\\"/wiki/aa-avatar/ff9cc580d66579fd7a519c2bc8ddcf67?s=48&d=https%3A%2F%2Fcnissues.atlassian.net%2Fwiki%2Fdownload%2Fattachments%2F30343220%2Fuser-avatar%3FnoRedirect%3Dtrue\\",\\"width\\":48,\\"height\\":48,\\"isDefault\\":false},\\"displayName\\":\\"Blaine Cook\\",\\"_expandable\\":{\\"operations\\":\\"\\",\\"details\\":\\"\\",\\"personalSpace\\":\\"\\"},\\"_links\\":{\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/experimental/user?key=ff808081537386f20153769c80040004\\"}},\\"createdDate\\":\\"2016-09-27T20:54:22.167Z\\"},\\"_expandable\\":{\\"settings\\":\\"/rest/api/space/ARCH/settings\\",\\"metadata\\":\\"\\",\\"operations\\":\\"\\",\\"lookAndFeel\\":\\"/rest/api/settings/lookandfeel?spaceKey=ARCH\\",\\"permissions\\":\\"\\",\\"icon\\":\\"\\",\\"description\\":\\"\\",\\"theme\\":\\"/rest/api/space/ARCH/theme\\",\\"homepage\\":\\"/rest/api/content/84967650\\"},\\"_links\\":{\\"webui\\":\\"/spaces/ARCH\\",\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/space/ARCH\\"}},\\"macroRenderedOutput\\":{},\\"body\\":{\\"storage\\":{\\"value\\":\\"\\",\\"representation\\":\\"storage\\",\\"embeddedContent\\":[],\\"_expandable\\":{\\"content\\":\\"/rest/api/content/357302331\\"}},\\"_expandable\\":{\\"editor\\":\\"\\",\\"atlas_doc_format\\":\\"\\",\\"view\\":\\"\\",\\"export_view\\":\\"\\",\\"styled_view\\":\\"\\",\\"editor2\\":\\"\\",\\"anonymous_export_view\\":\\"\\"}},\\"extensions\\":{\\"position\\":\\"none\\"},\\"_expandable\\":{\\"childTypes\\":\\"\\",\\"metadata\\":\\"\\",\\"operations\\":\\"\\",\\"children\\":\\"/rest/api/content/357302331/child\\",\\"restrictions\\":\\"/rest/api/content/357302331/restriction/byOperation\\",\\"descendants\\":\\"/rest/api/content/357302331/descendant\\"},\\"_links\\":{\\"editui\\":\\"/pages/resumedraft.action?draftId=357302331\\",\\"webui\\":\\"/spaces/ARCH/pages/357302331/congenial-system\\",\\"context\\":\\"/wiki\\",\\"self\\":\\"https://cnissues.atlassian.net/wiki/rest/api/content/357302331\\",\\"tinyui\\":\\"/x/OwBMFQ\\",\\"collection\\":\\"/rest/api/content\\",\\"base\\":\\"https://cnissues.atlassian.net/wiki\\"}}",
+          "confluenceUrl": "",
+          "content": "",
+          "createdAt": "",
+          "name": "congenial-system",
+          "updatedAt": "",
+          "viewLink": "https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/357302331/congenial-system",
+        },
+        "org": "choosenearme",
+        "repo": "stunning-succotash",
+        "repoCreator": "gautamarora",
+        "type": "fyi-requested",
+      },
+    ],
+  ],
+}
+`;
+
+exports[`Arch Bot FYI Requested Creates an Issue in Repo Repository 7`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Object {
+        "actor": "gautamarora",
+        "event": "fyi_requested_via_github",
+        "github_project": "stunning-succotash",
+        "system": "stunning-succotash",
+      },
+    ],
+  ],
+}
+`;
