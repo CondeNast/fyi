@@ -9,6 +9,7 @@ const fyiAccepted = require('./src/handlers/github/commands/fyiAccepted')
 const fyiRejected = require('./src/handlers/github/commands/fyiRejected')
 const fyiAssign = require('./src/handlers/github/commands/fyiAssign')
 const fyiReminder = require('./src/handlers/github/commands/fyiReminder')
+const fyiAutoReminder = require('./src/handlers/http/fyiAutoReminder')
 const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
@@ -21,12 +22,6 @@ module.exports = app => {
   app.on('repository.created', (context) => repoCreated(context, app))
   app.on('issues.closed', (context) => fyiSubmitted(context, app))
 
-  // http api
-  app.router.post('/repos', repoIdentified(app))
-
-  // pages
-  app.router.get('/digest*', digest)
-
   // github commands
   commands(app, 'request', async (context, command) => fyiRequested(context, command, app))
   commands(app, 'skip', async (context, command) => fyiSkipped(context, command, app))
@@ -36,4 +31,11 @@ module.exports = app => {
   commands(app, 'assign', async (context, command) => fyiAssign(context, command, app))
   commands(app, 'remind', async (context, command) => fyiReminder(context, command, app))
   commands(app, 'help', async (context, command) => help(context, command, app))
+
+  // http api
+  app.router.post('/repos', repoIdentified(app))
+  app.router.post('/remind', fyiAutoReminder(app))
+
+  // pages
+  app.router.get('/digest*', digest)
 }
