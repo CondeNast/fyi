@@ -10,7 +10,7 @@ module.exports = async (context, command, app) => {
 
   const adminOrg = context.payload.organization.login
   const adminRepo = context.payload.repository.name
-  const body = context.payload.message ? context.payload.message  : 'Reminder: Complete the requested FYI'
+  const body = context.payload.message ? context.payload.message : 'Reminder: Complete the requested FYI'
 
   const LOG_PREFIX = logPrefix('fyiReminder', org, repo)
   const LOG_PREFIX_ADMIN = logPrefix('fyiReminder', adminOrg, adminRepo)
