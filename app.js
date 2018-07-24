@@ -1,4 +1,5 @@
 const commands = require('probot-commands')
+const cors = require('cors')
 
 const repoCreated = require('./src/handlers/github/events/repoCreated')
 const repoIdentified = require('./src/handlers/http/repoIdentified')
@@ -28,7 +29,7 @@ module.exports = app => {
   app.router.post('/repos', repoIdentified(app))
   app.router.post('/fyis/*', updateFyiDependencies)
   app.router.get('/fyis', getFyiList)
-  app.router.get('/fyis/:fyiName', getFyiDependencies)
+  app.router.get('/fyis/:fyiName', cors(), getFyiDependencies)
 
   // pages
   app.router.get('/digest*', digest)
