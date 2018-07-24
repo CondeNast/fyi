@@ -46,12 +46,12 @@ module.exports = async (context, app) => {
     json
   })
 
-  let github = await authGH({app, context, org: adminOrg})
-
   let title = `Repo Created: ${org}/${repo}`
   if (context.payload.source === 'API') {
     title += ' (identified via API)'
   }
+
+  let github = await authGH({app, context, org: adminOrg})
   await github.issues.create(context.issue({
     owner: adminOrg,
     repo: adminRepo,

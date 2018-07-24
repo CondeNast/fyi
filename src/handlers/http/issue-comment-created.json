@@ -1,0 +1,21 @@
+{
+    "event": "issue_comment",
+    "payload": {
+        "action": "created",
+        "repository": {
+            "name": "<NAME>",
+            "owner": {
+                "login": "<ORG>"
+            }
+        },
+        "organization": {
+          "login":"<ORG>"
+        },
+        "sender": {
+          "login": "<CREATOR>"
+        },
+        "installation": {
+          "id": ""
+        }
+    }
+}
