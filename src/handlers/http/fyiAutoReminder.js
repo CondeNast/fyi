@@ -16,14 +16,6 @@ module.exports = (app) => {
       dataChunks.push(chunk)
     })
     request.on('end', async () => {
-      // const payload = Buffer.concat(dataChunks).toString()
-      // let data
-      // try {
-      //   data = JSON.parse(payload)
-      // } catch (e) {
-      //   return response.send(JSON.stringify({error: e.message, success: false}))
-      // }
-
       // fetch all open issues in fyis repo tagged with 'fyi-requested'
       // for each, check if request issue exists and its date
       // if over 1 week, post a reminder comment in request issue
