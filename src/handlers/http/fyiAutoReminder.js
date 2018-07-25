@@ -53,11 +53,11 @@ module.exports = (app) => {
             message = 'Final Reminder: Complete the requested FYI'
           }
           console.log('sending reminder for', org, repo, repoIssueCreatedDaysAgo, isReminderDay, repoIssueCreatedWeeksAgo)
-          const context = require('./issue-comment-created.json')
+          const context = require('./fixtures/issue-comment-created.json')
           context.payload.issue = issue
           context.payload.repository.name = adminRepo
           context.payload.organization.login = adminOrg
-          context.payload.sender.login = 'gautamarora' // FIXME
+          context.payload.sender.login = 'API'
           context.payload.message = message
           context.payload.source = 'API'
 
