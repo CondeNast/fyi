@@ -33,7 +33,7 @@ module.exports = app => {
 
   // pages
   app.router.get('/digest*', digest)
-  app.router.use('/visualization', require('express').static('public/visualization'))
+  app.router.use('/', require('express').static('public/my-app/build'))
 
   // github commands
   commands(app, 'request', async (context, command) => fyiRequested(context, command, app))
