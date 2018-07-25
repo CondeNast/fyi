@@ -15,6 +15,9 @@ async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo
     text = `FYI Requested from ${repoCreator} for <${adminIssueUrl}|${fyi.name}>`
   } else if (type === 'fyi-accepted') {
     text = `FYI Accepted for <${fyi.viewLink}|${fyi.name}>`
+  } else if (type === 'fyi-autoreminder') {
+    let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
+    text = `FYI Reminder posted for <${adminIssueUrl}|${fyi.name}>`
   } else {
     return
   }
