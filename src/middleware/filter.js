@@ -23,7 +23,7 @@ module.exports = async (event, context) => {
   } else if (['request', 'skip', 'accept', 'reject', 'close', 'remind', 'assign', 'help'].includes(event)) { // commands
     // only respond to commands by admin users in the admin repo of the admin org
     const issuer = context.payload.sender.login
-    if (!config.adminUsers.includes(issuer) || config.adminOrg !== repoOrg || config.adminRepo !== repoName) {
+    if ((!config.adminUsers.includes(issuer) && issuer !== 'API') || config.adminOrg !== repoOrg || config.adminRepo !== repoName) {
       return true
     }
   }
