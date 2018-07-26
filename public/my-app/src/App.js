@@ -13,10 +13,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-	  <div id="treeWrapper" style={{width: '100em', height: '50em'}}>
+	  <div id="treeWrapper" style={{width: '100%', height: '40em'}}>
 	   { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
 	  </div>
+          <label> Depends on &nbsp; &nbsp;
 	    <input type="text" list="data" onKeyPress={this._handleKeyPress} />
+            </label>
 
             <datalist id="data">
                 {this.state.fyis.map((fyi, index) =>
