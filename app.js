@@ -10,6 +10,7 @@ const fyiRejected = require('./src/handlers/github/commands/fyiRejected')
 const fyiAssign = require('./src/handlers/github/commands/fyiAssign')
 const fyiReminder = require('./src/handlers/github/commands/fyiReminder')
 const fyiAutoReminder = require('./src/handlers/http/fyiAutoReminder')
+const fyiAutoDrip = require('./src/handlers/http/fyiAutoDrip')
 const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
@@ -35,6 +36,7 @@ module.exports = app => {
   // http api
   app.router.post('/repos', repoIdentified(app))
   app.router.post('/autoremind', fyiAutoReminder(app))
+  app.router.post('/autodrip', fyiAutoDrip(app))
 
   // pages
   app.router.get('/digest*', digest)

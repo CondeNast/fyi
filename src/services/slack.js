@@ -18,6 +18,11 @@ async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo
   } else if (type === 'fyi-autoreminder') {
     let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
     text = `FYI Reminder posted for <${adminIssueUrl}|${fyi.name}>`
+  } else if (type === 'fyi-autodrip') {
+    let fyiContent = await fyi.confluenceContent
+    fyiContent = fyiContent.body.storage.value
+    fyiContent = fyiContent.replace(/<(?:.|\n)*?>/gm, '') // strip html tags
+    text = `<${fyi.viewLink}|${fyi.name}>: ${fyiContent}`
   } else {
     return
   }
