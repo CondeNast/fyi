@@ -13,7 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-	  <div id="treeWrapper" style={{width: '100%', height: '40em'}}>
+	  <div id="treeWrapper" style={{width: '100%', height: '80vh'}}>
 	   { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
 	  </div>
           <label> Depends on &nbsp; &nbsp;
@@ -30,7 +30,12 @@ class App extends Component {
   }
   componentDidMount() {
     let search = window.location.search.substring(1);
-    search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    try{
+     search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+    }
+    catch(e){
+      search = {}
+    }
       Promise.all([fetch(`/fyis/${search.fyi}`) , fetch('/fyis')])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
           this.setState({ name: search.fyi, data, fyis: fyis.fyis })
