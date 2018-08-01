@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CenteredTree from './CenteredTree';
 import './App.css';
+import * as serviceWorker from './registerServiceWorker.js';
+serviceWorker.unregister()
 
 class App extends Component {
   constructor(props) {
@@ -13,11 +15,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-	  <div id="treeWrapper" style={{width: '100%', height: '80vh'}}>
-	   { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
-	  </div>
-          <label> Depends on &nbsp; &nbsp;
-	    <input type="text" list="data" onKeyPress={this._handleKeyPress} />
+            <label> Depends on &nbsp; &nbsp;
+	      <input type="text" list="data" onKeyPress={this._handleKeyPress} />
             </label>
 
             <datalist id="data">
@@ -25,6 +24,9 @@ class App extends Component {
                     <option value={fyi} key={index}/>
                 )}
             </datalist>
+	  <div id="treeWrapper" style={{width: '100%', height: '80vh'}}>
+	   { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
+	  </div>
       </div>
     );
   }
