@@ -4,6 +4,8 @@ const config = require('config')
 const url = config.get('slack.webhook')
 const channel = config.get('slack.channel')
 
+const slackify = require('slackify-html')
+
 module.exports = {
   post
 }
@@ -12,17 +14,16 @@ async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo
   let text
   if (type === 'fyi-requested') {
     let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
-    text = `FYI Requested from ${repoCreator} for <${adminIssueUrl}|${fyi.name}>`
+    text = `💁 FYI Requested from ${repoCreator} for <${adminIssueUrl}|${fyi.name}>`
   } else if (type === 'fyi-accepted') {
-    text = `FYI Accepted for <${fyi.viewLink}|${fyi.name}>`
+    text = `🚀 FYI Accepted for <${fyi.viewLink}|${fyi.name}>`
   } else if (type === 'fyi-autoreminder') {
     let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
-    text = `FYI Reminder posted for <${adminIssueUrl}|${fyi.name}>`
+    text = `⏰ FYI Reminder posted for <${adminIssueUrl}|${fyi.name}>`
   } else if (type === 'fyi-autodrip') {
-    let fyiContent = await fyi.confluenceContent
-    fyiContent = fyiContent.body.storage.value
-    fyiContent = fyiContent.replace(/<(?:.|\n)*?>/gm, '') // strip html tags
-    text = `<${fyi.viewLink}|${fyi.name}>: ${fyiContent}`
+    let fyiBody = fyi.body.view.value
+    let fyiBodyMarkdown = slackify(fyiBody)
+    text = `📆 FYI OTD: <${fyi.viewLink}|${fyi.name}>\n${fyiBodyMarkdown}`
   } else {
     return
   }
@@ -32,7 +33,8 @@ async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo
       channel,
       icon_url: `https://avatars0.githubusercontent.com/in/6732?s=88`,
       username: 'archbot',
-      text
+      text,
+      mrkdown: true
     },
     json: true
   }).catch((error) => {
