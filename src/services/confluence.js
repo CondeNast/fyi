@@ -4,7 +4,8 @@ const config = require('config')
 
 module.exports = {
   createNewPage,
-  get
+  get,
+  getRandomFyiObject
 }
 
 async function get (url) {
@@ -41,4 +42,24 @@ async function createNewPage (pageTitle, pageContent = '') {
     }
   }
   return rp.post(options).auth(secrets['confluence-username'], secrets['confluence-access-token'])
+}
+
+async function getRandomFyiObject () {
+  let parentPageId = config.get('confluence.fyiPageId')
+  parentPageId = '123212691'
+  let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let pagesWithBody = pages.filter(p => p.body.view.value.length !== 0)
+  let count = pagesWithBody.length
+  let randomIndex = Math.floor(Math.random() * count)
+
+  let randomPage = pagesWithBody[randomIndex]
+  let randomFyi = {
+    name: randomPage.title,
+    body: randomPage.body,
+    viewLink: randomPage._links.webui
+  }
+  let baseLink = meta.base
+  randomFyi.body.view.value = (randomFyi.body.view.value).replace(/\/wiki/gm, baseLink)
+  randomFyi.viewLink = `${baseLink}${randomPage._links.webui}`
+  return randomFyi
 }
