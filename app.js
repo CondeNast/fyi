@@ -35,7 +35,7 @@ module.exports = app => {
 
   // http api
   app.router.post('/repos', repoIdentified(app))
-  app.router.post('/autoremind', fyiAutoReminder(app))
+  app.router.post('/autoreminder', fyiAutoReminder(app))
   app.router.post('/autodrip', fyiAutoDrip(app))
 
   // pages
