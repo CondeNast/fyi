@@ -34,7 +34,7 @@ module.exports = (app) => {
         state: 'open',
         labels: 'fyi-requested'
       })
-      app.log(`${LOG_PREFIX_ADMIN} open issues fetched`)
+      app.log(`${LOG_PREFIX_ADMIN} ${openRequestIssues.length} open issues fetched`)
       for (const adminIssue of openRequestIssues) {
         const { org, repo, repoIssue, fyiName } = await metadata({payload: {installation: {id: ''}}}, adminIssue).get() || {}
         if (!org || !repo || !repoIssue) return
@@ -48,7 +48,6 @@ module.exports = (app) => {
         let repoIssueCreatedDaysAgo = now.diff(repoIssueCreatedAt, 'days')
         let repoIssueCreatedWeeksAgo = Math.floor(repoIssueCreatedDaysAgo / 7)
         let isReminderDay = repoIssueCreatedDaysAgo % 7 === 0
-
         if (isReminderDay && repoIssueCreatedWeeksAgo > 0) {
           app.log(`${LOG_PREFIX_ADMIN} preparing to send reminder for ${org}/${repo}`)
           let message
@@ -82,6 +81,8 @@ module.exports = (app) => {
 
           await slack.post({type: 'fyi-autoreminder', context, org, repo, adminOrg, adminRepo, adminIssue: adminIssue.number, fyi})
           app.log(`${LOG_PREFIX_ADMIN} slack message posted`)
+        } else {
+          app.log(`${LOG_PREFIX_ADMIN} not sending reminder for ${org}/${repo} | day ${repoIssueCreatedDaysAgo}`)
         }
       }
       response.send({success: true})
