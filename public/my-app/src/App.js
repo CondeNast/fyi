@@ -9,12 +9,14 @@ class App extends Component {
     super(props)
     this.state = {
       data: {},
+      fyiLink: "",
       fyis: []
     }
   }
   render() {
     return (
       <div className="App">
+            <a href={this.state.fyiLink}>FYI</a><br/>
             <label> Depends on &nbsp; &nbsp;
 	      <input type="text" list="data" onKeyPress={this._handleKeyPress} />
             </label>
@@ -40,7 +42,7 @@ class App extends Component {
     }
       Promise.all([fetch(`/fyis/${search.fyi}`) , fetch('/fyis')])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
-          this.setState({ name: search.fyi, data, fyis: fyis.fyis })
+          this.setState({ name: search.fyi, data, fyis: fyis.fyis, fyiLink: data.link})
         });
     }
   _handleKeyPress = (event) => {
@@ -48,6 +50,7 @@ class App extends Component {
     if(newDependency !== "" && event.key === "Enter"){
       this.state.data.children.push({name: newDependency})
       this.setState(this.state)
+      event.target.value = '';
       fetch('/fyis/'+this.state.name, {method: "POST", body: JSON.stringify({
         name: this.state.name,
         dependencies: {

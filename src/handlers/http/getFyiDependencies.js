@@ -8,6 +8,7 @@ module.exports = async (request, response) => {
     let children = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
     response.send(JSON.stringify({
       name: fyiName,
+      link: fyi.viewLink,
       //children: fyi.dependencies.fyis.map((dep) => {
         //return {name: dep}
       //}),
@@ -24,6 +25,7 @@ async function getSecondLevel(children){
     let [fyi, created] = await Fyi.findOrCreate({where: {name: dep}})
     return {
       name: dep,
+      link: fyi.viewLink,
       children: fyi.dependencies.fyis.map((dep) => {
         return {name: dep}
       })

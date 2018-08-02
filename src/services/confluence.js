@@ -4,6 +4,7 @@ const config = require('config')
 
 module.exports = {
   createNewPage,
+  doForEachFYIFromConfluence,
   get
 }
 
@@ -42,3 +43,17 @@ async function createNewPage (pageTitle, pageContent = '') {
   }
   return rp.post(options).auth(secrets['confluence-username'], secrets['confluence-access-token'])
 }
+
+async function doForEachFYIFromConfluence(handleFyi){
+  let promises = [];
+  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/123212691/child/page?expand=body.storage&limit=20')
+  promises.concat(data.results.map(handleFyi))
+  
+  while(data._links.next) {
+    data = await get('https://cnissues.atlassian.net/wiki'+data._links.next)
+    promises.concat(data.results.map(handleFyi))
+  }
+  return Promise.all(promises)
+}
+
+

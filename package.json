@@ -28,7 +28,7 @@
     "test:unit:watch": "jest  --roots tests/unit --watch --notify --notifyMode=change --coverage",
     "test:unit:coverage": "jest --roots tests/unit --coverage",
     "sequelize": "eval `node src/scripts/startup.env.js`;sequelize",
-    "repl": "node repl"
+    "repl": "eval `node src/scripts/startup.env.js`;node --trace-warnings repl"
   },
   "dependencies": {
     "@condenast/cn-vault": "^2.5.0",
