@@ -45,8 +45,9 @@ async function createNewPage (pageTitle, pageContent = '') {
 }
 
 async function getRandomFyiObject () {
-  let parentPageId = config.get('confluence.fyiPageId')
-  parentPageId = '123212691'
+  // CONFIG OVERRIDE: to read FYIs from prod in all envs, use the production config directly
+  // let parentPageId = config.get('confluence.fyiPageId')
+  let parentPageId = require('../../config/production').confluence.fyiPageId
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
   let pagesWithBody = pages.filter(p => p.body.view.value.length !== 0)
   let count = pagesWithBody.length
