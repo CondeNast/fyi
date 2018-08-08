@@ -74,7 +74,6 @@ module.exports = (app) => {
           context.issue = (issueData) => {
             return Object.assign({}, issueData)
           }
-          github = await authGH({app, org: adminOrg})
           context.github = github
           context.log = app.log
 
