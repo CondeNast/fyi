@@ -74,10 +74,11 @@ module.exports = (app) => {
           context.issue = (issueData) => {
             return Object.assign({}, issueData)
           }
+          github = await authGH({app, org: adminOrg})
           context.github = github
           context.log = app.log
 
-          await fyiReminderHandler(context, app)
+          await fyiReminderHandler(context, 'remind', app)
           app.log(`${LOG_PREFIX_ADMIN} reminder sent for ${org}/${repo}`)
 
           app.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
