@@ -38,6 +38,7 @@ module.exports = (app) => {
       for (const adminIssue of openRequestIssues) {
         const { org, repo, repoIssue, fyiName } = await metadata({payload: {installation: {id: ''}}}, adminIssue).get() || {}
         if (!org || !repo || !repoIssue) return
+        github = await authGH({app, org})
         let { data: { created_at: repoIssueCreatedAt } } = await github.issues.get({
           owner: org,
           repo: repo,
@@ -69,6 +70,7 @@ module.exports = (app) => {
           context.issue = (issueData) => {
             return Object.assign({}, issueData)
           }
+          github = await authGH({app, org: adminOrg})
           context.github = github
           context.log = app.log
 
