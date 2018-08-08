@@ -39,11 +39,15 @@ module.exports = (app) => {
         const { org, repo, repoIssue, fyiName } = await metadata({payload: {installation: {id: ''}}}, adminIssue).get() || {}
         if (!org || !repo || !repoIssue) return
         github = await authGH({app, org})
-        let { data: { created_at: repoIssueCreatedAt } } = await github.issues.get({
-          owner: org,
-          repo: repo,
-          number: repoIssue
-        })
+        try {
+          var { data: { created_at: repoIssueCreatedAt } } = await github.issues.get({
+            owner: org,
+            repo: repo,
+            number: repoIssue
+          })
+        } catch(e) {
+          app.log.error(`${LOG_PREFIX_ADMIN} error sending reminder for ${org}/${repo}`, e)
+        }
         repoIssueCreatedAt = moment(repoIssueCreatedAt)
         let now = moment()
         let repoIssueCreatedDaysAgo = now.diff(repoIssueCreatedAt, 'days')
