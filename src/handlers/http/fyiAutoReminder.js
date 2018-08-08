@@ -45,7 +45,7 @@ module.exports = (app) => {
             repo: repo,
             number: repoIssue
           })
-        } catch(e) {
+        } catch (e) {
           app.log.error(`${LOG_PREFIX_ADMIN} error sending reminder for ${org}/${repo}`, e)
         }
         repoIssueCreatedAt = moment(repoIssueCreatedAt)
