@@ -40,4 +40,10 @@ module.exports = app => {
 
   // pages
   app.router.get('/digest*', digest)
+
+  //sentry
+  app.router.get('/sentry', (req, res) => {
+    app.log.error('Sentry Test')
+    res.end('OK')
+  })
 }
