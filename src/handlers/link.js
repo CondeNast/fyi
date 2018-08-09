@@ -3,6 +3,6 @@ module.exports = async (request, response) => {
   if(!request.params.name) return
 
   let fyiName = request.params.name
-  const fyiLink = await confluence.getFyiLink(fyiName) || '/'
+  const fyiLink = await confluence.getFyiLink(fyiName)
   response.redirect(fyiLink)
 }
