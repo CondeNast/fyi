@@ -76,9 +76,11 @@ async function isFyiWritten(fyiName) {
 
 async function getFyiLink(fyiName) {
   let parentPageId = require('../../config/production').confluence.fyiPageId
+  let parentSpaceKey = require('../../config/production').confluence.spaceKey
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
   let page = pages.filter(p => p.title === fyiName)[0]
   if(page) {
     return `${meta.base}${page._links.webui}`
   }
+  return `${meta.base}/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`
 }
