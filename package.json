@@ -18,7 +18,9 @@
     "Gautam Arora <gautamsarora@gmail.com>"
   ],
   "scripts": {
-    "dev": "nodemon --exec \"source authenticate-vault && npm start\"",
+    "dev:server": "nodemon --exec \"source authenticate-vault && npm start\"",
+    "dev:client": "npm start --prefix=public/my-app",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
     "lint": "standard --fix",
     "test": "npm run lint && npm run test:unit && npm run test:integration",
@@ -47,6 +49,7 @@
     "smee-client": "^1.0.1"
   },
   "devDependencies": {
+    "concurrently": "^3.6.1",
     "dotenv": "^6.0.0",
     "jest": "^22.4.3",
     "nodemon": "^1.17.2",

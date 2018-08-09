@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-            <a href={this.state.fyiLink}>FYI</a><br/>
+            <a href={this.state.fyiLink}>Read the FYI</a><br/>
             <label> Depends on &nbsp; &nbsp;
 	      <input type="text" list="data" onKeyPress={this._handleKeyPress} />
             </label>
