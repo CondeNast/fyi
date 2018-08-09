@@ -1,4 +1,4 @@
-# easy-fyi ![](http://easy-fyi-stag.conde.io/badge/easy-fyi)
+# easy-fyi [![](http://easy-fyi-stag.conde.io/badge/easy-fyi)](https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/130318645/easy-fyi)
 
 A Github App to automate the FYI request workflow.
 
