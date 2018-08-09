@@ -6,7 +6,8 @@ module.exports = {
   createNewPage,
   get,
   getRandomFyiObject,
-  isFyiWritten
+  isFyiWritten,
+  getFyiLink
 }
 
 async function get (url) {
@@ -71,4 +72,13 @@ async function isFyiWritten(fyiName) {
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
   let page = pages.filter(p => p.title === fyiName)[0]
   return page && page.body.view.value.length !== 0
+}
+
+async function getFyiLink(fyiName) {
+  let parentPageId = require('../../config/production').confluence.fyiPageId
+  let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let page = pages.filter(p => p.title === fyiName)[0]
+  if(page) {
+    return `${meta.base}${page._links.webui}`
+  }
 }
