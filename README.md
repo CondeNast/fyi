@@ -1,3 +1,4 @@
+![](http://easy-fyi-stag.conde.io/badge/easy-fyi)
 # easy-fyi
 
 A Github App to automate the FYI request workflow.
