@@ -60,6 +60,8 @@ module.exports = async (context, command, app) => {
   }))
   context.log(`${LOG_PREFIX} request issue created`)
 
+  //TODO: Add info on how to add fyi badge to readme
+  //![](http://fyi.conde.io/badge/<fyi name>)
   let bodyForAdminRepo = messaging['fyi-requested']({
     requester: context.payload.sender.login,
     fyiName,

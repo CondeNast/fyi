@@ -14,6 +14,7 @@ const fyiAutoDrip = require('./src/handlers/http/fyiAutoDrip')
 const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
+const badge = require('./src/handlers/badge')
 
 module.exports = app => {
   app.log('🤖  Arch Bot is listening...')
@@ -40,6 +41,7 @@ module.exports = app => {
 
   // pages
   app.router.get('/digest*', digest)
+  app.router.get('/badge/:name', badge)
 
   //sentry
   app.router.get('/sentry', (req, res) => {
