@@ -68,22 +68,21 @@ async function getRandomFyiObject () {
   return randomFyi
 }
 
-async function isFyiWritten(fyiName) {
+async function isFyiWritten (fyiName) {
   let parentPageId = require('../../config/production').confluence.fyiPageId
-  let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let {results: pages} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
   let fyiNameSlug = slugify(fyiName)
-  console.log(fyiNameSlug)
   let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   return page && page.body.view.value.length !== 0
 }
 
-async function getFyiLink(fyiName) {
+async function getFyiLink (fyiName) {
   let parentPageId = require('../../config/production').confluence.fyiPageId
   let parentSpaceKey = require('../../config/production').confluence.spaceKey
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
   let fyiNameSlug = slugify(fyiName)
   let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
-  if(page) {
+  if (page) {
     return `${meta.base}${page._links.webui}`
   }
   return `${meta.base}/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`

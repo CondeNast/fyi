@@ -45,7 +45,7 @@ module.exports = app => {
   app.router.get('/badge/:name', badge)
   app.router.get('/link/:name', link)
 
-  //sentry
+  // sentry
   app.router.get('/sentry', (req, res) => {
     app.log.error('Sentry Test')
     res.end('OK')
