@@ -3,11 +3,10 @@ const badge = require('gh-badges')
 const format = {
   text: ['fyi', 'passed'],
   colorscheme: 'green',
-  template: 'flat',
+  template: 'flat'
 }
 module.exports = async (request, response) => {
-  let svg
-  if(!request.params.name) return
+  if (!request.params.name) return
 
   let fyiName = request.params.name
   const isFyiWritten = await confluence.isFyiWritten(fyiName)
@@ -16,6 +15,6 @@ module.exports = async (request, response) => {
   format.colorscheme = isFyiWritten ? 'green' : 'red'
   await badge(format, (svg) => {
     response.setHeader('content-type', 'image/svg+xml')
-    response.status(200).send(svg);
+    response.status(200).send(svg)
   })
 }
