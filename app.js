@@ -14,9 +14,13 @@ const fyiAccepted = require('./src/handlers/github/commands/fyiAccepted')
 const fyiRejected = require('./src/handlers/github/commands/fyiRejected')
 const fyiAssign = require('./src/handlers/github/commands/fyiAssign')
 const fyiReminder = require('./src/handlers/github/commands/fyiReminder')
+const fyiAutoReminder = require('./src/handlers/http/fyiAutoReminder')
+const fyiAutoDrip = require('./src/handlers/http/fyiAutoDrip')
 const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
+const badge = require('./src/handlers/badge')
+const link = require('./src/handlers/link')
 
 module.exports = app => {
   app.log('🤖  Arch Bot is listening...')
@@ -31,6 +35,8 @@ module.exports = app => {
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
   app.router.get('/fyis', switchFormat(getFyiList))
   app.router.get('/fyis/:fyiName', cors(), switchFormat(getFyiDependencies))
+  app.router.post('/autoreminder', fyiAutoReminder(app))
+  app.router.post('/autodrip', fyiAutoDrip(app))
 
   // pages
   app.router.get('/digest*', digest)
@@ -45,6 +51,17 @@ module.exports = app => {
   commands(app, 'assign', async (context, command) => fyiAssign(context, command, app))
   commands(app, 'remind', async (context, command) => fyiReminder(context, command, app))
   commands(app, 'help', async (context, command) => help(context, command, app))
+
+  // pages
+  app.router.get('/digest*', digest)
+  app.router.get('/badge/:name', badge)
+  app.router.get('/link/:name', link)
+
+  // sentry
+  app.router.get('/sentry', (req, res) => {
+    app.log.error('Sentry Test')
+    res.end('OK')
+  })
 }
 
 let switchFormat = (handler) => {
