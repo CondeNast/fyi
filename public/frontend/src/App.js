@@ -34,13 +34,18 @@ class App extends Component {
   }
   componentDidMount() {
     let search = window.location.search.substring(1);
+    let options = {
+      headers: {
+        "Accept": "application/json"
+      },
+    }
     try{
      search = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
     }
     catch(e){
       search = {}
     }
-      Promise.all([fetch(`/fyis/${search.fyi}`) , fetch('/fyis')])
+      Promise.all([fetch(`/fyis/${search.fyi}`, options) , fetch('/fyis', options)])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
           this.setState({ name: search.fyi, data, fyis: fyis.fyis, fyiLink: data.link})
         });

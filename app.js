@@ -1,5 +1,6 @@
 const commands = require('probot-commands')
 const cors = require('cors')
+const serveStatic = require('express').static('public/frontend/build')
 
 const repoCreated = require('./src/handlers/github/events/repoCreated')
 const repoIdentified = require('./src/handlers/http/repoIdentified')
@@ -26,14 +27,14 @@ module.exports = app => {
   app.on('issues.closed', (context) => fyiSubmitted(context, app))
 
   // http api
-  app.router.post('/repos', repoIdentified(app))
-  app.router.post('/fyis/*', updateFyiDependencies)
-  app.router.get('/fyis', getFyiList)
-  app.router.get('/fyis/:fyiName', cors(), getFyiDependencies)
+  app.router.post('/repos', switchFormat(repoIdentified(app)))
+  app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
+  app.router.get('/fyis', switchFormat(getFyiList))
+  app.router.get('/fyis/:fyiName', cors(), switchFormat(getFyiDependencies))
 
   // pages
   app.router.get('/digest*', digest)
-  app.router.use('/', require('express').static('public/frontend/build'))
+  app.router.use('/', serveStatic)
 
   // github commands
   commands(app, 'request', async (context, command) => fyiRequested(context, command, app))
@@ -44,4 +45,17 @@ module.exports = app => {
   commands(app, 'assign', async (context, command) => fyiAssign(context, command, app))
   commands(app, 'remind', async (context, command) => fyiReminder(context, command, app))
   commands(app, 'help', async (context, command) => help(context, command, app))
+}
+
+let switchFormat = (handler) => {
+  return (req, res) => {
+    res.format({
+      html: function(){
+        res.sendFile(require('path').resolve('public/frontend/build' + '/index.html'))
+      },
+      json: function(){
+        return handler.apply(this, [req, res])
+      }
+    });
+  }
 }
