@@ -1,6 +1,7 @@
 const CNVault = require('../scripts/vault')
 const rp = require('request-promise-native')
 const config = require('config')
+const slugify = require('@sindresorhus/slugify')
 
 module.exports = {
   createNewPage,
@@ -70,7 +71,9 @@ async function getRandomFyiObject () {
 async function isFyiWritten(fyiName) {
   let parentPageId = require('../../config/production').confluence.fyiPageId
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
-  let page = pages.filter(p => p.title === fyiName)[0]
+  let fyiNameSlug = slugify(fyiName)
+  console.log(fyiNameSlug)
+  let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   return page && page.body.view.value.length !== 0
 }
 
@@ -78,7 +81,8 @@ async function getFyiLink(fyiName) {
   let parentPageId = require('../../config/production').confluence.fyiPageId
   let parentSpaceKey = require('../../config/production').confluence.spaceKey
   let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
-  let page = pages.filter(p => p.title === fyiName)[0]
+  let fyiNameSlug = slugify(fyiName)
+  let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   if(page) {
     return `${meta.base}${page._links.webui}`
   }
