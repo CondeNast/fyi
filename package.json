@@ -73,6 +73,8 @@
     "globalSetup": "./tests/unit/global-setup.js"
   },
   "nodemonConfig": {
-    "ignore": ["public/*"]
+    "ignore": [
+      "public/*"
+    ]
   }
 }
