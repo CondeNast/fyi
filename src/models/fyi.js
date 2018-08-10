@@ -14,8 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         return this.confluenceApiData._links.base + this.confluenceApiData._links.editui
       },
       viewLink: function () {
-        let id = this.confluenceApiData ? this.confluenceApiData.id : ""
-        return "https://cnissues.atlassian.net/wiki/spaces/ARCH/pages/" + id
+        if(this.confluenceApiData) {
+          return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
+        }
+        else {
+          return "/"
+        }
       },
       contentUrl: function () {
         return this.confluenceApiData._links.self + '?expand=body.storage'
