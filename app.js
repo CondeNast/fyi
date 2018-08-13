@@ -54,8 +54,10 @@ module.exports = app => {
 
   // pages
   app.router.get('/digest*', digest)
-  app.router.get('/badge/:name', badge)
-  app.router.get('/link/:name', link)
+  app.router.get('/badge/:id(\\d+)', badge.badgeById)
+  app.router.get('/badge/:name(\\D+)', badge.badgeByName)
+  app.router.get('/link/:id(\\d+)', link.linkById)
+  app.router.get('/link/:name(\\D+)', link.linkByName)
 
   // sentry
   app.router.get('/sentry', (req, res) => {
