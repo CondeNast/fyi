@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     confluenceUrl: DataTypes.STRING,
     confluenceApiData: DataTypes.JSON,
+    dependencies: DataTypes.JSON,
     content: DataTypes.STRING
   }, {
     getterMethods: {
@@ -13,7 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         return this.confluenceApiData._links.base + this.confluenceApiData._links.editui
       },
       viewLink: function () {
-        return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
+        if(this.confluenceApiData) {
+          return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
+        }
+        else {
+          return "/"
+        }
       },
       contentUrl: function () {
         return this.confluenceApiData._links.self + '?expand=body.storage'
@@ -31,9 +37,21 @@ module.exports = (sequelize, DataTypes) => {
     if (created) {
       let confluenceApiData = await confluence.createNewPage(name)
       fyi.confluenceApiData = confluenceApiData
-      fyi.save()
+      await fyi.save()
     }
     return fyi
+  }
+
+  Fyi.loadFromConfluence = async function () {
+    return confluence.doForEachFYIFromConfluence(async function(res){
+      let [fyi, created] = await Fyi.findOrCreate({where: {name: res.title}})
+      if (created) {
+        fyi.confluenceApiData = await confluence.get(res._links.self)
+        fyi.save()
+      }
+
+      return fyi
+    })
   }
 
   return Fyi
