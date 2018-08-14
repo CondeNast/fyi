@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -10,7 +10,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     queryInterface.changeColumn('Fyis', 'content', {
       type: Sequelize.STRING(255)
-    
+
     })
   }
-};
+}

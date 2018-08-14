@@ -14,11 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         return this.confluenceApiData._links.base + this.confluenceApiData._links.editui
       },
       viewLink: function () {
-        if(this.confluenceApiData) {
+        if (this.confluenceApiData) {
           return this.confluenceApiData._links.base + this.confluenceApiData._links.webui
-        }
-        else {
-          return "/"
+        } else {
+          return '/'
         }
       },
       contentUrl: function () {
@@ -43,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Fyi.loadFromConfluence = async function () {
-    return confluence.doForEachFYIFromConfluence(async function(res){
+    return confluence.doForEachFYIFromConfluence(async function (res) {
       let [fyi, created] = await Fyi.findOrCreate({where: {name: res.title}})
       if (created) {
         fyi.confluenceApiData = await confluence.get(res._links.self)
@@ -58,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
   Fyi.updateFromConfluence = async function () {
     let fyis = await Fyi.findAll({
       where: {confluenceApiData: {$ne: null}},
-      //limit:5,
+      // limit:5,
       order: [[ 'createdAt', 'DESC' ]]
     })
 
@@ -66,32 +65,29 @@ module.exports = (sequelize, DataTypes) => {
       let s = await sleep(getRandomInt(500, 2000))
 
       let ret = fyi
-      try{
-        let newData = await confluence.get(fyi.confluenceApiData._links.self + "?expand=body.view")
-        if(fyi.name !== newData.title || fyi.content != newData.body.view.value ){
+      try {
+        let newData = await confluence.get(fyi.confluenceApiData._links.self + '?expand=body.view')
+        if (fyi.name !== newData.title || fyi.content != newData.body.view.value) {
           fyi.name = newData.title
           fyi.content = newData.body.view.value
           fyi.confluenceApiData = newData
           ret = fyi.save()
         }
-      }
-      catch(e) {
+      } catch (e) {
         console.error(e.message)
       }
 
-      
       return ret
     }))
-
   }
 
   return Fyi
 }
 
-const sleep = (ms) => new Promise((resolve, reject) => setTimeout(()=>resolve(true), ms))
+const sleep = (ms) => new Promise((resolve, reject) => setTimeout(() => resolve(true), ms))
 
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min // The maximum is exclusive and the minimum is inclusive
 }

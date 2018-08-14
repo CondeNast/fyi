@@ -15,13 +15,12 @@ module.exports = async (request, response) => {
     let data
     try {
       data = JSON.parse(payload)
-      let [fyi, created] = await Fyi.findOrCreate({where: {name:data.name}})
+      let [fyi, created] = await Fyi.findOrCreate({where: {name: data.name}})
       fyi.dependencies = data.dependencies
       await fyi.save()
       response.send(JSON.stringify({success: true}))
-    } catch(e) {
+    } catch (e) {
       return response.send(JSON.stringify({error: e.message, success: false}))
     }
-
   })
 }

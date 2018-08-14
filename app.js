@@ -71,12 +71,12 @@ module.exports = app => {
 let switchFormat = (handler) => {
   return (req, res) => {
     res.format({
-      html: function(){
+      html: function () {
         res.sendFile(require('path').resolve('public/frontend/build' + '/index.html'))
       },
-      json: function(){
+      json: function () {
         return handler.apply(this, [req, res])
       }
-    });
+    })
   }
 }

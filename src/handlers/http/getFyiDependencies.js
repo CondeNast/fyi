@@ -9,9 +9,9 @@ module.exports = async (request, response) => {
     response.send(JSON.stringify({
       name: fyiName,
       link: fyi.viewLink,
-      //children: fyi.dependencies.fyis.map((dep) => {
-        //return {name: dep}
-      //}),
+      // children: fyi.dependencies.fyis.map((dep) => {
+        // return {name: dep}
+      // }),
       children: children
     }))
   } catch (e) {
@@ -20,7 +20,7 @@ module.exports = async (request, response) => {
   }
 }
 
-async function getSecondLevel(children){
+async function getSecondLevel (children) {
   return children.map(async (dep) => {
     let [fyi, created] = await Fyi.findOrCreate({where: {name: dep}})
     return {
@@ -31,5 +31,4 @@ async function getSecondLevel(children){
       })
     }
   })
-
 }

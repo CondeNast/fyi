@@ -6,7 +6,7 @@ module.exports = async (request, response) => {
   try {
     let fyis = await Fyi.findAll({
       where: {
-        name:{
+        name: {
           [Fyi.sequelize.Op.ne]: null
         }
       }
@@ -14,10 +14,7 @@ module.exports = async (request, response) => {
     response.send(JSON.stringify({
       fyis: fyis.map((e) => e.name)
     }))
-  } catch(e) {
+  } catch (e) {
     return response.send(JSON.stringify({error: e.message, success: false}))
   }
-
 }
-
-

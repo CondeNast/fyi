@@ -37,6 +37,6 @@ module.exports = {
     })
   }
 }
-function fyiNameIsReallyAnID(fyiName){
+function fyiNameIsReallyAnID (fyiName) {
   return !Number.isNaN(parseInt(fyiName))
 }

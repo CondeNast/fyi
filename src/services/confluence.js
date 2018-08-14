@@ -48,18 +48,17 @@ async function createNewPage (pageTitle, pageContent = '') {
   return rp.post(options).auth(secrets['confluence-username'], secrets['confluence-access-token'])
 }
 
-async function doForEachFYIFromConfluence(handleFyi){
-  let promises = [];
-  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/'+config.get('confluence.fyiPageId')+'/child/page?expand=body.view&limit=20')
+async function doForEachFYIFromConfluence (handleFyi) {
+  let promises = []
+  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/' + config.get('confluence.fyiPageId') + '/child/page?expand=body.view&limit=20')
   promises.concat(data.results.map(handleFyi))
-  
-  while(data._links.next) {
-    data = await get('https://cnissues.atlassian.net/wiki'+data._links.next)
+
+  while (data._links.next) {
+    data = await get('https://cnissues.atlassian.net/wiki' + data._links.next)
     promises.concat(data.results.map(handleFyi))
   }
   return Promise.all(promises)
 }
-
 
 async function getRandomFyiObject () {
   // CONFIG OVERRIDE: to read FYIs from prod in all envs, use the production config directly
