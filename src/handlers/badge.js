@@ -26,8 +26,9 @@ module.exports = {
 
     let fyiId = request.params.id
     let fyi = await Fyi.findById(fyiId)
+    let fyiName = fyi.name
 
-    const isFyiWritten = await confluence.isFyiWritten(fyi.name)
+    const isFyiWritten = await confluence.isFyiWritten(fyiName)
     format.text[0] = `FYI for ${fyi.name}`
     format.text[1] = isFyiWritten ? 'passed' : 'failed'
     format.colorscheme = isFyiWritten ? 'green' : 'red'
@@ -36,7 +37,4 @@ module.exports = {
       response.status(200).send(svg)
     })
   }
-}
-function fyiNameIsReallyAnID (fyiName) {
-  return !Number.isNaN(parseInt(fyiName))
 }

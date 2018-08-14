@@ -47,6 +47,7 @@ module.exports = async (context, command, app) => {
   let github = await authGH({app, context, org})
   let body = messaging['fyi-request']({
     fyiName: fyi.name,
+    fyiId: fyi.id,
     json,
     editLink: fyi.editLink
   })
