@@ -16,6 +16,7 @@ const fyiAssign = require('./src/handlers/github/commands/fyiAssign')
 const fyiReminder = require('./src/handlers/github/commands/fyiReminder')
 const fyiAutoReminder = require('./src/handlers/http/fyiAutoReminder')
 const fyiAutoDrip = require('./src/handlers/http/fyiAutoDrip')
+const fyiConfluenceUpdate = require('./src/handlers/http/fyiConfluenceUpdate')
 const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
@@ -37,6 +38,7 @@ module.exports = app => {
   app.router.get('/fyis/:fyiName', cors(), switchFormat(getFyiDependencies))
   app.router.post('/autoreminder', fyiAutoReminder(app))
   app.router.post('/autodrip', fyiAutoDrip(app))
+  app.router.post('/updateFromConfluence', fyiConfluenceUpdate(app))
 
   // pages
   app.router.get('/digest*', digest)
