@@ -50,7 +50,7 @@ async function createNewPage (pageTitle, pageContent = '') {
 
 async function doForEachFYIFromConfluence(handleFyi){
   let promises = [];
-  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/123212691/child/page?expand=body.storage&limit=20')
+  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/'+config.get('confluence.fyiPageId')+'/child/page?expand=body.view&limit=20')
   promises.concat(data.results.map(handleFyi))
   
   while(data._links.next) {

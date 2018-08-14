@@ -30,7 +30,9 @@
     "test:unit:watch": "jest  --roots tests/unit --watch --notify --notifyMode=change --coverage",
     "test:unit:coverage": "jest --roots tests/unit --coverage",
     "sequelize": "eval `node src/scripts/startup.env.js`;sequelize",
-    "repl": "eval `node src/scripts/startup.env.js`;node --trace-warnings repl"
+    "repl": "eval `node src/scripts/startup.env.js`;node --trace-warnings repl",
+    "seed:data:production": "NODE_ENV=production eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
+    "seed:data:development": "eval `node src/scripts/startup.env.js`;node src/scripts/seed.js"
   },
   "dependencies": {
     "@condenast/cn-vault": "^2.5.0",
