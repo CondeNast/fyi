@@ -24,6 +24,18 @@ Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db)
   }
+  db[modelName].first = () => {
+    return db[modelName].findAll({
+      limit: 1,
+      order: [ [ 'createdAt', 'DESC' ]]  
+      }).then(([fyi]) => fyi)
+  }
+  db[modelName].last = () => {
+    return db[modelName].findAll({
+      limit: 1,
+      order: [ [ 'createdAt', 'ASC' ]]  
+      }).then(([fyi]) => fyi)
+  }
 })
 
 db.sequelize = sequelize
