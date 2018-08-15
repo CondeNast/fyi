@@ -8,6 +8,7 @@ module.exports = async (request, response) => {
     let children = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
     response.send(JSON.stringify({
       name: fyiName,
+      tags: fyi.tags,
       link: fyi.viewLink,
       // children: fyi.dependencies.fyis.map((dep) => {
         // return {name: dep}
