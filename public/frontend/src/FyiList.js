@@ -1,18 +1,40 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { Tab, Tabs } from 'react-bootstrap'
 
 class FyiList extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      fyis: []
+      systems: [],
+      all: [],
+      key: 1
     }
   }
-  render () {
-    const listItems = this.state.fyis.map((fyi) =>
-      <li key={fyi}><Link to={'/fyis/' + fyi}>{fyi}</Link></li>
-    )
-    return (<ul>{listItems}</ul>)
+  handleSelect(key) {
+    this.setState(Object.assign({}, this.state, {key}))
+  }
+  render() {
+    const systemItems = this.state.systems.map((fyi) =>
+        <li key={fyi}><Link to={"/fyis/"+fyi}>{fyi}</Link></li>
+    );
+    const allItems = this.state.all.map((fyi) =>
+        <li key={fyi}><Link to={"/fyis/"+fyi}>{fyi}</Link></li>
+    );
+    return (
+     <Tabs
+        activeKey={this.state.key}
+        onSelect={this.handleSelect.bind(this)}
+        id="fyi-list-tabs"
+      >
+        <Tab eventKey={1} title="Systems">
+          <ul>{systemItems}</ul>
+        </Tab>
+        <Tab eventKey={2} title="All">
+          <ul>{allItems}</ul>
+        </Tab>
+      </Tabs> 
+  )
   }
   componentDidMount () {
     let options = {
@@ -21,10 +43,10 @@ class FyiList extends Component {
       }
     }
     fetch('/fyis', options)
-        .then(response => response.json()).then((fyis) => {
-          this.setState({ fyis: fyis.fyis })
-        })
-  }
+        .then(response => response.json()).then( (fyis) => {
+          this.setState({  systems: fyis.systems, all: fyis.all })
+        });
+    }
 }
 
 export default FyiList
