@@ -26,6 +26,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       confluenceContent: async function () {
         return confluence.get(this.contentUrl)
+      },
+      confluenceId: async function () {
+        if (this.confluenceApiData) {
+          return this.confluenceApiData.id
+        } else {
+          return null
+        }
       }
     }
   })
@@ -44,9 +51,10 @@ module.exports = (sequelize, DataTypes) => {
 
   Fyi.loadFromConfluence = async function () {
     return confluence.doForEachFYIFromConfluence(async function (res) {
-      let [fyi, created] = await Fyi.findOrCreate({where: {name: res.title}})
+      let [fyi, created] = await Fyi.findOrCreate({where: {confluenceApiData: {id: res.id}}})
       if (created) {
         fyi.confluenceApiData = await confluence.get(res._links.self)
+        fyi.name = res.title
         fyi.content = res.body.view.value
         await fyi.save()
       }
