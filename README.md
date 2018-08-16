@@ -1,3 +1,4 @@
+[![](https://fyi.conde.io/badge/56)](https://fyi.conde.io/link/56)
 # easy-fyi [![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi)
 
 A Github App to automate the FYI request workflow.
