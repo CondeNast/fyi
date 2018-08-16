@@ -50,21 +50,25 @@ async function createNewPage (pageTitle, pageContent = '') {
 
 async function doForEachFYIFromConfluence (handleFyi) {
   let promises = []
-  let data = await get('https://cnissues.atlassian.net/wiki/rest/api/content/' + config.get('confluence.fyiPageId') + '/child/page?expand=body.view&limit=20')
-  promises.concat(data.results.map(handleFyi))
+  let parentPageId = config.get('confluence.fyiPageId')
+  let data = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=20`)
+  promises = promises.concat(data.results.map(handleFyi))
 
   while (data._links.next) {
     data = await get('https://cnissues.atlassian.net/wiki' + data._links.next)
-    promises.concat(data.results.map(handleFyi))
+    promises = promises.concat(data.results.map(handleFyi))
   }
   return Promise.all(promises)
 }
 
+async function getAllFyisFromConfluence () {
+  return doForEachFYIFromConfluence(async function (res) {
+    return res
+  })
+}
+
 async function getRandomFyiObject () {
-  // CONFIG OVERRIDE: to read FYIs from prod in all envs, use the production config directly
-  // let parentPageId = config.get('confluence.fyiPageId')
-  let parentPageId = require('../../config/production').confluence.fyiPageId
-  let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let pages = await getAllFyisFromConfluence()
   let pagesWithBody = pages.filter(p => p.body.view.value.length !== 0)
   let count = pagesWithBody.length
   let randomIndex = Math.floor(Math.random() * count)
@@ -75,28 +79,27 @@ async function getRandomFyiObject () {
     body: randomPage.body,
     viewLink: randomPage._links.webui
   }
-  let baseLink = meta.base
-  randomFyi.body.view.value = (randomFyi.body.view.value).replace(/\/wiki/gm, baseLink)
-  randomFyi.viewLink = `${baseLink}${randomPage._links.webui}`
+  randomFyi.body.view.value = (randomFyi.body.view.value).replace(/\/wiki/gm, 'https://cnissues.atlassian.net/wiki')
+  randomFyi.viewLink = `https://cnissues.atlassian.net/wiki${randomPage._links.webui}`
   return randomFyi
 }
 
 async function isFyiWritten (fyiName) {
-  let parentPageId = require('../../config/production').confluence.fyiPageId
-  let {results: pages} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let pages = await getAllFyisFromConfluence()
   let fyiNameSlug = slugify(fyiName)
   let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   return page && page.body.view.value.length !== 0
 }
 
 async function getFyiLink (fyiName) {
-  let parentPageId = require('../../config/production').confluence.fyiPageId
-  let parentSpaceKey = require('../../config/production').confluence.spaceKey
-  let {results: pages, _links: meta} = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=200`)
+  let parentPageId = config.get('confluence.fyiPageId')
+  let parentSpaceKey = config.get('confluence.spaceKey')
+  let pages = await getAllFyisFromConfluence()
   let fyiNameSlug = slugify(fyiName)
+  pages.forEach(p => console.log(p.title))
   let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   if (page) {
-    return `${meta.base}${page._links.webui}`
+    return `https://cnissues.atlassian.net/wiki${page._links.webui}`
   }
-  return `${meta.base}/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`
+  return `https://cnissues.atlassian.net/wiki/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`
 }

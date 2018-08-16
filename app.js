@@ -21,6 +21,7 @@ const fyiClosed = require('./src/handlers/github/commands/fyiClosed')
 const help = require('./src/handlers/github/commands/help')
 const digest = require('./src/handlers/digest')
 const badge = require('./src/handlers/badge')
+const badgePR = require('./src/handlers/badgePR')
 const link = require('./src/handlers/link')
 
 module.exports = app => {
@@ -38,6 +39,7 @@ module.exports = app => {
   app.router.get('/fyis/:fyiName', cors(), switchFormat(getFyiDependencies))
   app.router.post('/autoreminder', fyiAutoReminder(app))
   app.router.post('/autodrip', fyiAutoDrip(app))
+  app.router.post('/badgepr', badgePR(app))
   app.router.post('/updateFromConfluence', fyiConfluenceUpdate(app))
 
   // pages
