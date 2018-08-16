@@ -50,7 +50,6 @@ module.exports = (app) => {
       // get the reference for the master branch
       const reference = await github.gitdata.getReference(context.repo({ ref: 'heads/master' }))
       app.log(`${LOG_PREFIX} recieved reference to master`)
-      // console.log(reference)
       // create a reference in git for your branch
       await github.gitdata.createReference(context.repo({
         ref: `refs/heads/${ branch }`,
@@ -60,14 +59,10 @@ module.exports = (app) => {
       const encodedReadme = await github.repos.getReadme(context.repo({
         ref: `refs/heads/${ branch }`,
       }))
-      // console.log(encodedReadme)
       const readme = Buffer.from(encodedReadme.data.content, 'base64').toString('utf8')
       app.log(`${LOG_PREFIX} decoded readme`)
-      // console.log(readme)
-      // return response.send()
       const newReadme = `[![](https://fyi.conde.io/badge/${fyi.id})](https://fyi.conde.io/link/${fyi.id})\n${readme}`
       app.log(`${LOG_PREFIX} created new readme`)
-      // console.log(newReadme)
       const content = Buffer.from(newReadme).toString('base64')
       app.log(`${LOG_PREFIX} encoded new readme`)
       const updatedReadme = await github.repos.updateFile(context.repo({
@@ -78,7 +73,6 @@ module.exports = (app) => {
         branch
       }))
       app.log(`${LOG_PREFIX} updated readme to ${branch}`)
-      // console.log(updatedReadme)
       let prBody = messaging['fyi-pr']({
         fyiName: fyi.name,
         fyiId: fyi.id,
@@ -86,7 +80,6 @@ module.exports = (app) => {
         updatedReadmeEditLink: `http://www.github.com/${org}/${name}/edit/${branch}/README.md`
       })
       app.log(`${LOG_PREFIX} generated PR body`)
-      // response.send()
       const pr = await github.pullRequests.create(context.repo({
         title: 'Add FYI Badge',
         head: branch,
@@ -95,7 +88,6 @@ module.exports = (app) => {
         maintainer_can_modify: true
       }))
       //end make pr
-      // console.log(pr)
       app.log(`${LOG_PREFIX} posted a badge PR http://www.github.com/${org}/${name}/pull/${pr.data.number}`)
       return response.send({success: true})
     })
