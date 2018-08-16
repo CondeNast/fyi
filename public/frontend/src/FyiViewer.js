@@ -44,7 +44,7 @@ class FyiViewer extends Component {
     }
       Promise.all([fetch(`/fyis/${search.fyi}`, options) , fetch('/fyis', options)])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
-          this.setState({ name: search.fyi, data, fyis: fyis.fyis, fyiLink: data.link})
+          this.setState({ name: search.fyi, data, fyis: fyis.all, fyiLink: data.link})
         });
     }
   _handleKeyPress = (event) => {
