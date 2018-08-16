@@ -7,8 +7,8 @@ module.exports = async (request, response) => {
     let systems = await getFyisByTag("system")
     let all = await getFyisByTag()
     response.send(JSON.stringify({
-      systems: systems.map((e) => e.name),
-      all: all.map((e) => e.name)
+      systems: systems.map((e) => ({id:e.id, name:e.name})),
+      all: all.map((e) => ({id:e.id, name:e.name}))
     }))
   } catch (e) {
     return response.send(JSON.stringify({error: e.message, success: false}))

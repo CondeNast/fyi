@@ -15,7 +15,7 @@ class App extends Component {
       <div className='App'>
         <Switch>
           <Route exact path='/' component={FyiList} />
-          <Route path='/fyis/:fyi' component={FyiViewer} />
+          <Route path='/fyis/:fyiId/*' component={FyiViewer} />
         </Switch>
       </div>
     )

@@ -36,7 +36,7 @@ module.exports = app => {
   app.router.post('/repos', switchFormat(repoIdentified(app)))
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
   app.router.get('/fyis', switchFormat(getFyiList))
-  app.router.get('/fyis/:fyiName', cors(), switchFormat(getFyiDependencies))
+  app.router.get('/fyis/:id/*', cors(), switchFormat(getFyiDependencies))
   app.router.post('/autoreminder', fyiAutoReminder(app))
   app.router.post('/autodrip', fyiAutoDrip(app))
   app.router.post('/badgepr', badgePR(app))

@@ -16,10 +16,10 @@ class FyiList extends Component {
   }
   render() {
     const systemItems = this.state.systems.map((fyi) =>
-        <li key={fyi}><Link to={"/fyis/"+fyi}>{fyi}</Link></li>
+        <li key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></li>
     );
     const allItems = this.state.all.map((fyi) =>
-        <li key={fyi}><Link to={"/fyis/"+fyi}>{fyi}</Link></li>
+        <li key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></li>
     );
     return (
      <Tabs

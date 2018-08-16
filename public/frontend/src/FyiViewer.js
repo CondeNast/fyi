@@ -15,12 +15,12 @@ class FyiViewer extends Component {
       <div className="App">
             <a href={this.state.fyiLink}>Read the FYI</a><br/>
             <label> Depends on &nbsp; &nbsp;
-	      <input type="text" list="data" onKeyPress={this._handleKeyPress} />
+	      <input type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
             </label>
 
             <datalist id="data">
                 {this.state.fyis.map((fyi, index) =>
-                    <option value={fyi} key={index}/>
+                    <option value={fyi.name} key={index}/>
                 )}
             </datalist>
 	  <div id="treeWrapper" style={{width: '100%', height: '80vh'}}>
@@ -42,7 +42,7 @@ class FyiViewer extends Component {
     catch(e){
       search = {}
     }
-      Promise.all([fetch(`/fyis/${search.fyi}`, options) , fetch('/fyis', options)])
+      Promise.all([fetch(`/fyis/${search.fyiId}/whatever`, options) , fetch('/fyis', options)])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
           this.setState({ name: search.fyi, data, fyis: fyis.all, fyiLink: data.link})
         });
@@ -53,10 +53,10 @@ class FyiViewer extends Component {
       this.state.data.children.push({name: newDependency})
       this.setState(this.state)
       event.target.value = '';
-      fetch('/fyis/'+this.state.name, {method: "POST", headers: {
+      fetch('/fyis/'+this.state.data.name, {method: "POST", headers: {
         "Accept": "application/json"
       }, body: JSON.stringify({
-        name: this.state.name,
+        name: this.state.data.name,
         dependencies: {
           fyis: this.state.data.children.map(c => c.name)
         }

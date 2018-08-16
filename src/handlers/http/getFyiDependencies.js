@@ -1,13 +1,13 @@
 const Fyi = require('../../models').Fyi
 
 module.exports = async (request, response) => {
-  let fyiName = request.params.fyiName
+  let fyiId = request.params.id
 
   try {
-    let [fyi, created] = await Fyi.findOrCreate({where: {name: fyiName}})
+    let fyi = await Fyi.findById(fyiId)
     let children = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
     response.send(JSON.stringify({
-      name: fyiName,
+      name: fyi.name,
       tags: fyi.tags,
       link: fyi.viewLink,
       // children: fyi.dependencies.fyis.map((dep) => {
