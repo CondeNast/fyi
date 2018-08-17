@@ -1,6 +1,6 @@
-# easy-fyi [![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi)
+# easy-fyi
 
-A Github App to automate the FYI request workflow.
+[![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi) [![](http://fyi.conde.io/badge/arch-bot)](http://fyi.conde.io/link/arch-bot)
 
 ## Project Brief
 
