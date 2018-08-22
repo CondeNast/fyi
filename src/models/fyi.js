@@ -1,5 +1,7 @@
 'use strict'
 const confluence = require('../services/confluence')
+const fs = require('fs');
+const csv = require('async-csv')
 
 module.exports = (sequelize, DataTypes) => {
   var Fyi = sequelize.define('Fyi', {
@@ -8,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     confluenceApiData: DataTypes.JSON,
     dependencies: DataTypes.JSON,
     tags: DataTypes.ARRAY(DataTypes.STRING),
+    repos: DataTypes.ARRAY(DataTypes.STRING),
     content: DataTypes.STRING
   }, {
     getterMethods: {
@@ -88,6 +91,31 @@ module.exports = (sequelize, DataTypes) => {
 
       return ret
     }))
+  }
+
+  Fyi.loadRepoFromCSV = async function (csvFilePath) {
+    let csvFile = fs.readFileSync(csvFilePath, 'utf8');
+    let rows = await csv.parse(csvFile, {});
+    for(const row of rows) {
+      let fyiName = row[0]
+      let repoPathMatch = row[1].match(/github.com\/(.*)\/pull/)
+      let repoPath
+      if(!repoPathMatch) {
+        continue
+      }
+      repoPath = repoPathMatch[1]
+
+      // console.log(fyiName, repoPath)
+      let [fyi] = await Fyi.findAll({where: {name: fyiName}})
+      try {
+        await fyi.update(
+          {'repos': sequelize.fn('array_append', sequelize.col('repos'), repoPath)},
+          {'where': {'name': fyiName}}
+        )
+      } catch(e) {
+        console.log(fyiName, e)
+      }
+    }
   }
 
   return Fyi
