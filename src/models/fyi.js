@@ -110,11 +110,24 @@ module.exports = (sequelize, DataTypes) => {
       try {
         await fyi.update(
           {'repos': sequelize.fn('array_append', sequelize.col('repos'), repoPath)},
-          {'where': {'name': fyiName}}
+          {'where': {'limit': 1, 'name': fyiName}}
         )
       } catch(e) {
         console.log(fyiName, e)
       }
+    }
+  }
+
+  Fyi.addRepo = async function (fyi, org, repo) {
+    let fyiName = fyi.name
+    let repoPath = `${org}/${repo}`
+    try {
+      await fyi.update(
+        {'repos': sequelize.fn('array_append', sequelize.col('repos'), repoPath)},
+        {'where': {'limit': 1, 'name': fyiName}}
+      )
+    } catch(e) {
+      console.log(fyiName, org, repo, e)
     }
   }
 

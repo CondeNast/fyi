@@ -85,7 +85,7 @@ module.exports = (app) => {
           let fyi = await Fyi.forName(fyiName)
           app.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
 
-          await slack.post({type: 'fyi-autoreminder', context, org, repo, adminOrg, adminRepo, adminIssue: adminIssue.number, fyi})
+          await slack.post({type: 'fyi-autoreminder', context, org, repo, repoIssue, adminOrg, adminRepo, adminIssue: adminIssue.number, fyi})
           app.log(`${LOG_PREFIX_ADMIN} slack message posted`)
         } else {
           app.log(`${LOG_PREFIX_ADMIN} not sending reminder for ${org}/${repo} | day ${repoIssueCreatedDaysAgo}`)

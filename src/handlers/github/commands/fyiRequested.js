@@ -40,12 +40,24 @@ module.exports = async (context, command, app) => {
   let json = JSON.stringify(data)
 
   context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
-  let fyi = await Fyi.forName(fyiName)
+  let [fyi] = await Fyi.findAll({limit: 1, where: {name: fyiName}})
+  let isExistingFyi
+  if(fyi) {
+    isExistingFyi = true
+  } else {
+    isExistingFyi = false
+    fyi = await Fyi.forName(fyiName)
+  }
   context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
 
+  context.log(`${LOG_PREFIX_ADMIN} adding repo to fyi for ${fyiName} ...`)
+  await Fyi.addRepo(fyi, org, repo)
+  context.log(`${LOG_PREFIX_ADMIN} repo added to fyi`)
+
   // create issue in new repo
+  let fyiRequestBody = isExistingFyi ? 'fyi-request-old' : 'fyi-request'
   let github = await authGH({app, context, org})
-  let body = messaging['fyi-request']({
+  let body = messaging[fyiRequestBody]({
     fyiName: fyi.name,
     fyiId: fyi.id,
     json,
@@ -55,13 +67,14 @@ module.exports = async (context, command, app) => {
   const { data: { html_url: repoIssueUrl, number: repoIssue } } = await github.issues.create(context.issue({
     owner: org,
     repo: repo,
-    title: `Add FYI for ${fyiName}`,
+    title: `Add FYI badge for ${fyiName}`,
     body: body,
     assignee: repoCreator
   }))
   context.log(`${LOG_PREFIX} request issue created`)
 
-  let bodyForAdminRepo = messaging['fyi-requested']({
+  let fyiRequestedBody = isExistingFyi ? 'fyi-requested-old' : 'fyi-requested'
+  let bodyForAdminRepo = messaging[fyiRequestedBody]({
     requester: context.payload.sender.login,
     fyiName,
     repoIssueUrl,
@@ -77,7 +90,8 @@ module.exports = async (context, command, app) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} comment posted`)
 
-  await slack.post({type: 'fyi-requested', context, org, repo, repoCreator, adminOrg, adminRepo, adminIssue, fyi})
+  let fyiRequestedNotification = isExistingFyi ? 'fyi-requested-old' : 'fyi-requested'
+  await slack.post({type: fyiRequestedNotification, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi})
   context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 
   // add event to db
