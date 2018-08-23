@@ -24,7 +24,7 @@ async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg
     let repoIssueUrl = `http://github.com/${org}/${repo}/issues/${repoIssue}`
     text = `⏰ FYI Reminder posted on <${repoIssueUrl}|${org}/${repo}> for ${fyi.name}`
   } else if (type === 'fyi-autodrip') {
-    let fyiBody = fyi.body.view.value
+    let fyiBody = fyi.content
     let fyiBodyMarkdown = slackify(fyiBody)
     text = `📆 FYI OTD: <${fyi.viewLink}|${fyi.name}>\n${fyiBodyMarkdown}`
   } else {
