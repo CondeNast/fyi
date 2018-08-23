@@ -10,7 +10,7 @@ module.exports = async (context, command, app) => {
   const adminOrg = context.payload.organization.login
   const adminRepo = context.payload.repository.name
 
-  const { fyiName } = await metadata(context, context.payload.issue).get() || {}
+  const { org, repo, fyiName } = await metadata(context, context.payload.issue).get() || {}
 
   const LOG_PREFIX_ADMIN = logPrefix('fyiAccepted', adminOrg, adminRepo)
   context.log(`${LOG_PREFIX_ADMIN} command recieved`)
@@ -34,7 +34,6 @@ module.exports = async (context, command, app) => {
     fyi = await Fyi.forName(fyiName)
     context.log(`${LOG_PREFIX_ADMIN} fyi model loaded`)
   } else { // temporary patch for admin issues created without fyiName
-    const { repo } = await metadata(context, context.payload.issue).get() || {}
     const adminOrg = context.payload.organization.login
     const adminRepo = context.payload.repository.name
     const adminIssue = context.payload.issue.number
@@ -44,6 +43,6 @@ module.exports = async (context, command, app) => {
       name: repo
     }
   }
-  await slack.post({type: 'fyi-accepted', context, fyi})
+  await slack.post({type: 'fyi-accepted', context, org, repo, fyi})
   context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
 }

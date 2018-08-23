@@ -10,16 +10,19 @@ module.exports = {
   post
 }
 
-async function post ({type, context, org, repo, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
+async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
   let text
   if (type === 'fyi-requested') {
-    let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
-    text = `💁 FYI Requested from ${repoCreator} for <${adminIssueUrl}|${fyi.name}>`
+    let repoIssueUrl = `http://github.com/${org}/${repo}/issues/${repoIssue}`
+    text = `💁 FYI Requested from ${repoCreator} on <${repoIssueUrl}|${org}/${repo}> for ${fyi.name}`
+  } else if (type === 'fyi-requested-old') {
+    let repoIssueUrl = `http://github.com/${org}/${repo}/issues/${repoIssue}`
+    text = `🎫 FYI Badge Requested from ${repoCreator} on <${repoIssueUrl}|${org}/${repo}> for ${fyi.name}`
   } else if (type === 'fyi-accepted') {
-    text = `🚀 FYI Accepted for <${fyi.viewLink}|${fyi.name}>`
+    text = `🚀 FYI Accepted on ${org}/${repo} for <${fyi.viewLink}|${fyi.name}>`
   } else if (type === 'fyi-autoreminder') {
-    let adminIssueUrl = `http://github.com/${adminOrg}/${adminRepo}/issues/${adminIssue}`
-    text = `⏰ FYI Reminder posted for <${adminIssueUrl}|${fyi.name}>`
+    let repoIssueUrl = `http://github.com/${org}/${repo}/issues/${repoIssue}`
+    text = `⏰ FYI Reminder posted on <${repoIssueUrl}|${org}/${repo}> for ${fyi.name}`
   } else if (type === 'fyi-autodrip') {
     let fyiBody = fyi.body.view.value
     let fyiBodyMarkdown = slackify(fyiBody)
