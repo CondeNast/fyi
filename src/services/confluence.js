@@ -7,7 +7,6 @@ module.exports = {
   createNewPage,
   doForEachFYIFromConfluence,
   get,
-  getRandomFyiObject,
   isFyiWritten,
   getFyiLink
 }
@@ -65,23 +64,6 @@ async function getAllFyisFromConfluence () {
   return doForEachFYIFromConfluence(async function (res) {
     return res
   })
-}
-
-async function getRandomFyiObject () {
-  let pages = await getAllFyisFromConfluence()
-  let pagesWithBody = pages.filter(p => p.body.view.value.length !== 0)
-  let count = pagesWithBody.length
-  let randomIndex = Math.floor(Math.random() * count)
-
-  let randomPage = pagesWithBody[randomIndex]
-  let randomFyi = {
-    name: randomPage.title,
-    body: randomPage.body,
-    viewLink: randomPage._links.webui
-  }
-  randomFyi.body.view.value = (randomFyi.body.view.value).replace(/\/wiki/gm, 'https://cnissues.atlassian.net/wiki')
-  randomFyi.viewLink = `https://cnissues.atlassian.net/wiki${randomPage._links.webui}`
-  return randomFyi
 }
 
 async function isFyiWritten (fyiName) {
