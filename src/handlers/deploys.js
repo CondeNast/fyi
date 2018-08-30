@@ -10,10 +10,18 @@ module.exports = async (request, response) => {
   if(!fyi) {
     return response.send({error: "fyi not found"})
   }
-  let [org, repo] = fyi.repos[0].split('/')
-  let events = await datadog({org, repo})
-  if(events.length === 0) {
-    return response.send({lastDeployEvent: null})
-  }
-  response.send({lastDeployEvent: events[0]})
+
+  let lastDeployEvents = await Promise.all(fyi.repos.map(async (path) => {
+    let [org, repo] = path.split('/')
+    console.log(path, org, repo)
+    let events = await datadog({org, repo})
+    console.log(events.length)
+    if(events.length > 0) {
+      events[0].path = path
+      return events[0]
+    } else {
+      return {}
+    }
+  }))
+  response.send({events: lastDeployEvents})
 }
