@@ -24,6 +24,7 @@ const digest = require('./src/handlers/digest')
 const badge = require('./src/handlers/badge')
 const badgePR = require('./src/handlers/badgePR')
 const link = require('./src/handlers/link')
+const deploys = require('./src/handlers/deploys')
 
 module.exports = app => {
   app.log('🤖  Arch Bot is listening...')
@@ -43,6 +44,7 @@ module.exports = app => {
   app.router.post('/badgepr', badgePR(app))
   app.router.post('/updateFromConfluence', fyiConfluenceUpdate(app))
   app.router.post('/loadFromConfluence', fyiConfluenceLoad(app))
+  app.router.get('/deploys/:name', deploys)
 
   // pages
   app.router.get('/digest*', digest)
