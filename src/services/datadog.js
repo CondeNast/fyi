@@ -8,7 +8,7 @@ dogapi.initialize(options);
 module.exports = async ({org, repo}) => {
   return new Promise((resolve, reject) => {
     let now = parseInt(new Date().getTime() / 1000);
-    let then = now - (48 * 3600); // a day ago
+    let then = now - (24 * 3600); // a day ago
     let parameters = {
       tags: "puppetrole:kubernetes",
       sources: "apps"
