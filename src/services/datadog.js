@@ -20,10 +20,14 @@ module.exports = async ({org, repo}) => {
         console.log(err)
         return []
       }
-      let allDeployEvents = res.events.filter(e => e.title.startsWith('Deployment'))
-      // && e.title.includes('__PRODUCTION')
-      let appDeployEvents = allDeployEvents.filter(e => e.text.includes(buildName))
-      resolve(appDeployEvents)
+      let prodDeployEvents = res.events.filter(
+        e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)
+      )
+      let nonprodDeployEvents = res.events.filter(
+        e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && e.text.includes(buildName)
+      )
+
+      resolve({prodDeployEvents, nonprodDeployEvents})
     })
   }).then((events) => {
     return events
