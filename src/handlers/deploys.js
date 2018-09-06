@@ -12,29 +12,29 @@ module.exports = async (request, response) => {
     return response.send({error: "fyi not found"})
   }
 
-  let latestDeployEvents = await Promise.all(fyi.repos.map(async (path) => {
-    let [org, repo] = path.split('/')
+  let latestDeployEvents = await Promise.all(fyi.repos.map(async (repoPath) => {
+    let [org, repo] = repoPath.split('/')
     let { prodDeployEvents, stagDeployEvents, ciDeployEvents } = await datadog({org, repo})
 
     let deployEvent = {
       prod: {
         fyi: {
           name: fyiName,
-          repo_path: path
+          repo_path: repoPath
         },
         datadog: {}
       },
       stag: {
         fyi: {
           name: fyiName,
-          repo_path: path
+          repo_path: repoPath
         },
         datadog: {}
       },
       ci: {
         fyi: {
           name: fyiName,
-          repo_path: path
+          repo_path: repoPath
         },
         datadog: {}
       }
