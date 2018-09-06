@@ -21,5 +21,6 @@ module.exports = {
   },
   'slack': {
     'channel': 'easy-fyi-dev'
-  }
+  },
+  'datadog': {}
 }

@@ -10,6 +10,10 @@ module.exports = () => {
     let configOverride = {
       slack: {
         webhook: secrets['slack-webhook-url']
+      },
+      datadog: {
+        apiKey: secrets['datadog-api-key'],
+        appKey: secrets['datadog-app-key']
       }
     }
 
