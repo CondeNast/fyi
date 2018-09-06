@@ -20,8 +20,8 @@ module.exports = async ({org, repo}) => {
     let buildName = `${org.toLowerCase()}_${repo.toLowerCase()}`
     dogapi.event.query(then, now, parameters, (err, res) => {
       if(err) {
-        console.log(err)
-        return []
+        console.error(err)
+        reject({error: err})
       }
       let prodDeployEvents = res.events.filter(
         e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)
