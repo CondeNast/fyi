@@ -14,7 +14,6 @@ module.exports = async (request, response) => {
 
   let latestDeployEvents = await Promise.all(fyi.repos.map(async (path) => {
     let [org, repo] = path.split('/')
-    console.log(path, org, repo)
     let { prodDeployEvents, nonprodDeployEvents } = await datadog({org, repo})
 
     let deployEvent = {
