@@ -1,8 +1,11 @@
 let dogapi = require("dogapi");
+const config = require('config')
+
 let options = {
- api_key: "", //TODO VAULT
- app_key: "", //TODO VAULT
-};
+  api_key: config.get('datadog.apiKey'),
+  app_key: config.get('datadog.appKey')
+}
+
 dogapi.initialize(options);
 
 module.exports = async ({org, repo}) => {
