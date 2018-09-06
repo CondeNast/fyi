@@ -26,11 +26,14 @@ module.exports = async ({org, repo}) => {
       let prodDeployEvents = res.events.filter(
         e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)
       )
-      let nonprodDeployEvents = res.events.filter(
-        e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && e.text.includes(buildName)
+      let stagDeployEvents = res.events.filter(
+        e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && (e.title.includes('-stag') || e.title.includes('-stg') && e.text.includes(buildName))
+      )
+      let ciDeployEvents = res.events.filter(
+        e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && e.title.includes('-ci') && e.text.includes(buildName)
       )
 
-      resolve({prodDeployEvents, nonprodDeployEvents})
+      resolve({prodDeployEvents, stagDeployEvents, ciDeployEvents})
     })
   }).then((events) => {
     return events
