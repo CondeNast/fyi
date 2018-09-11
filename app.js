@@ -39,7 +39,6 @@ const badgePR = require('./src/handlers/api/actions/badgePR')
 
 module.exports = app => {
   app.log('🤖  Arch Bot is listening...')
-  app.router.use(require('@condenast/express-dogstatsd')({}))
 
   // github events
   app.on('repository.created', (context) => repoCreated(context, app))
