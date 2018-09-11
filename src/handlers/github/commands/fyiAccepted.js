@@ -2,6 +2,7 @@ const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
 const logPrefix = require('../../../utils/logPrefix')
 const Fyi = require('../../../models').Fyi
+const configSlack = require('config').slack
 const slack = require('../../../services/slack')
 
 module.exports = async (context, command, app) => {
@@ -43,6 +44,8 @@ module.exports = async (context, command, app) => {
       name: repo
     }
   }
-  await slack.post({type: 'fyi-accepted', context, org, repo, fyi})
-  context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
+  if(configSlack.enabled && configSlack.webhook) {
+    await slack.post({type: 'fyi-accepted', context, org, repo, fyi})
+    context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
+  }
 }

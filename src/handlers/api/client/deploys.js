@@ -1,8 +1,15 @@
-const datadog = require('../../../services/datadog')
 const Fyi = require('../../../models').Fyi
 const moment = require('moment')
+const datadog = require('../../../services/datadog')
+const configDatadog = require('config').datadog
 
 module.exports = async (request, response) => {
+  if(!configDatadog.enabled) {
+    return response.send({error: 'datadog not enabled'})
+  }
+  if(!configDatadog.apiKey || !configDatadog.appKey) {
+    return response.send({error: 'datadog keys not setup'})
+  }
   let {name: fyiName} = request.params
 
   let [fyi] = await Fyi.findAll({where: {name: fyiName}})
