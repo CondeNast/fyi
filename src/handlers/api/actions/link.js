@@ -1,5 +1,5 @@
-const confluence = require('../services/confluence')
-const Fyi = require('../models').Fyi
+const confluence = require('../../../services/confluence')
+const Fyi = require('../../../models').Fyi
 module.exports = {
   linkByName: async (request, response) => {
     if (!request.params.name) return

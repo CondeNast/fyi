@@ -1,4 +1,4 @@
-const Fyi = require('../../models').Fyi
+const Fyi = require('../../../models').Fyi
 
 module.exports = async (request, response) => {
   let fyiId = request.params.id
@@ -17,13 +17,12 @@ module.exports = async (request, response) => {
     }))
   } catch (e) {
     throw e
-    response.send(JSON.stringify({error: e.message, success: false}))
   }
 }
 
 async function getSecondLevel (children) {
   return children.map(async (dep) => {
-    let [fyi, created] = await Fyi.findOrCreate({where: {name: dep}})
+    let [fyi] = await Fyi.findOrCreate({where: {name: dep}})
     return {
       name: dep,
       link: fyi.viewLink,

@@ -1,6 +1,6 @@
 'use strict'
 const confluence = require('../services/confluence')
-const fs = require('fs');
+const fs = require('fs')
 const csv = require('async-csv')
 
 module.exports = (sequelize, DataTypes) => {
@@ -74,12 +74,12 @@ module.exports = (sequelize, DataTypes) => {
     })
 
     return Promise.all(fyis.map(async (fyi) => {
-      let s = await sleep(getRandomInt(500, 2000))
+      await sleep(getRandomInt(500, 2000))
 
       let ret = fyi
       try {
         let newData = await confluence.get(fyi.confluenceApiData._links.self + '?expand=body.view')
-        if (fyi.name !== newData.title || fyi.content != newData.body.view.value) {
+        if (fyi.name !== newData.title || fyi.content !== newData.body.view.value) {
           fyi.name = newData.title
           fyi.content = newData.body.view.value
           fyi.confluenceApiData = newData
@@ -94,13 +94,13 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   Fyi.loadRepoFromCSV = async function (csvFilePath) {
-    let csvFile = fs.readFileSync(csvFilePath, 'utf8');
-    let rows = await csv.parse(csvFile, {});
-    for(const row of rows) {
+    let csvFile = fs.readFileSync(csvFilePath, 'utf8')
+    let rows = await csv.parse(csvFile, {})
+    for (const row of rows) {
       let fyiName = row[0]
       let repoPathMatch = row[1].match(/github.com\/(.*)\/pull/)
       let repoPath
-      if(!repoPathMatch) {
+      if (!repoPathMatch) {
         continue
       }
       repoPath = repoPathMatch[1]
@@ -112,7 +112,7 @@ module.exports = (sequelize, DataTypes) => {
           {'repos': sequelize.fn('array_append', sequelize.col('repos'), repoPath)},
           {'where': {'limit': 1, 'name': fyiName}}
         )
-      } catch(e) {
+      } catch (e) {
         console.log(fyiName, e)
       }
     }
@@ -126,7 +126,7 @@ module.exports = (sequelize, DataTypes) => {
         {'repos': sequelize.fn('array_append', sequelize.col('repos'), repoPath)},
         {'where': {'limit': 1, 'name': fyiName}}
       )
-    } catch(e) {
+    } catch (e) {
       console.log(fyiName, org, repo, e)
     }
   }

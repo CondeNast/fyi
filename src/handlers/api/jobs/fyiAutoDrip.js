@@ -1,7 +1,7 @@
-const slack = require('../../services/slack')
-const logPrefix = require('../../utils/logPrefix')
+const slack = require('../../../services/slack')
+const logPrefix = require('../../../utils/logPrefix')
 const configGH = require('config').github
-const Fyi = require('../../models').Fyi
+const Fyi = require('../../../models').Fyi
 
 module.exports = (app) => {
   return (request, response) => {
@@ -24,7 +24,7 @@ module.exports = (app) => {
       app.log(`${LOG_PREFIX_ADMIN} loading random fyi object from service ...`)
       let fyi = await getRandomFyi()
       app.log(`${LOG_PREFIX_ADMIN} fyi object loaded`)
-      if(!fyi) {
+      if (!fyi) {
         return response.send({success: false})
       }
       const context = {}
@@ -36,14 +36,14 @@ module.exports = (app) => {
   }
 }
 
-async function getRandomFyi() {
+async function getRandomFyi () {
   let [fyi] = await Fyi.findAll({
     limit: 1,
     where: {
       content: { [ Fyi.sequelize.Op.ne ]: null },
       tags: { $contains: ['drip'] }
     },
-    order: [ Fyi.sequelize.fn( 'RANDOM' )]
+    order: [Fyi.sequelize.fn('RANDOM')]
   })
 
   return fyi

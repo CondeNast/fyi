@@ -1,4 +1,4 @@
-const Fyi = require('../../models').Fyi
+const Fyi = require('../../../models').Fyi
 
 module.exports = async (request, response) => {
   const dataChunks = []
@@ -15,7 +15,7 @@ module.exports = async (request, response) => {
     let data
     try {
       data = JSON.parse(payload)
-      let [fyi, created] = await Fyi.findOrCreate({where: {name: data.name}})
+      let [fyi] = await Fyi.findOrCreate({where: {name: data.name}})
       fyi.dependencies = data.dependencies
       await fyi.save()
       response.send(JSON.stringify({success: true}))

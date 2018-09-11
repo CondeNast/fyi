@@ -1,5 +1,5 @@
-const Fyi = require('../models').Fyi
-const messaging = require('../messaging')
+const Fyi = require('../../../models').Fyi
+const messaging = require('../../../messaging')
 
 module.exports = async (request, response) => {
   let fyis = await Fyi.findAll({

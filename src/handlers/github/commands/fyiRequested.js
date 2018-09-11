@@ -42,7 +42,7 @@ module.exports = async (context, command, app) => {
   context.log(`${LOG_PREFIX_ADMIN} loading fyi model for ${fyiName} ...`)
   let [fyi] = await Fyi.findAll({limit: 1, where: {name: fyiName}})
   let isExistingFyi
-  if(fyi) {
+  if (fyi) {
     isExistingFyi = true
   } else {
     isExistingFyi = false

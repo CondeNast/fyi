@@ -1,4 +1,4 @@
-let dogapi = require("dogapi");
+let dogapi = require('dogapi')
 const config = require('config')
 
 let options = {
@@ -6,22 +6,22 @@ let options = {
   app_key: config.get('datadog.appKey')
 }
 
-dogapi.initialize(options);
+dogapi.initialize(options)
 
 module.exports = async ({org, repo}) => {
   return new Promise((resolve, reject) => {
-    let now = parseInt(new Date().getTime() / 1000);
-    let then = now - (24 * 3600); // a day ago
+    let now = parseInt(new Date().getTime() / 1000)
+    let then = now - (24 * 3600) // a day ago
     let parameters = {
-      tags: "puppetrole:kubernetes",
-      sources: "apps"
-    };
+      tags: 'puppetrole:kubernetes',
+      sources: 'apps'
+    }
 
     let buildName = `${org.toLowerCase()}_${repo.toLowerCase()}`
     dogapi.event.query(then, now, parameters, (err, res) => {
-      if(err) {
+      if (err) {
         console.error(err)
-        reject({error: err})
+        reject(err)
       }
       let prodDeployEvents = res.events.filter(
         e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)

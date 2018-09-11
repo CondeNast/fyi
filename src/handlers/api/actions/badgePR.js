@@ -1,10 +1,7 @@
-const slack = require('../services/slack')
-const confluence = require('../services/confluence')
-const logPrefix = require('../utils/logPrefix')
-const configGH = require('config').github
-const authGH = require('../services/github')
-const Fyi = require('../models').Fyi
-const messaging = require('../messaging')
+const logPrefix = require('../../../utils/logPrefix')
+const authGH = require('../../../services/github')
+const Fyi = require('../../../models').Fyi
+const messaging = require('../../../messaging')
 
 module.exports = (app) => {
   return (request, response) => {
@@ -25,7 +22,7 @@ module.exports = (app) => {
       } catch (e) {
         return response.send(JSON.stringify({error: e.message, success: false}))
       }
-      let { fyiName, repoOrg: org, repoName: name, shouldPR, prAssignee } = data
+      let { fyiName, repoOrg: org, repoName: name } = data
       const LOG_PREFIX = logPrefix('fyiAutoPR', org, name)
       app.log(`${LOG_PREFIX} http request recieved`)
 
@@ -33,7 +30,7 @@ module.exports = (app) => {
       let fyi = await Fyi.forName(fyiName)
       app.log(`${LOG_PREFIX} fyi model loaded with id ${fyi.id}`)
 
-      //make pr
+      // make pr
       app.log(`${LOG_PREFIX} getting ready to open a badge pr...`)
       // https://github.com/hiimbex/create-pr-on-install/blob/master/index.js
       let github = await authGH({app, org})
@@ -52,12 +49,12 @@ module.exports = (app) => {
       app.log(`${LOG_PREFIX} recieved reference to master`)
       // create a reference in git for your branch
       await github.gitdata.createReference(context.repo({
-        ref: `refs/heads/${ branch }`,
+        ref: `refs/heads/${branch}`,
         sha: reference.data.object.sha
       }))
       app.log(`${LOG_PREFIX} created reference to ${branch}`)
       const encodedReadme = await github.repos.getReadme(context.repo({
-        ref: `refs/heads/${ branch }`,
+        ref: `refs/heads/${branch}`
       }))
       const readme = Buffer.from(encodedReadme.data.content, 'base64').toString('utf8')
       app.log(`${LOG_PREFIX} decoded readme`)
@@ -87,7 +84,7 @@ module.exports = (app) => {
         body: prBody,
         maintainer_can_modify: true
       }))
-      //end make pr
+      // end make pr
       app.log(`${LOG_PREFIX} posted a badge PR http://www.github.com/${org}/${name}/pull/${pr.data.number}`)
       return response.send({success: true})
     })

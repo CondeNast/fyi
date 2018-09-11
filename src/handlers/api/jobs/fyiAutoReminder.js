@@ -1,11 +1,11 @@
 const metadata = require('probot-metadata')
 const moment = require('moment')
-const slack = require('../../services/slack')
-const logPrefix = require('../../utils/logPrefix')
+const slack = require('../../../services/slack')
+const logPrefix = require('../../../utils/logPrefix')
 const configGH = require('config').github
-const authGH = require('../../services/github')
-const fyiReminderHandler = require('../github/commands/fyiReminder')
-const Fyi = require('../../models').Fyi
+const authGH = require('../../../services/github')
+const fyiReminderHandler = require('../../github/commands/fyiReminder')
+const Fyi = require('../../../models').Fyi
 
 module.exports = (app) => {
   return (request, response) => {

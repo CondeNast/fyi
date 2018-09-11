@@ -12,7 +12,7 @@ replServer.context.unwrap = (p) => {
   })
 }
 
-require("bluebird/js/release/promise")().prototype.unwrap = function() {
+require('bluebird/js/release/promise')().prototype.unwrap = function () {
   this.then((val) => {
     replServer.context.__ = val
     console.log(val)
