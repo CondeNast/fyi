@@ -1,4 +1,4 @@
-const Fyi = require('../../models').Fyi
+const Fyi = require('../../../models').Fyi
 module.exports = (app) => {
   return (request, response) => {
     Fyi.loadFromConfluence().then(() => {
@@ -7,4 +7,3 @@ module.exports = (app) => {
     })
   }
 }
-

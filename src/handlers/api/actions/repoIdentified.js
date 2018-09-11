@@ -1,5 +1,5 @@
-const repoCreatedHandler = require('../github/events/repoCreated')
-const authGH = require('../../services/github')
+const repoCreatedHandler = require('../../github/events/repoCreated')
+const authGH = require('../../../services/github')
 
 module.exports = (app) => {
   return (request, response) => {

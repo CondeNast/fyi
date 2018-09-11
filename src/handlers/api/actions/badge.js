@@ -1,6 +1,6 @@
-const confluence = require('../services/confluence')
+const confluence = require('../../../services/confluence')
 const badge = require('gh-badges')
-const Fyi = require('../models').Fyi
+const Fyi = require('../../../models').Fyi
 const format = {
   text: ['fyi', 'passed'],
   colorscheme: 'green',

@@ -27,14 +27,14 @@ Object.keys(db).forEach(modelName => {
   db[modelName].first = () => {
     return db[modelName].findAll({
       limit: 1,
-      order: [ [ 'createdAt', 'DESC' ]]  
-      }).then(([fyi]) => fyi)
+      order: [['createdAt', 'DESC']]
+    }).then(([fyi]) => fyi)
   }
   db[modelName].last = () => {
     return db[modelName].findAll({
       limit: 1,
-      order: [ [ 'createdAt', 'ASC' ]]  
-      }).then(([fyi]) => fyi)
+      order: [['createdAt', 'ASC']]
+    }).then(([fyi]) => fyi)
   }
 })
 

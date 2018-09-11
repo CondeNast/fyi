@@ -1,4 +1,4 @@
-const Fyi = require('../../models').Fyi
+const Fyi = require('../../../models').Fyi
 module.exports = (app) => {
   return (request, response) => {
     Fyi.updateFromConfluence().then(() => {
