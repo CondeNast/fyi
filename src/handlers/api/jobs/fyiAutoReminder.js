@@ -63,7 +63,7 @@ module.exports = (app) => {
           } else if (repoIssueCreatedWeeksAgo >= 2) {
             message = 'Final Reminder: Complete the requested FYI'
           }
-          const context = require('./fixtures/issue-comment-created.json')
+          const context = require('../fixtures/issue-comment-created.json')
           context.payload.issue = adminIssue
           context.payload.repository.name = adminRepo
           context.payload.organization.login = adminOrg
