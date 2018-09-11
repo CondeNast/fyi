@@ -7,7 +7,8 @@ module.exports = {
     'password': null,
     'database': 'easy-fyi-development',
     'host': '127.0.0.1',
-    'dialect': 'postgres'
+    'dialect': 'postgres',
+    'logging': false
   },
   'github': {
     'subscribedOrgs': ['choosenearme', 'mage-contest'],
@@ -20,7 +21,10 @@ module.exports = {
     'spaceKey': '~111165544'
   },
   'slack': {
+    'enabled': true,
     'channel': 'easy-fyi-dev'
   },
-  'datadog': {}
+  'datadog': {
+    'enabled': true
+  }
 }
