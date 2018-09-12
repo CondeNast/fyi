@@ -1,15 +1,13 @@
 const Fyi = require('../../../models').Fyi
 const moment = require('moment')
 const datadog = require('../../../services/datadog')
-const configDatadog = require('config').datadog
 
 module.exports = async (request, response) => {
-  if(!configDatadog.enabled) {
-    return response.send({error: 'datadog not enabled'})
+  const {error} = datadog.isEnabled() || {}
+  if (error) {
+    return response.send({error})
   }
-  if(!configDatadog.apiKey || !configDatadog.appKey) {
-    return response.send({error: 'datadog keys not setup'})
-  }
+
   let {name: fyiName} = request.params
 
   let [fyi] = await Fyi.findAll({where: {name: fyiName}})
@@ -20,7 +18,7 @@ module.exports = async (request, response) => {
 
   let latestDeployEvents = await Promise.all(fyi.repos.map(async (repoPath) => {
     let [org, repo] = repoPath.split('/')
-    let { prodDeployEvents, stagDeployEvents, ciDeployEvents } = await datadog({org, repo})
+    let { prodDeployEvents, stagDeployEvents, ciDeployEvents } = await datadog.fetch({org, repo})
 
     let deployEvent = {
       prod: {

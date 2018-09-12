@@ -1,7 +1,6 @@
 const metadata = require('probot-metadata')
 const filter = require('../../../middleware/filter')
 const authGH = require('../../../services/github')
-const configSlack = require('config').slack
 const slack = require('../../../services/slack')
 const logPrefix = require('../../../utils/logPrefix')
 const messaging = require('../../../messaging')
@@ -91,9 +90,11 @@ module.exports = async (context, command, app) => {
   }))
   context.log(`${LOG_PREFIX_ADMIN} comment posted`)
 
-  if(configSlack.enabled && configSlack.webhook) {
-    let fyiRequestedNotification = isExistingFyi ? 'fyi-requested-old' : 'fyi-requested'
-    await slack.post({type: fyiRequestedNotification, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi})
+  let fyiRequestedNotification = isExistingFyi ? 'fyi-requested-old' : 'fyi-requested'
+  const { error } = await slack.post({type: fyiRequestedNotification, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) || {}
+  if (error) {
+    context.log.error(`${LOG_PREFIX_ADMIN} slack message failed: ${error}`)
+  } else {
     context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
   }
 
