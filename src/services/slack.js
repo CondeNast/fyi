@@ -1,8 +1,9 @@
 const rp = require('request-promise-native')
-const config = require('config')
 
-const url = config.get('slack.webhook')
+const config = require('config')
+const enabled = config.get('slack.enabled')
 const channel = config.get('slack.channel')
+const url = config.get('slack.webhook')
 
 const slackify = require('slackify-html')
 
@@ -11,6 +12,15 @@ module.exports = {
 }
 
 async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
+  if (!enabled) {
+    return {error: 'slack is not enabled'}
+  }
+  if (!channel) {
+    return {error: 'slack channel is not configured'}
+  }
+  if (!url) {
+    return {error: 'slack webhook url is not configured'}
+  }
   let text
   if (type === 'fyi-requested') {
     let repoIssueUrl = `http://github.com/${org}/${repo}/issues/${repoIssue}`

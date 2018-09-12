@@ -1,14 +1,28 @@
-let dogapi = require('dogapi')
+const dogapi = require('dogapi')
 const config = require('config')
+const enabled = config.get('datadog.enabled')
+const apiKey = config.get('datadog.apiKey')
+const appKey = config.get('datadog.appKey')
 
-let options = {
-  api_key: config.get('datadog.apiKey'),
-  app_key: config.get('datadog.appKey')
+const initialize = () => {
+  const options = {
+    api_key: apiKey,
+    app_key: appKey
+  }
+  dogapi.initialize(options)
+}
+initialize()
+
+const isEnabled = () => {
+  if (!enabled) {
+    return {error: 'datadog is not enabled'}
+  }
+  if (!apiKey || !appKey) {
+    return {error: 'datadog keys not configured'}
+  }
 }
 
-dogapi.initialize(options)
-
-module.exports = async ({org, repo}) => {
+const fetch = async ({org, repo}) => {
   return new Promise((resolve, reject) => {
     let now = parseInt(new Date().getTime() / 1000)
     let then = now - (24 * 3600) // a day ago
@@ -38,4 +52,9 @@ module.exports = async ({org, repo}) => {
   }).then((events) => {
     return events
   })
+}
+
+module.exports = {
+  isEnabled,
+  fetch
 }
