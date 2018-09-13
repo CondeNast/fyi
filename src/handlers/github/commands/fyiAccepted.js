@@ -44,10 +44,8 @@ module.exports = async (context, command, app) => {
     }
   }
 
-  const { error } = await slack.post({type: 'fyi-accepted', context, org, repo, fyi}) || {}
-  if (error) {
-    context.log.error(`${LOG_PREFIX_ADMIN} slack message failed: ${error}`)
-  } else {
+  if(slack.isEnabled()) {
+    await slack.post({type: 'fyi-accepted', context, org, repo, fyi}) || {}
     context.log(`${LOG_PREFIX_ADMIN} slack message posted`)
   }
 }
