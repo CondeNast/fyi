@@ -24,7 +24,7 @@ const initialize = () => {
 initialize()
 
 async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
-  if (!enabled) {
+  if (!isEnabled()) {
     return
   }
   let text
