@@ -7,19 +7,25 @@ const url = config.get('slack.webhook')
 
 const slackify = require('slackify-html')
 
-module.exports = {
-  post
+const isEnabled = () => {
+  return enabled === true
 }
+
+const initialize = () => {
+  if(isEnabled()) {
+    if (!channel) {
+      throw new Error('slack channel is not configured')
+    }
+    if (!url) {
+      throw new Error('slack webhook url is not configured')
+    }
+  }
+}
+initialize()
 
 async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
   if (!enabled) {
-    return {error: 'slack is not enabled'}
-  }
-  if (!channel) {
-    return {error: 'slack channel is not configured'}
-  }
-  if (!url) {
-    return {error: 'slack webhook url is not configured'}
+    return
   }
   let text
   if (type === 'fyi-requested') {
@@ -53,4 +59,9 @@ async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg
   }).catch((error) => {
     context.log.error(error)
   })
+}
+
+module.exports = {
+  isEnabled,
+  post
 }
