@@ -38,7 +38,6 @@
     "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js"
   },
   "dependencies": {
-    "@condenast/cn-vault": "^2.5.0",
     "@sindresorhus/slugify": "^0.3.0",
     "async-csv": "^1.0.1",
     "config": "^1.30.0",
@@ -48,6 +47,7 @@
     "handlebars": "^4.0.11",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.21",
+    "node-vault": "^0.9.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "probot": "^7.0.0",
