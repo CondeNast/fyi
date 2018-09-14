@@ -4,6 +4,18 @@ const options = {
 }
 const vault = require('node-vault')(options)
 
+// auto-renew vault token
+let refreshRate = 24 * 60 * 60 * 1000
+setTimeout(function renewToken() {
+  vault.tokenRenewSelf()
+    .catch((err) => {
+      console.error(err)
+    })
+    .then(() => {
+      setTimeout(renewToken, refreshRate).unref();
+    });
+}, refreshRate).unref();
+
 const env = process.env.NODE_ENV || 'development'
 let EASY_FYI_SECRET_PATH
 
