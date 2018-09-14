@@ -44,7 +44,7 @@ async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg
     let fyiBodyMarkdown = slackify(fyiBody)
     text = `📆 FYI OTD: <${fyi.viewLink}|${fyi.name}>\n${fyiBodyMarkdown}`
   } else {
-    return
+    throw new Error('unsupported message type')
   }
   await rp.post({
     url,
@@ -56,8 +56,6 @@ async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg
       mrkdown: true
     },
     json: true
-  }).catch((error) => {
-    context.log.error(error)
   })
 }
 
