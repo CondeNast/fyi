@@ -25,6 +25,6 @@ module.exports = {
     'channel': 'easy-fyi-dev'
   },
   'datadog': {
-    'enabled': true
+    'enabled': false
   }
 }

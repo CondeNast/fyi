@@ -25,7 +25,7 @@ initialize()
 
 async function post ({type, context, org, repo, repoIssue, repoCreator, adminOrg, adminRepo, adminIssue, fyi}) {
   if (!isEnabled()) {
-    return
+    throw new Error('slack is not enabled')
   }
   let text
   if (type === 'fyi-requested') {

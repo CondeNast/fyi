@@ -24,7 +24,7 @@ initialize()
 
 const fetch = async ({org, repo}) => {
   if(!isEnabled()) {
-    return
+    throw new Error('datadog is not enabled')
   }
   return new Promise((resolve, reject) => {
     let now = parseInt(new Date().getTime() / 1000)
