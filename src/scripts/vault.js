@@ -1,7 +1,11 @@
-const CNVault = require('@condenast/cn-vault')
-let EASY_FYI_SECRET_PATH
+const options = {
+  endpoint: process.env.VAULT_ADDR,
+  token: process.env.VAULT_TOKEN
+}
+const vault = require('node-vault')(options)
 
 const env = process.env.NODE_ENV || 'development'
+let EASY_FYI_SECRET_PATH
 
 if (env === 'production') {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
@@ -9,10 +13,4 @@ if (env === 'production') {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
 }
 
-let p = CNVault.getInstance().getSecrets([EASY_FYI_SECRET_PATH])
-
-module.exports = p.then(([secrets]) => secrets, () => {
-  // fallback for new production secret path
-  // TODO remove after deployment
-  return CNVault.getInstance().getSecrets([`secret/architecture/easy-fyi/production`]).then(([secrets]) => secrets)
-})
+module.exports = vault.read(EASY_FYI_SECRET_PATH).then((secrets) => secrets.data)
