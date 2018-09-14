@@ -12,7 +12,7 @@ const isEnabled = () => {
 }
 
 const initialize = () => {
-  if(isEnabled()) {
+  if (isEnabled()) {
     if (!channel) {
       throw new Error('slack channel is not configured')
     }

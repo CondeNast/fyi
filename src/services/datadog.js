@@ -9,7 +9,7 @@ const isEnabled = () => {
 }
 
 const initialize = () => {
-  if(isEnabled()) {
+  if (isEnabled()) {
     if (!apiKey || !appKey) {
       throw new Error('datadog keys not configured')
     }
@@ -23,7 +23,7 @@ const initialize = () => {
 initialize()
 
 const fetch = async ({org, repo}) => {
-  if(!isEnabled()) {
+  if (!isEnabled()) {
     throw new Error('datadog is not enabled')
   }
   return new Promise((resolve, reject) => {

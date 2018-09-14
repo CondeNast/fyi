@@ -3,7 +3,7 @@ const moment = require('moment')
 const datadog = require('../../../services/datadog')
 
 module.exports = async (request, response) => {
-  if(!datadog.isEnabled()) {
+  if (!datadog.isEnabled()) {
     return response.send({})
   }
 
