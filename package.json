@@ -18,7 +18,7 @@
     "Gautam Arora <gautamsarora@gmail.com>"
   ],
   "scripts": {
-    "dev:server": "nodemon --exec \"source authenticate-vault && npm start\"",
+    "dev:server": "nodemon --exec \"npm start\"",
     "dev:client": "npm start --prefix=public/frontend",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
