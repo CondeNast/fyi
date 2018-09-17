@@ -3,6 +3,12 @@ const options = {
   token: process.env.VAULT_TOKEN
 }
 const vault = require('node-vault')(options)
+setInterval(() => {
+        vault.tokenRenewSelf()
+          .catch((err) => {
+            console.error(err)
+          });
+      }, 86400000);
 
 // auto-renew vault token
 let refreshRate = 24 * 60 * 60 * 1000
@@ -25,4 +31,7 @@ if (env === 'production') {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
 }
 
-module.exports = vault.read(EASY_FYI_SECRET_PATH).then((secrets) => secrets.data)
+module.exports = vault.read(EASY_FYI_SECRET_PATH).then((secrets) => secrets.data, (err) => {
+
+  return require('config').get('vault.secrets')
+})
