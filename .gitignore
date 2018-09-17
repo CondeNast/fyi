@@ -2,3 +2,4 @@ node_modules
 coverage
 backup
 *.pem
+secrets.json

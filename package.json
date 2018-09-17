@@ -20,6 +20,8 @@
   "scripts": {
     "dev:server": "nodemon --exec \"npm start\"",
     "dev:client": "npm start --prefix=public/frontend",
+    "install:client": "npm --prefix public/frontend install",
+    "build:client":"npm --prefix public/frontend run build",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
     "lint": "standard --fix",

@@ -17,12 +17,12 @@ services:
     environment:
       POSTGRES_PASSWORD: null
       POSTGRES_USER: easyfyi
-  #vault:
-    #image: vault
-    #ports:
-      #- "8200:8200"
-    #restart: always
-    #cap_add:
-     #- IPC_LOCK
-    #environment:
-      #VAULT_DEV_ROOT_TOKEN_ID: myroot
+  vault:
+    image: vault
+    ports:
+      - "8200:8200"
+    restart: always
+    cap_add:
+     - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: myroot
