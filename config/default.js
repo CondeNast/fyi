@@ -26,5 +26,8 @@ module.exports = {
   },
   'datadog': {
     'enabled': false
+  },
+  'vault': {
+    'secrets': require('../secrets.json')
   }
 }
