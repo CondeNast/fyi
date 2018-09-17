@@ -9,14 +9,22 @@ services:
       VAULT_ADDR: http://vault:8200
       VAULT_TOKEN: myroot
       POSTGRES_USER: easyfyi
-  db:
+      POSTGRES_PASSWORD: null
+      POSTGRES_DB: easy-fyi-development
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5433
+    depends_on:
+      - postgres
+      - vault
+  postgres:
     image: postgres
     restart: always
     ports:
       - "5433:5432"
     environment:
-      POSTGRES_PASSWORD: null
       POSTGRES_USER: easyfyi
+      POSTGRES_PASSWORD: null
+      POSTGRES_DB: easy-fyi-development
   vault:
     image: vault
     ports:
