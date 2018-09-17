@@ -1,12 +1,13 @@
-let username = require('os').userInfo().username
+let username = process.env.POSTGRES_USER || require('os').userInfo().username
 
 module.exports = {
   'username': username,
   'database': {
     'username': username,
-    'password': null,
-    'database': 'easy-fyi-development',
-    'host': '127.0.0.1',
+    'password': process.env.POSTGRES_PASSWORD || null,
+    'database': process.env.POSTGRES_DB || 'easy-fyi-development',
+    'host': process.env.POSTGRES_HOST || '127.0.0.1',
+    'port': process.env.POSTGRES_PORT || '5432',
     'dialect': 'postgres',
     'logging': false
   },
