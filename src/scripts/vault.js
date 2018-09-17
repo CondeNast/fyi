@@ -21,9 +21,9 @@ let EASY_FYI_SECRET_PATH
 if (env === 'production') {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
 } else {
-  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
+  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod1/${env}`
 }
 
-module.exports = vault.read(EASY_FYI_SECRET_PATH).then((secrets) => secrets.data, (err) => {
-  return require('config').get('vault.secrets')
-})
+module.exports = vault.read(EASY_FYI_SECRET_PATH)
+                      .then((secrets) => secrets.data)
+                      .catch((err) => require('config').vault.secrets.data)
