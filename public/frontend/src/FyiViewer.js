@@ -12,20 +12,33 @@ class FyiViewer extends Component {
   }
   render() {
     return (
-      <div className="App">
-            <a href={this.state.fyiLink}>Read the FYI</a><br/>
-            <label> Depends on &nbsp; &nbsp;
-	      <input type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
-            </label>
+      <div class='viewer'>
 
-            <datalist id="data">
-                {this.state.fyis.map((fyi, index) =>
-                    <option value={fyi.name} key={index}/>
-                )}
-            </datalist>
-	  <div id="treeWrapper" style={{width: '100%', height: '80vh'}}>
-	   { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
-	  </div>
+        <datalist id="data">
+          {this.state.fyis.map((fyi, index) =>
+            <option value={fyi.name} key={index}/>
+          )}
+        </datalist>
+
+    	  <div class='col-8 col-sm-9' id="treeWrapper">
+      	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
+    	  </div>
+
+        <div class='col-8 col-sm-3 fyi-toolpane'>
+          <h3>{this.state.data.name}</h3>
+          <a class='nav-link btn btn-primary btn-sm' href={this.state.fyiLink}>
+            Read the FYI
+          </a>
+          <hr />
+          <h4>Edit</h4>
+          <form>
+            <div class='form-group'>
+              <label>New Dependency</label>
+              <input class='form-control form-control-lg' placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
+              <small class='form-text text-muted'>Press enter to submit.</small>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

@@ -19,22 +19,35 @@ class FyiList extends Component {
         <li key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></li>
     );
     const allItems = this.state.all.map((fyi) =>
-        <li key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></li>
+        // <li key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></li>
+        <tr>
+          <td key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></td>
+
+        </tr>
     );
     return (
-     <Tabs
-        activeKey={this.state.key}
-        onSelect={this.handleSelect.bind(this)}
-        id="fyi-list-tabs"
-      >
-        <Tab eventKey={1} title="Systems">
-          <ul>{systemItems}</ul>
-        </Tab>
-        <Tab eventKey={2} title="All">
-          <ul>{allItems}</ul>
-        </Tab>
-      </Tabs> 
-  )
+        <Tabs
+          activeKey={this.state.key}
+          onSelect={this.handleSelect.bind(this)}
+          id="fyi-list-tabs"
+        >
+          <Tab eventKey={1} title="Systems">
+            <ul>{systemItems}</ul>
+          </Tab>
+          <Tab eventKey={2} title="All">
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <th>FYI</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allItems}
+              </tbody>
+            </table>
+          </Tab>
+        </Tabs>
+    )
   }
   componentDidMount () {
     let options = {

@@ -25,10 +25,10 @@ export default class CenteredTree extends React.PureComponent {
 
   render() {
     return (
-      <div style={containerStyles} ref={tc => (this.treeContainer = tc)}>
-        <Tree 
-          data={this.props.data} 
-          translate={this.state.translate} 
+      <div class='fyi-diagram' style={containerStyles} ref={tc => (this.treeContainer = tc)}>
+        <Tree
+          data={this.props.data}
+          translate={this.state.translate}
           orientation={'vertical'}
           zoomable={false}
           collapsible={false}

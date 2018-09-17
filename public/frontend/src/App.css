@@ -1,14 +1,14 @@
 .App {
-  text-align: center;
+  background-color:whitesmoke;
+  padding:1em;
+  height:100vh;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.app-container {
+  height:100%;
 }
 
 .App-header {
-  background-color: #222;
   height: 150px;
   padding: 20px;
   color: white;
@@ -22,7 +22,56 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.viewer {
+  flex:1;
+  display:flex;
+}
+
+.fyi-diagram {
+  /* background-color:pink; */
+}
+
+.fyi-sidebar {
+  padding-right: 2em;
+}
+
+
+.fyi-toolpane {
+  padding-top:1em;
+  padding-bottom:3em;
+  border-left:1px solid lightgray;
+  margin-bottom:1em;
+}
+
+.fyi-container {
+  display:flex;
+  flex-direction: column;
+  align-content: stretch;
+  background-color:white;
+  border-radius: 5px;
+  box-shadow: 0 0.125em 0.313em rgba(50, 50, 93, 0.09), 0 0.063em 0.125em rgba(0, 0, 0, 0.07);
+  padding-top:1em;
+  overflow-y:scroll;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 576px) {
+  .app-container {
+    display:flex;
+    flex-direction: column;
+  }
+
+  .fyi-container {
+    flex:1;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    flex-direction: row;
+  }
+
+  .fyi-container {
+    height:100%;
+  }
 }
