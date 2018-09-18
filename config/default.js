@@ -8,8 +8,7 @@ module.exports = {
     'database': process.env.POSTGRES_DB || 'easy-fyi-development',
     'host': process.env.POSTGRES_HOST || '127.0.0.1',
     'port': process.env.POSTGRES_PORT || '5432',
-    'dialect': 'postgres',
-    'logging': false
+    'dialect': 'postgres'
   },
   'github': {
     'subscribedOrgs': ['choosenearme', 'mage-contest'],
