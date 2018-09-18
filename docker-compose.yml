@@ -3,7 +3,8 @@ services:
   web:
     image: easy-fyi-image
     volumes: 
-      - ./:/app
+      - ./src:/app/src
+      - ./public/frontend/src:/app/public/frontend/src
     restart: always
     ports:
       - "3001:3000"
@@ -18,7 +19,6 @@ services:
       POSTGRES_PORT: 5432
     depends_on:
       - postgres
-      - vault
   postgres:
     image: postgres
     restart: always
@@ -33,7 +33,6 @@ services:
     command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate_and_seed"]
     environment:
       VAULT_ADDR: http://vault:8200
-      VAULT_TOKEN: myroot
       POSTGRES_USER: easyfyi
       POSTGRES_PASSWORD: null
       POSTGRES_DB: easy-fyi-development
@@ -41,13 +40,3 @@ services:
       POSTGRES_PORT: 5432
     depends_on:
       - postgres
-      - vault
-  vault:
-    image: vault
-    ports:
-      - "8200:8200"
-    restart: always
-    cap_add:
-     - IPC_LOCK
-    environment:
-      VAULT_DEV_ROOT_TOKEN_ID: myroot
