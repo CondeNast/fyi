@@ -27,7 +27,7 @@ services:
       POSTGRES_DB: easy-fyi-development
   postgres-migration:
     image: easy-fyi-image
-    command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate"]
+    command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate_and_seed"]
     environment:
       VAULT_ADDR: http://vault:8200
       VAULT_TOKEN: myroot
