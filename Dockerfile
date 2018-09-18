@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package.json /app/package.json
 COPY public/frontend/ /app/public/frontend/
 RUN npm install
-RUN npm install --prefix app/public/frontend
+RUN npm install --prefix public/frontend
 RUN npm run install:client
 RUN npm run build:client
 COPY . .
