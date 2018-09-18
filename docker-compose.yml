@@ -2,9 +2,12 @@ version: '3.1'
 services:
   web:
     image: easy-fyi-image
+    volumes: 
+      - ./:/app
     restart: always
     ports:
       - "3001:3000"
+      - "3002:3001"
     environment:
       VAULT_ADDR: http://vault:8200
       VAULT_TOKEN: myroot
