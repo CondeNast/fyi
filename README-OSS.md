@@ -34,15 +34,15 @@ This application has two parts:
 ### Development
 
   1. Setup and Configuration
-    1. Setup SMEE
-    2. Setup Github Org and Github App
-    3. Setup Confluence Space and Page
-    4. Setup Slack (optional)
+      1. Setup SMEE
+      2. Setup Github Org and Github App
+      3. Setup Confluence Space and Page
+      4. Setup Slack (optional)
   2. Update config and secrets
   3. Build
-    - `docker build -t easy-fyi-image .`
+      - `docker build -t easy-fyi-image .`
   4. Run
-    - `docker-compose up`
+      - `docker-compose up`
 
 ### Production
 ...
