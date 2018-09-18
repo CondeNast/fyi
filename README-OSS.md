@@ -4,12 +4,12 @@ Discover and Explore your Organization's System Architecture
 
 ## Introduction
 
-The FYI application was built by the Architecture Team at Condé Nast to stay on top of the company's growing technology portfolio of systems spread across hundreds of Github repositories in multiple Github organizations being developed daily by hundreds of developers.
+The FYI application was built by the Architecture Team at Condé Nast to stay on top of their growing technology portfolio of systems (sites, apps, apis) distributed across hundreds of repositories in multiple GitHub organizations.
 
 This application has two parts:
 
-  - a Github App (called Arch Bot) for automated repository-based system discovery
-  - a Frontend App (called Easy FYI) to create and view system dependencies and metrics
+  - a Github App (called Arch Bot) for automated repository-based system discovery workflow
+  - a Frontend App (called Easy FYI) for interactive architecutre diagrams with system dependencies and metrics
 
 [Demo Video Here]
 
@@ -38,6 +38,7 @@ This application has two parts:
       2. Setup Github Org and Github App
       3. Setup Confluence Space and Page
       4. Setup Slack (optional)
+      5. Setup Datadog (optional)
   2. Update config and secrets
   3. Build
       - `docker build -t easy-fyi-image .`
