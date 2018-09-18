@@ -42,6 +42,7 @@ db.sequelize = sequelize
 db.Sequelize = Sequelize
 sequelize.authenticate().then(() => {}, (e) => {
   if (env === 'development') {
+    console.error(e)
     throw new Error(`You don't seem to have your database setup correctly.  Here is your db config\n\n\n${JSON.stringify(config, null, 4)}`)
   }
 })
