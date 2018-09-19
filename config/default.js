@@ -1,5 +1,14 @@
 let username = process.env.POSTGRES_USER || require('os').userInfo().username
 
+let secrets
+try {
+  secrets = require('../secrets.json')
+} catch(e) {
+  secrets = {
+    "data": null
+  }
+}
+
 module.exports = {
   'username': username,
   'database': {
@@ -28,6 +37,6 @@ module.exports = {
     'enabled': false
   },
   'vault': {
-    'secrets': require('../secrets.json')
+    secrets
   }
 }
