@@ -2,4 +2,5 @@ CnNodeBuild( project: "easy-fyi", nodeVersion: "nsolid-2.4.1-carbon", npmVersion
     sh "npm install"
     sh "npm run install:client"
     sh "npm run build:client"
+    sh "rm .dockerignore"
 }
