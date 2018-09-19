@@ -40,8 +40,10 @@
     "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js",
     "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development",
     "docker:build": "docker build -t easy-fyi-image .",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down",
     "docker:clean-containers": "docker rm $(docker ps -a -f status=exited -q)",
-    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true')"
+    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images easy-fyi-image -q)"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",
