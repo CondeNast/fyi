@@ -19,9 +19,9 @@
   ],
   "scripts": {
     "dev:server": "nodemon --exec \"npm start\"",
-    "dev:client": "npm start --prefix=public/frontend",
-    "install:client": "npm --prefix public/frontend install",
-    "build:client":"npm --prefix public/frontend run build",
+    "dev:client": "npm start --prefix=src/frontend",
+    "install:client": "npm --prefix src/frontend install",
+    "build:client": "npm --prefix src/frontend run build",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
     "lint": "standard --fix",
@@ -38,7 +38,10 @@
     "seed:data:production": "NODE_ENV=production eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
     "seed:data:development": "eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
     "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js",
-    "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development"
+    "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development",
+    "docker:build": "docker build -t easy-fyi-image .",
+    "docker:clean-containers": "docker rm $(docker ps -a -f status=exited -q)",
+    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true')"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",

@@ -4,7 +4,6 @@ services:
     image: easy-fyi-image
     volumes:
       - ./src:/app/src
-      - ./public/frontend/src:/app/public/frontend/src
     restart: always
     ports:
       - "3001:3000"

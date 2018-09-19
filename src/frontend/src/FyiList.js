@@ -58,6 +58,9 @@ class FyiList extends Component {
     fetch('/fyis', options)
         .then(response => response.json()).then( (fyis) => {
           this.setState({  systems: fyis.systems, all: fyis.all })
+        })
+        .catch(() => {
+          this.setState({  systems: [], all: [] })
         });
     }
 }

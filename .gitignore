@@ -1,3 +1,4 @@
+public/frontend/build/*
 node_modules
 coverage
 backup
