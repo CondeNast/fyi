@@ -26,4 +26,4 @@ if (env === 'production') {
 
 module.exports = vault.read(EASY_FYI_SECRET_PATH)
                       .then((secrets) => secrets.data)
-                      .catch((err) => require('config').vault.secrets.data)
+                      .catch(() => require('config').vault.secrets.data)
