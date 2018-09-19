@@ -29,11 +29,11 @@ module.exports = vault.read(EASY_FYI_SECRET_PATH)
                       .catch((e) => {
                         let secrets = require('config').vault.secrets.data
                         if (!secrets) {
-                          console.error('secrets.json is empty!!!')
+                          console.error('secrets.json is missing!')
                           console.error('How to fix this:')
                           console.error('1. Run the command to populate it: vault read --format=json secret/architecture/easy-fyi/nonprod/development > secrets.json')
                           console.error('2. Rebuild image: npm run docker:build')
-                          throw new Error('secrets.json is empty')
+                          throw new Error('secrets.json is missing')
                         }
                         return secrets
                       })
