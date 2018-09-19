@@ -35,15 +35,15 @@ This application has two parts:
 
   1. Setup and Configuration
       1. Setup SMEE
-      2. Setup Github Org and Github App
-      3. Setup Confluence Space and Page
-      4. Setup Slack (optional)
-      5. Setup Datadog (optional)
-  2. Update config and secrets
-  4. Create admin Github repository and setup administrators
-  3. Build
+      2. Setup Github Org and FYI Admin repository
+      3. Setup Github App
+      4. Setup Confluence Space and Page
+      5. Setup Slack (optional)
+      6. Setup Datadog (optional)
+      7. Update application config and secrets
+  2. Build
       - `docker build -t easy-fyi-image .`
-  4. Run
+  3. Run
       - `docker-compose up`
 
 ### Production
