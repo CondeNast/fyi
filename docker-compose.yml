@@ -2,7 +2,7 @@ version: '3.1'
 services:
   web:
     image: easy-fyi-image
-    volumes: 
+    volumes:
       - ./src:/app/src
       - ./public/frontend/src:/app/public/frontend/src
     restart: always

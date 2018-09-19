@@ -38,7 +38,7 @@
     "seed:data:production": "NODE_ENV=production eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
     "seed:data:development": "eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
     "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js",
-    "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:production"
+    "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",
