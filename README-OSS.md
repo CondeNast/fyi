@@ -40,6 +40,7 @@ This application has two parts:
       4. Setup Slack (optional)
       5. Setup Datadog (optional)
   2. Update config and secrets
+  4. Create admin Github repository and setup administrators
   3. Build
       - `docker build -t easy-fyi-image .`
   4. Run
