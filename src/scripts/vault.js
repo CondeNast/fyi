@@ -21,7 +21,7 @@ let EASY_FYI_SECRET_PATH
 if (env === 'production') {
   EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
 } else {
-  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod1/${env}`
+  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
 }
 
 module.exports = vault.read(EASY_FYI_SECRET_PATH)
