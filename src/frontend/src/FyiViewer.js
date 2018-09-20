@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import CenteredTree from './CenteredTree';
 
 class FyiViewer extends Component {
@@ -13,7 +14,6 @@ class FyiViewer extends Component {
   render() {
     return (
       <div class='viewer'>
-
         <datalist id="data">
           {this.state.fyis.map((fyi, index) =>
             <option value={fyi.name} key={index}/>
@@ -26,18 +26,16 @@ class FyiViewer extends Component {
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
           <h3>{this.state.data.name}</h3>
-          <a class='nav-link btn btn-primary btn-sm' href={this.state.fyiLink}>
-            Read the FYI
-          </a>
+          <Button color="secondary" size="sm" href={this.state.fyiLink}>Read the FYI</Button>
           <hr />
-          <h4>Edit</h4>
-          <form>
-            <div class='form-group'>
-              <label>New Dependency</label>
-              <input class='form-control form-control-lg' placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
+          <h5>Edit</h5>
+          <Form>
+            <FormGroup>
+              <Label>New Dependency</Label>
+              <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
               <small class='form-text text-muted'>Press enter to submit.</small>
-            </div>
-          </form>
+            </FormGroup>
+          </Form>
         </div>
       </div>
     );
