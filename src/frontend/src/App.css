@@ -2,24 +2,11 @@
   background-color:whitesmoke;
   padding:1em;
   height:100vh;
+  font-size:14px;
 }
 
 .app-container {
   height:100%;
-}
-
-.App-header {
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
 }
 
 .viewer {
@@ -28,10 +15,11 @@
 }
 
 .fyi-diagram {
-  /* background-color:pink; */
+  /* diagram styles */
 }
 
 .fyi-sidebar {
+  margin-top:2em;
   padding-right: 2em;
 }
 
@@ -52,6 +40,14 @@
   box-shadow: 0 0.125em 0.313em rgba(50, 50, 93, 0.09), 0 0.063em 0.125em rgba(0, 0, 0, 0.07);
   padding-top:1em;
   overflow-y:scroll;
+}
+
+.card-deck {
+  margin-top:2em;
+}
+
+.fyi-container .table th {
+  border-top:0;
 }
 
 /* Small devices (tablets, 768px and up) */
