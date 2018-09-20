@@ -5,7 +5,13 @@ module.exports = async (request, response) => {
     let systems = await getFyisByTag('system')
     let all = await getFyisByTag()
     response.send(JSON.stringify({
-      systems: systems.map((e) => ({id: e.id, name: e.name})),
+      systems: systems.map((e) => ({
+        id: e.id,
+        name: e.name,
+        content: e.content,
+        createdAt: e.createdAt,
+        tags: e.tags
+      })),
       all: all.map((e) => ({id: e.id, name: e.name}))
     }))
   } catch (e) {
