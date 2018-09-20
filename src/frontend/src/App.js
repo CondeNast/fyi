@@ -15,13 +15,11 @@ class App extends Component {
       <div class= 'App'>
         <div class='app-container container-fluid'>
 
-          {/* MENU*/}
           <div class='col-6 col-md-2 fyi-sidebar'>
             <h3><a href='/'>Easy FYI</a></h3>
             <p>Discover the Condé Nast software architecture.</p>
           </div>
 
-          {/* Application */}
           <div class='col-12 col-md-10 fyi-container'>
             <Switch>
               <Route exact path='/' component={FyiList} />
