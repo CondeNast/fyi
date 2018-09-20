@@ -21,6 +21,8 @@ services:
   postgres:
     image: postgres
     restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     environment:
@@ -29,7 +31,7 @@ services:
       POSTGRES_DB: easy-fyi-development
   postgres-migration:
     image: easy-fyi-image
-    command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate_and_seed"]
+    command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate"]
     environment:
       VAULT_ADDR: http://vault:8200
       POSTGRES_USER: easyfyi
