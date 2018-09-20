@@ -32,7 +32,7 @@ class FyiList extends Component {
         <Card>
           <CardBody>
             <CardTitle>{fyi.name}</CardTitle>
-            <CardText>This is some text about the system, perhaps a description?</CardText>
+            <CardText>{fyi.content && fyi.content.slice(0,100)}</CardText>
             <CardText><small class="text-muted">Last updated 3 mins ago</small></CardText>
           </CardBody>
         </Card>
