@@ -12,7 +12,10 @@ module.exports = async (request, response) => {
   let [fyi] = await Fyi.findAll({where: {name: fyiName}})
 
   if (!fyi) {
-    return response.send({error: 'fyi not found'})
+    return response.send({error: 'fyi not found', events: []})
+  }
+  if (fyi.repos.length === 0) {
+    return response.send({error: 'fyi has no repos', events: []})
   }
 
   let latestDeployEvents = await Promise.all(fyi.repos.map(async (repoPath) => {

@@ -34,7 +34,7 @@ module.exports = {
     'channel': 'easy-fyi-dev'
   },
   'datadog': {
-    'enabled': false
+    'enabled': true
   },
   'vault': {
     secrets
