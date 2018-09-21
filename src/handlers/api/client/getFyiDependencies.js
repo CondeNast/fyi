@@ -7,6 +7,7 @@ module.exports = async (request, response) => {
     let fyi = await Fyi.findById(fyiId)
     let children = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
     response.send(JSON.stringify({
+      fyiId: fyi.id,
       name: fyi.name,
       tags: fyi.tags,
       link: fyi.viewLink,
@@ -26,11 +27,12 @@ async function getSecondLevel (children) {
     }
     else{
       newChildren = fyi.dependencies.fyis.map((dep) => {
-        return {name: dep}
+        return {name: dep, fyiId: dep.id}
       })
     }
     return {
       name: dep,
+      fyiId: fyi.id,
       link: fyi.viewLink,
       children: newChildren
     }
