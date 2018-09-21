@@ -10,7 +10,7 @@ const containerStyles = {
 export default class CenteredTree extends React.PureComponent {
   state = {}
   handleClick = (nodeData, event)  => {
-    window.location.assign(window.location.href.replace(encodeURIComponent(this.props.data[0].name) ,nodeData.name))
+    window.location.assign(window.location.href.replace(/fyis.*/,  `fyis/${nodeData.fyiId}/${encodeURIComponent(nodeData.name)}`))
   }
 
   componentDidMount() {
