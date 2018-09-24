@@ -1,6 +1,7 @@
 const dogapi = require('dogapi')
 const config = require('config')
 const enabled = config.get('datadog.enabled')
+if(!enabled) { module.exports = {isEnabled: () => false}; return; } 
 const apiKey = config.get('datadog.apiKey')
 const appKey = config.get('datadog.appKey')
 
