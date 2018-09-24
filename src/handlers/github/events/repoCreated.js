@@ -14,6 +14,7 @@ module.exports = async (context, app) => {
   const org = context.payload.organization.login
   const repo = context.payload.repository.name
   const repoCreator = context.payload.sender.login
+  const fyiName = context.payload.fyiName
 
   const LOG_PREFIX = logPrefix('repoCreated', org, repo)
   const LOG_PREFIX_ADMIN = logPrefix('repoCreated', adminOrg, adminRepo)
@@ -26,6 +27,7 @@ module.exports = async (context, app) => {
   data[prefix]['org'] = org
   data[prefix]['repo'] = repo
   data[prefix]['repoCreator'] = repoCreator
+  data[prefix]['fyiName'] = fyiName
   let json = JSON.stringify(data)
 
     // calculate labels for dev and stag
@@ -48,7 +50,7 @@ module.exports = async (context, app) => {
 
   let title = `Repo Created: ${org}/${repo}`
   if (context.payload.source === 'API') {
-    title += ' (identified via API)'
+    title += ' (identified)'
   }
 
   let github = await authGH({app, context, org: adminOrg})
