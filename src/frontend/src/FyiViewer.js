@@ -103,15 +103,16 @@ class FyiViewer extends Component {
   _handleKeyPressRepo = (event) => {
     if(event.key == 'Enter') {
       event.preventDefault();
-      let org = this.state.org ? this.state.org : 'choosenearme'
+      let org = this.state.org ? this.state.org : this.state.orgs[0]
       let repo = event.target.value
       console.log(`${org}/${repo}`)
-      // fetch('/repos', {method: "POST", headers: {
-      //   "Accept": "application/json"
-      // }, body: JSON.stringify({
-      //   name: repo,
-      //   org
-      // })})
+      fetch('/repos', {method: "POST", headers: {
+        "Accept": "application/json"
+      }, body: JSON.stringify({
+        name: repo,
+        org,
+        fyiName: this.state.data.name
+      })})
       event.target.value = '';
     }
   }

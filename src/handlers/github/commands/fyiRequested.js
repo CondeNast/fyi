@@ -11,11 +11,18 @@ module.exports = async (context, command, app) => {
   if (await filter('request', context)) return
 
   // retrieve issue data info from issue
-  const { org, repo, repoCreator } = await metadata(context, context.payload.issue).get() || {}
+  const { org, repo, repoCreator, fyiName: _fyiName } = await metadata(context, context.payload.issue).get() || {}
   const adminOrg = context.payload.organization.login
   const adminRepo = context.payload.repository.name
   const adminIssue = context.payload.issue.number
-  const fyiName = command.arguments ? command.arguments : repo
+  let fyiName
+  if(_fyiName) {
+    fyiName = _fyiName
+  } else if(command.arguments) {
+    fyiName = command.arguments
+  } else {
+    fyiName = repo
+  }
 
   const LOG_PREFIX = logPrefix('fyiRequested', org, repo)
   const LOG_PREFIX_ADMIN = logPrefix('fyiRequested', adminOrg, adminRepo)
