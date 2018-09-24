@@ -1,6 +1,7 @@
 const CNVault = require('../scripts/vault')
 const rp = require('request-promise-native')
 const config = require('config')
+const confluenceHostname = config.get('confluence.hostname')
 const slugify = require('@sindresorhus/slugify')
 
 module.exports = {
@@ -25,7 +26,7 @@ async function createNewPage (pageTitle, pageContent = '') {
   const secrets = await CNVault
 
   const options = {
-    url: 'https://cnissues.atlassian.net/wiki/rest/api/content/',
+    url: `https://${confluenceHostname}.atlassian.net/wiki/rest/api/content/`,
     json: true,
     body: {
       'type': 'page',
@@ -50,11 +51,11 @@ async function createNewPage (pageTitle, pageContent = '') {
 async function doForEachFYIFromConfluence (handleFyi) {
   let promises = []
   let parentPageId = config.get('confluence.fyiPageId')
-  let data = await get(`https://cnissues.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=20`)
+  let data = await get(`https://${confluenceHostname}.atlassian.net/wiki/rest/api/content/${parentPageId}/child/page?expand=body.view&limit=20`)
   promises = promises.concat(data.results.map(handleFyi))
 
   while (data._links.next) {
-    data = await get('https://cnissues.atlassian.net/wiki' + data._links.next)
+    data = await get(`https://${confluenceHostname}.atlassian.net/wiki` + data._links.next)
     promises = promises.concat(data.results.map(handleFyi))
   }
   return Promise.all(promises)
@@ -81,7 +82,7 @@ async function getFyiLink (fyiName) {
   pages.forEach(p => console.log(p.title))
   let page = pages.filter(p => slugify(p.title) === fyiNameSlug)[0]
   if (page) {
-    return `https://cnissues.atlassian.net/wiki${page._links.webui}`
+    return `https://${confluenceHostname}.atlassian.net/wiki${page._links.webui}`
   }
-  return `https://cnissues.atlassian.net/wiki/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`
+  return `https://${confluenceHostname}.atlassian.net/wiki/spaces/${parentSpaceKey}/pages/${parentPageId}/FYIs`
 }

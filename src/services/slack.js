@@ -2,6 +2,7 @@ const rp = require('request-promise-native')
 
 const config = require('config')
 const enabled = config.get('slack.enabled')
+if(!enabled) { module.exports = {isEnabled: () => false}; return; } 
 const channel = config.get('slack.channel')
 const url = config.get('slack.webhook')
 
