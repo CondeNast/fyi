@@ -28,6 +28,7 @@ module.exports = {
   'confluence': {
     'fyiPageId': '367493172',
     'spaceKey': '~111165544'
+    'hostname': 'cnissues',
   },
   'slack': {
     'enabled': true,

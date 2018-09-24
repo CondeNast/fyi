@@ -85,7 +85,7 @@
       "jest"
     ],
     "ignore": [
-      "/public/**/*.js"
+      "/src/frontend/**/*.js"
     ]
   },
   "jest": {
@@ -94,7 +94,7 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "public/*"
+      "src/frontend/*"
     ]
   }
 }
