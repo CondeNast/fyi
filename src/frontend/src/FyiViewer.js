@@ -8,7 +8,8 @@ class FyiViewer extends Component {
     this.state = {
       data: {},
       fyiLink: "",
-      fyis: []
+      fyis: [],
+      orgs: process.env.REACT_APP_SUBSCRIBED_ORGS.split(',')
     }
   }
   render() {
@@ -19,6 +20,9 @@ class FyiViewer extends Component {
             <option value={fyi.name} key={index}/>
           )}
         </datalist>
+        <datalist id="data-orgs">
+
+        </datalist>
 
     	  <div class='col-8 col-sm-9' id="treeWrapper">
       	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
@@ -28,11 +32,30 @@ class FyiViewer extends Component {
           <h3>{this.state.data.name}</h3>
           <Button color="secondary" size="sm" href={this.state.fyiLink}>Read the FYI</Button>
           <hr />
-          <h5>Edit</h5>
+          <h5>Dependencies</h5>
           <Form>
             <FormGroup>
               <Label>New Dependency</Label>
-              <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPress.bind(this)} />
+              <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} />
+              <small class='form-text text-muted'>Press enter to submit.</small>
+            </FormGroup>
+          </Form>
+          <hr />
+          <h5>Repositories</h5>
+          {this.state.data.repos && this.state.data.repos.map((repo, index) =>
+            <li key={index}><a href={`http://github.com/${repo}`}>{repo}</a></li>
+          )}
+          <br/>
+          <Form>
+            <FormGroup>
+              <Label>New Repository</Label>
+              <Input placeholder="Repo Org" type="select" onChange={this._handleChangeOrg.bind(this)} >
+                {this.state.orgs && this.state.orgs.map((org) =>
+                  <option value={`${org}`}>{org}</option>
+                )}
+              </Input>
+              <br />
+              <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} />
               <small class='form-text text-muted'>Press enter to submit.</small>
             </FormGroup>
           </Form>
@@ -58,7 +81,7 @@ class FyiViewer extends Component {
           this.setState({ name: search.fyi, data, fyis: fyis.all, fyiLink: data.link})
         });
     }
-  _handleKeyPress = (event) => {
+  _handleKeyPressDep = (event) => {
     let newDependency = event.target.value
     if(newDependency !== "" && event.key === "Enter"){
       this.state.data.children.push({name: newDependency})
@@ -74,10 +97,24 @@ class FyiViewer extends Component {
       })})
     }
   }
+  _handleChangeOrg = (event) => {
+    this.state.org = event.target.value
+  }
+  _handleKeyPressRepo = (event) => {
+    if(event.key == 'Enter') {
+      event.preventDefault();
+      let org = this.state.org ? this.state.org : 'choosenearme'
+      let repo = event.target.value
+      console.log(`${org}/${repo}`)
+      // fetch('/repos', {method: "POST", headers: {
+      //   "Accept": "application/json"
+      // }, body: JSON.stringify({
+      //   name: repo,
+      //   org
+      // })})
+      event.target.value = '';
+    }
+  }
 }
 
 export default FyiViewer
-
-function getSearchObject(search){
-return JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
-}
