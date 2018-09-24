@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import FyiViewer from './FyiViewer'
+import FyiNew from './FyiNew'
 import FyiList from './FyiList'
+import FyiViewer from './FyiViewer'
 import './App.css'
 import * as serviceWorker from './registerServiceWorker.js'
 serviceWorker.unregister()
@@ -23,6 +24,7 @@ class App extends Component {
           <div class='col-12 col-md-10 fyi-container'>
             <Switch>
               <Route exact path='/' component={FyiList} />
+              <Route exact path='/new' component={FyiNew} />
               <Route path='/fyis/:fyiId/*' component={FyiViewer} />
             </Switch>
           </div>
