@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardHeader, CardText, CardBody, CardTitle} from 'reactstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, Badge} from 'reactstrap'
 import classnames from 'classnames';
 
 class FyiList extends Component {
@@ -29,14 +29,22 @@ class FyiList extends Component {
   }
   render() {
     const systemItems = this.state.systems.map((fyi) =>
-        <Card>
+        <Card className="shadow-sm">
+          <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link><Badge href={"/fyis/"+fyi.id + "/" + fyi.name} color='success' pill>4 Connections</Badge></CardHeader>
           <CardBody>
-            <CardTitle>{fyi.name}</CardTitle>
-            <CardText>This is some text about the system, perhaps a description?</CardText>
-            <CardText><small class="text-muted">Last updated 3 mins ago</small></CardText>
+            <CardTitle></CardTitle>
+            <CardText>This is a concise description of the system as it is thought of by the Architecture Team.</CardText>
+
+            {fyi.tags.map(function(tag, index){
+              return <Badge color='light' pill>{tag}</Badge>
+            })}
+            <CardText>{fyi.link}</CardText>
           </CardBody>
+          <CardFooter><small class="text-muted">Last updated 3 mins ago</small></CardFooter>
+
         </Card>
     );
+
     const allItems = this.state.all.map((fyi) =>
       <tr>
         <td key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></td>
@@ -58,7 +66,7 @@ class FyiList extends Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              All
+              Directory
             </NavLink>
           </NavItem>
         </Nav>
