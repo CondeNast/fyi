@@ -1,6 +1,7 @@
 .App {
-  background-color:whitesmoke;
-  padding:1em;
+  background-color:#FDFCFC;
+  padding:0;
+  padding-bottom:0;
   height:100vh;
   font-size:14px;
 }
@@ -14,8 +15,12 @@
   display:flex;
 }
 
-.fyi-diagram {
+.fyi-diagram-container {
   /* diagram styles */
+  height:450px;
+  border-radius: 5px;
+  border:1px solid lightgray;
+  background-color:white;
 }
 
 .fyi-sidebar {
@@ -23,27 +28,63 @@
   padding-right: 2em;
 }
 
+.fyi-details {
+  padding:0;
+}
 
 .fyi-toolpane {
-  padding-top:1em;
+  /* padding-top:1em; */
   padding-bottom:3em;
-  border-left:1px solid lightgray;
   margin-bottom:1em;
+  overflow: scroll;
 }
 
 .fyi-container {
   display:flex;
   flex-direction: column;
   align-content: stretch;
-  background-color:white;
-  border-radius: 5px;
-  box-shadow: 0 0.125em 0.313em rgba(50, 50, 93, 0.09), 0 0.063em 0.125em rgba(0, 0, 0, 0.07);
+  -webkit-overflow-scrolling: touch;
+  /* background-color:white; */
+  /* border-radius: 5px; */
+  /* box-shadow: 0 0.125em 0.313em rgba(50, 50, 93, 0.09), 0 0.063em 0.125em rgba(0, 0, 0, 0.07); */
   padding-top:1em;
+
   overflow-y:scroll;
 }
 
-.card-deck {
+.fyi-activity-list {
+  font-size:12px;
   margin-top:2em;
+  padding-bottom:3em;
+}
+
+.fyi-activity-list .list-group-item {
+  padding:0.75em 1.25em;
+  position:relative;
+}
+
+.fyi-activity-list .list-group-item .btn {
+  position:absolute;
+  right:10px;
+  bottom:15px;
+  font-size: 10px;
+}
+
+
+.card-deck {
+  margin-top:1em;
+}
+
+.card-header {
+  display:block;
+}
+
+.card-header .badge {
+  float:right;
+  margin-top:1px;
+  padding:0.5em 0.6em 0.6em 0.6em;
+  font-size:9px;
+  font-weight: normal;
 }
 
 .fyi-container .table th {
