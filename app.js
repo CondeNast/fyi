@@ -59,7 +59,7 @@ module.exports = app => {
 
   // client api
   app.router.get('/fyis', switchFormat(getFyiList))
-  app.router.get('/fyis/:id/*', cors(), switchFormat(getFyiDependencies))
+  app.router.get('/fyis/:id*', cors(), switchFormat(getFyiDependencies))
   app.router.get('/deploys/:name', deploys)
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
 
