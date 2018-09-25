@@ -19,5 +19,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://fyi-stag.conde.io/"
+  "proxy": "http://localhost:3000/"
 }

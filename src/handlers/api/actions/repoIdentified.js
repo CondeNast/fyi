@@ -25,6 +25,7 @@ module.exports = (app) => {
       context.payload.repository.owner.login = data.org
       context.payload.organization.login = data.org
       context.payload.sender.login = data.creator
+      context.payload.fyiName = data.fyiName
       context.payload.source = 'API'
       context.issue = (issueData) => {
         let start = {number: undefined}

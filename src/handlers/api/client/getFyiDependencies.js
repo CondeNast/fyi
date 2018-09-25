@@ -1,4 +1,5 @@
 const Fyi = require('../../../models').Fyi
+const fetch = require('node-fetch')
 
 module.exports = async (request, response) => {
   let fyiId = request.params.id
@@ -6,12 +7,20 @@ module.exports = async (request, response) => {
   try {
     let fyi = await Fyi.findById(fyiId)
     let children = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
+
+    let deploysUrl = `${request.protocol}://${request.get('host')}/deploys`
+    let deploysResponse = await fetch(`${deploysUrl}/${fyi.name}`)
+    let deploys = await deploysResponse.json();
+
     response.send(JSON.stringify({
       fyiId: fyi.id,
       name: fyi.name,
-      tags: fyi.tags,
+      content: fyi.content,
       link: fyi.viewLink,
-      children: children
+      tags: fyi.tags,
+      repos: fyi.repos,
+      deploys,
+      children
     }))
   } catch (e) {
     throw e
