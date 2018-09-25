@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Button, Form, Label, Input, ListGroup, ListGroupItem, Badge, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, } from 'reactstrap'
 import CenteredTree from './CenteredTree';
 
 class FyiViewer extends Component {
@@ -21,44 +21,106 @@ class FyiViewer extends Component {
           )}
         </datalist>
         <datalist id="data-orgs">
-
         </datalist>
 
-    	  <div class='col-8 col-sm-9' id="treeWrapper">
-      	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
-    	  </div>
+        <div class='fyi-details col-8 col-sm-9 no-gutters'>
+
+          <datalist id="data">
+            {this.state.fyis.map((fyi, index) =>
+              <option value={fyi.name} key={index}/>
+            )}
+          </datalist>
+
+          <h6 className='text-muted'>Connections</h6>
+      	  <div class='fyi-diagram-container shadow-sm' id="treeWrapper">
+        	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
+      	  </div>
+
+          <div class='fyi-activity-list'>
+            <h6 className='text-muted'>Latest Activity</h6>
+            <ListGroup className='shadow-sm'>
+              <ListGroupItem color='primary'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="primary" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='secondary'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="secondary" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='success'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="success" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='danger'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="danger" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='warning'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="warning" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='info'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="info" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='light'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="light" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+              <ListGroupItem color='dark'>
+                <strong>tyler_reinhard@condenast.com:</strong> Deployed <code>4610e41</code><br />
+                <small class='text-muted'>Sept 28, 2018 at 6:30 PM · v6.3</small>
+                <Button color="dark" size="sm" href='#'>...</Button>
+              </ListGroupItem>
+            </ListGroup>
+          </div>
+        </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <h3>{this.state.data.name}</h3>
-          <Button color="secondary" size="sm" href={this.state.fyiLink}>Read the FYI</Button>
+          <h6 className='text-muted'>About</h6>
+          <Card className="shadow-sm">
+            <CardHeader><a href={"/fyis/"+this.state.data.id + "/" + this.state.data.name}>{this.state.data.name}</a><Badge href="#" color='secondary' pill>5 Connections</Badge></CardHeader>
+            <CardBody>
+              <CardText>This is the content of the FYI, truncated at about 300 characters for best fit. The truncation should includ an ellipsis to indicate there is more content on Confluence ...</CardText>
+              <Button outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button>
+            </CardBody>
+            <CardFooter><small class="text-muted">Last updated 3 mins ago</small></CardFooter>
+          </Card>
+
           <hr />
-          <h5>Dependencies</h5>
-          <Form>
-            <FormGroup>
-              <Label>New Dependency</Label>
-              <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} />
-              <small class='form-text text-muted'>Press enter to submit.</small>
-            </FormGroup>
-          </Form>
-          <hr />
-          <h5>Repositories</h5>
-          {this.state.data.repos && this.state.data.repos.map((repo, index) =>
-            <li key={index}><a href={`http://github.com/${repo}`}>{repo}</a></li>
-          )}
-          <br/>
-          <Form>
-            <FormGroup>
-              <Label>New Repository</Label>
-              <Input placeholder="Repo Org" type="select" onChange={this._handleChangeOrg.bind(this)} >
-                {this.state.orgs && this.state.orgs.map((org) =>
-                  <option value={`${org}`}>{org}</option>
-                )}
-              </Input>
-              <br />
-              <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} />
-              <small class='form-text text-muted'>Press enter to submit.</small>
-            </FormGroup>
-          </Form>
+          <h6 className='text-muted'>Edit</h6>
+          <Card className='shadow-sm'>
+            <Form>
+              <CardBody>
+                <CardTitle><Label>Add Dependency</Label></CardTitle>
+                <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} />
+                <small class='form-text text-muted'>Press enter to submit.</small>
+              </CardBody>
+            </Form>
+          </Card>
+
+          <Card className='shadow-sm'>
+            <Form>
+              <CardBody>
+                <CardTitle><Label>Add Repository</Label></CardTitle>
+                <Input placeholder="Repo Org" type="select" list="data" onChange={this._handleChangeOrg.bind(this)} >
+                  {this.state.orgs && this.state.orgs.map((org) =>
+                    <option value={`${org}`}>{org}</option>
+                  )}
+                </Input>
+                <br />
+                <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} />
+                <small class='form-text text-muted'>Press enter to submit.</small>
+              </CardBody>
+            </Form>
+          </Card>
         </div>
       </div>
     );
