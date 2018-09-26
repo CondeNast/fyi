@@ -45,6 +45,7 @@ module.exports = async (context, app) => {
     repo,
     org,
     repoCreator,
+    fyiName,
     json
   })
 
