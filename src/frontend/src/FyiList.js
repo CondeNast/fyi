@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, Badge} from 'reactstrap'
 import classnames from 'classnames';
+import Truncate from 'react-truncate-html';
 
 class FyiList extends Component {
   constructor (props) {
@@ -33,9 +34,8 @@ class FyiList extends Component {
           <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link><Badge href={"/fyis/"+fyi.id + "/" + fyi.name} color='success' pill>4 Connections</Badge></CardHeader>
           <CardBody>
             <CardTitle>{fyi.name}</CardTitle>
-            <CardText>{fyi.content && fyi.content.slice(0,100)}</CardText>
-
-            {fyi.tags.map(function(tag, index){
+            <CardText><Truncate lines={4} dangerouslySetInnerHTML={{ __html: fyi.content}} /></CardText>
+            {fyi.tags && fyi.tags.filter((t) => t!== 'system').map(function(tag, index){
               return <Badge color='light' pill>{tag}</Badge>
             })}
             <CardText>{fyi.link}</CardText>
