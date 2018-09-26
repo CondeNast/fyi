@@ -31,7 +31,7 @@ class FyiList extends Component {
   render() {
     const systemItems = this.state.systems.map((fyi) =>
         <Card className="shadow-sm">
-          <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link><Badge href={"/fyis/"+fyi.id + "/" + fyi.name} color='success' pill>4 Connections</Badge></CardHeader>
+          <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>
           <CardBody>
             <CardTitle>{fyi.name}</CardTitle>
             <CardText><Truncate lines={4} dangerouslySetInnerHTML={{ __html: fyi.content}} /></CardText>
@@ -40,7 +40,6 @@ class FyiList extends Component {
             })}
             <CardText>{fyi.link}</CardText>
           </CardBody>
-          <CardFooter><small class="text-muted">Last updated 3 mins ago</small></CardFooter>
 
         </Card>
     );

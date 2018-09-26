@@ -18,7 +18,7 @@ class App extends Component {
         <div class='app-container container-fluid'>
 
           <div class='col-6 col-md-2 fyi-sidebar'>
-            <h3><a href='/'>Easy FYI</a></h3>
+            <h3><a href='/'>FYI</a></h3>
             <p>Discover the Condé Nast software architecture.</p>
 
             <Nav pills>
