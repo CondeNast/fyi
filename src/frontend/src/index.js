@@ -7,6 +7,8 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 
 import ReactGA from 'react-ga';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactGA.initialize('UA-124050572-1');
 const history = createHistory()
 history.listen((location, action) => {

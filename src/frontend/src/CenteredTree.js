@@ -18,7 +18,7 @@ export default class CenteredTree extends React.PureComponent {
     this.setState({
       translate: {
         x: dimensions.width / 2,
-        y: dimensions.height / 4
+        y: dimensions.height / 6
       }
     });
   }
