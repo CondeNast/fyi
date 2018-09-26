@@ -36,22 +36,48 @@ class FyiViewer extends Component {
       	  <div class='fyi-diagram-container shadow-sm' id="treeWrapper">
         	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
       	  </div>
+          <div class='fyi-activity-list'>
+            <h6 className='text-muted'>Latest Activity</h6>
+            <ListGroup className='shadow-sm'>
+              {this.state.data.deploys && this.state.data.deploys.events.map((repo, index) => {
+                return Object.keys(repo).map((key) => {
+                  let deployment = repo[key]
+                  if(deployment.fyi.date_happened_human) {
+                    return (
+                      <ListGroupItem color='light'>
+                        <strong>{deployment.fyi.repo_path}:</strong> Deployed to {key.toUpperCase()}<br />
+                        <small class='text-muted'>{deployment.fyi.date_happened_human}</small>
+                      </ListGroupItem>
+                    )
+                  }
+                })
+              })}
+            </ListGroup>
+          </div>
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <h6 className='text-muted'>About</h6>
           <Card className="shadow-sm">
-            <CardHeader><a href={"/fyis/"+this.state.data.id + "/" + this.state.data.name}>{this.state.data.name}</a><Badge href="#" color='secondary' pill>5 Connections</Badge></CardHeader>
+            <CardHeader>About</CardHeader>
             <CardBody>
               <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
               <Button outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button>
             </CardBody>
-            <CardFooter><small class="text-muted">Last updated 3 mins ago</small></CardFooter>
           </Card>
-
           <hr />
-          <h6 className='text-muted'>Edit</h6>
+          <Card className="shadow-sm">
+            <CardHeader>Repositories</CardHeader>
+            <CardBody>
+              <ListGroup flush>
+                {this.state.data.repos && this.state.data.repos.map((repo, index) =>
+                  <ListGroupItem key={index} tag="a" href={`http://github.com/${repo}`}>{repo}</ListGroupItem>
+                )}
+              </ListGroup>
+            </CardBody>
+          </Card>
+          <hr />
           <Card className='shadow-sm'>
+            <CardHeader>Edit</CardHeader>
             <Form>
               <CardBody>
                 <CardTitle><Label>Add Dependency</Label></CardTitle>
@@ -59,9 +85,6 @@ class FyiViewer extends Component {
                 <small class='form-text text-muted'>Press enter to submit.</small>
               </CardBody>
             </Form>
-          </Card>
-
-          <Card className='shadow-sm'>
             <Form>
               <CardBody>
                 <CardTitle><Label>Add Repository</Label></CardTitle>
