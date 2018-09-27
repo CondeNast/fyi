@@ -61,7 +61,10 @@ class FyiViewer extends Component {
             <CardHeader>About</CardHeader>
             <CardBody>
               <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
-              <Button outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button>
+              { this.state.data.content ?
+                <Button outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button> :
+                <Button outline color="primary" size="sm" href={this.state.fyiLink}>Write in Confluence</Button>
+              }
             </CardBody>
           </Card>
           <hr />
