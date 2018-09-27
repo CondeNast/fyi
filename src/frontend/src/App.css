@@ -18,7 +18,15 @@
 }
 
 .viewer::-webkit-scrollbar {
-    display: none; 
+    display: none;
+}
+
+.fyi-navigation {
+  /* position:fixed; */
+}
+
+.create-fyi {
+  margin-left:1em;
 }
 
 .fyi-diagram-container {
@@ -27,6 +35,10 @@
   border-radius: 5px;
   border:1px solid lightgray;
   background-color:white;
+}
+
+.fyi-info {
+  /* background-color:pink; */
 }
 
 .fyi-sidebar {
@@ -77,8 +89,13 @@
   font-size: 10px;
 }
 
+.card ul {
+  margin:0;
+  padding:0;
+  padding-left:1em;
+}
 
-.card-deck {
+.card-columns {
   margin-top:1em;
 }
 

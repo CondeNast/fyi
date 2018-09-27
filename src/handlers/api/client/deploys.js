@@ -18,6 +18,7 @@ module.exports = async (request, response) => {
     return response.send({error: 'fyi has no repos', events: []})
   }
 
+  let found = false
   let latestDeployEvents = await Promise.all(fyi.repos.map(async (repoPath) => {
     let [org, repo] = repoPath.split('/')
     let { prodDeployEvents, stagDeployEvents, ciDeployEvents } = await datadog.fetch({org, repo})
@@ -50,6 +51,7 @@ module.exports = async (request, response) => {
       let [azTag] = prodDeployEvents[0].tags.filter(t => t.startsWith('availability-zone:'))
       deployEvent.prod.fyi.az = azTag.slice('availability-zone:'.length)
       deployEvent.prod.datadog = prodDeployEvents[0]
+      found = true
     }
 
     if (stagDeployEvents.length > 0) {
@@ -57,6 +59,7 @@ module.exports = async (request, response) => {
       let [azTag] = stagDeployEvents[0].tags.filter(t => t.startsWith('availability-zone:'))
       deployEvent.stag.fyi.az = azTag.slice('availability-zone:'.length)
       deployEvent.stag.datadog = stagDeployEvents[0]
+      found = true
     }
 
     if (ciDeployEvents.length > 0) {
@@ -64,8 +67,9 @@ module.exports = async (request, response) => {
       let [azTag] = ciDeployEvents[0].tags.filter(t => t.startsWith('availability-zone:'))
       deployEvent.ci.fyi.az = azTag.slice('availability-zone:'.length)
       deployEvent.ci.datadog = ciDeployEvents[0]
+      found = true
     }
     return deployEvent
   }))
-  response.send({events: latestDeployEvents})
+  response.send({events: latestDeployEvents, found})
 }
