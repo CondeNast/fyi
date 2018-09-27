@@ -40,7 +40,6 @@ class FyiList extends Component {
             })}
             <CardText>{fyi.link}</CardText>
           </CardBody>
-
         </Card>
     );
 
@@ -71,7 +70,7 @@ class FyiList extends Component {
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId='1'>
-            <div class="card-deck">{systemItems}</div>
+            <div class="card-columns">{systemItems}</div>
           </TabPane>
           <TabPane tabId='2'>
             <table class="table table-sm table-striped">
