@@ -81,28 +81,6 @@ class FyiViewer extends Component {
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <Card className="shadow-sm">
-            <CardHeader>About</CardHeader>
-            <CardBody>
-              <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
-              { this.state.data.content ?
-                <Button outline color="secondary" size="sm" href={this.state.data.link}>View in Confluence</Button> :
-                <Button outline color="primary" size="sm" href={this.state.data.editLink}>Write in Confluence</Button>
-              }
-            </CardBody>
-          </Card>
-          <hr />
-          <Card className="shadow-sm">
-            <CardHeader>Repositories</CardHeader>
-            <CardBody>
-              <ListGroup flush>
-                {this.state.data.repos && this.state.data.repos.map((repo, index) =>
-                  <ListGroupItem key={index} tag="a" href={`http://github.com/${repo}`}>{repo}</ListGroupItem>
-                )}
-              </ListGroup>
-            </CardBody>
-          </Card>
-          <hr />
           <Card className='shadow-sm'>
             <CardHeader>Edit</CardHeader>
             <Form>
