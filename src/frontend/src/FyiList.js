@@ -35,7 +35,7 @@ class FyiList extends Component {
           <CardBody>
             <CardTitle>{fyi.name}</CardTitle>
             <CardText><Truncate lines={4} dangerouslySetInnerHTML={{ __html: fyi.content}} /></CardText>
-            {fyi.tags && fyi.tags.filter((t) => t!== 'system').map(function(tag, index){
+            {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
               return <Badge color='light' pill>{tag}</Badge>
             })}
             <CardText>{fyi.link}</CardText>
