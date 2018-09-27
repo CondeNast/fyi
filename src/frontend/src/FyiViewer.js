@@ -60,24 +60,30 @@ class FyiViewer extends Component {
       	  <div class='fyi-diagram-container shadow-sm' id="treeWrapper">
         	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
       	  </div>
+
           <div class='fyi-activity-list'>
             <h6 className='text-muted'>Latest Activity</h6>
-            <ListGroup className='shadow-sm'>
-              {this.state.data.deploys && this.state.data.deploys.events.map((repo, index) => {
-                return Object.keys(repo).map((key) => {
-                  let deployment = repo[key]
-                  if(deployment.fyi.date_happened_human) {
-                    return (
-                      <ListGroupItem color='light'>
-                        <strong>{deployment.fyi.repo_path}:</strong> Deployed to {key.toUpperCase()}<br />
-                        <small class='text-muted'>{deployment.fyi.date_happened_human}</small>
-                      </ListGroupItem>
-                    )
-                  }
-                })
-              })}
-            </ListGroup>
+          { this.state.data.deploys && this.state.data.deploys.found ?
+                (<ListGroup className='shadow-sm'>
+                  {this.state.data.deploys.events.map((repo, index) => {
+                    return Object.keys(repo).map((key) => {
+                      let deployment = repo[key]
+                      if(deployment.fyi.date_happened_human) {
+                        return (
+                          <ListGroupItem color='light'>
+                            <strong>{deployment.fyi.repo_path}:</strong> Deployed to {key.toUpperCase()}<br />
+                            <small class='text-muted'>{deployment.fyi.date_happened_human}</small>
+                          </ListGroupItem>
+                        )
+                      }
+                    })
+                  })}
+                </ListGroup>)
+          :
+            (<div><p className='text-muted'>None found.</p></div>)
+          }
           </div>
+
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
