@@ -8,7 +8,6 @@ class FyiViewer extends Component {
     super(props)
     this.state = {
       data: {},
-      fyiLink: "",
       fyis: [],
       orgs: process.env.REACT_APP_SUBSCRIBED_ORGS.split(',')
     }
@@ -62,8 +61,8 @@ class FyiViewer extends Component {
             <CardBody>
               <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
               { this.state.data.content ?
-                <Button outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button> :
-                <Button outline color="primary" size="sm" href={this.state.fyiLink}>Write in Confluence</Button>
+                <Button outline color="secondary" size="sm" href={this.state.data.link}>View in Confluence</Button> :
+                <Button outline color="primary" size="sm" href={this.state.data.editLink}>Write in Confluence</Button>
               }
             </CardBody>
           </Card>
@@ -121,7 +120,7 @@ class FyiViewer extends Component {
     }
       Promise.all([fetch(`/fyis/${search.fyiId}/whatever`, options) , fetch('/fyis', options)])
         .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
-          this.setState({ name: search.fyi, data, fyis: fyis.all, fyiLink: data.link})
+          this.setState({ name: search.fyi, data, fyis: fyis.all})
         });
     }
   _handleKeyPressDep = (event) => {
