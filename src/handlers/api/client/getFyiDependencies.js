@@ -17,6 +17,7 @@ module.exports = async (request, response) => {
       name: fyi.name,
       content: fyi.content,
       link: fyi.viewLink,
+      editLink: fyi.editLink,
       tags: fyi.tags,
       repos: fyi.repos,
       deploys,
