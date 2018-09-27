@@ -19,6 +19,7 @@ const help = require('./src/handlers/github/commands/help')
 const serveStatic = require('express').static('public/frontend/build')
 
 // client api
+const createFyi = require('./src/handlers/api/client/createFyi')
 const getFyiList = require('./src/handlers/api/client/getFyiList')
 const getFyiDependencies = require('./src/handlers/api/client/getFyiDependencies')
 const updateFyiDependencies = require('./src/handlers/api/client/updateFyiDependencies')
@@ -61,6 +62,7 @@ module.exports = app => {
   app.router.get('/fyis', switchFormat(getFyiList))
   app.router.get('/fyis/:id*', cors(), switchFormat(getFyiDependencies))
   app.router.get('/deploys/:name', deploys)
+  app.router.post('/fyis', switchFormat(createFyi))
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
 
   // jobs api
