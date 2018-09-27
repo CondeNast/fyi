@@ -16,7 +16,17 @@ const fyiReminder = require('./src/handlers/github/commands/fyiReminder')
 const help = require('./src/handlers/github/commands/help')
 
 // client app
-const serveStatic = require('express').static('public/frontend/build')
+const env = process.env.NODE_ENV || 'development'
+const express = require('express')
+let serveStatic
+if(env === 'staging') {
+  serveStatic = express.static('public/frontend/build-staging')
+} else if(env === 'production') {
+  serveStatic = express.static('public/frontend/build-staging')
+} else {
+  serveStatic = express.static('public/frontend/build')
+}
+
 
 // client api
 const createFyi = require('./src/handlers/api/client/createFyi')
