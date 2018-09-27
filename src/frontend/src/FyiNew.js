@@ -17,7 +17,27 @@ class FyiNew extends Component {
   render() {
     return (
       <div class='viewer'>
-        <div class='fyi-details col-8 col-sm-9 no-gutters'>
+        <div class='fyi-info col-3'>
+          <Card className="shadow-sm">
+            <CardHeader>About</CardHeader>
+            <CardBody>
+              <CardText>FYI Details will show here...</CardText>
+              <Button disabled outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button>
+            </CardBody>
+          </Card>
+          <hr />
+          <Card className="shadow-sm">
+            <CardHeader>Repositories</CardHeader>
+            <CardBody>
+              <CardText>Repsitories will show here...</CardText>
+              <ListGroup flush>
+                <ListGroupItem disabled tag="a" href={`http://github.com}`}>...</ListGroupItem>
+                <ListGroupItem disabled tag="a" href={`http://github.com`}>...</ListGroupItem>
+              </ListGroup>
+            </CardBody>
+          </Card>
+        </div>
+        <div class='fyi-details col-6 no-gutters'>
           <h6 className='text-muted'>Create a new FYI</h6>
           <Card className="shadow-sm">
             <CardBody>
@@ -49,25 +69,6 @@ class FyiNew extends Component {
           </div>
         </div>
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <Card className="shadow-sm">
-            <CardHeader>About</CardHeader>
-            <CardBody>
-              <CardText>FYI Details will show here...</CardText>
-              <Button disabled outline color="secondary" size="sm" href={this.state.fyiLink}>View in Confluence</Button>
-            </CardBody>
-          </Card>
-          <hr />
-          <Card className="shadow-sm">
-            <CardHeader>Repositories</CardHeader>
-            <CardBody>
-              <CardText>Repsitories will show here...</CardText>
-              <ListGroup flush>
-                <ListGroupItem disabled tag="a" href={`http://github.com}`}>...</ListGroupItem>
-                <ListGroupItem disabled tag="a" href={`http://github.com`}>...</ListGroupItem>
-              </ListGroup>
-            </CardBody>
-          </Card>
-          <hr />
           <Card className='shadow-sm'>
             <CardHeader>Edit</CardHeader>
             <Form>

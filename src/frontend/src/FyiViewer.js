@@ -15,16 +15,7 @@ class FyiViewer extends Component {
   render() {
     return (
       <div class='viewer'>
-        <datalist id="data">
-          {this.state.fyis.map((fyi, index) =>
-            <option value={fyi.name} key={index}/>
-          )}
-        </datalist>
-        <datalist id="data-orgs">
-        </datalist>
-
         <div class='fyi-info col-3'>
-
           <Card className="shadow-sm">
             <CardHeader>About</CardHeader>
             <CardBody>
@@ -50,13 +41,18 @@ class FyiViewer extends Component {
         </div>
 
         <div class='fyi-details col-6 no-gutters'>
-
+        <datalist id="data">
+          {this.state.fyis.map((fyi, index) =>
+            <option value={fyi.name} key={index}/>
+          )}
+        </datalist>
+        <datalist id="data-orgs">
+        </datalist>
           <datalist id="data">
             {this.state.fyis.map((fyi, index) =>
               <option value={fyi.name} key={index}/>
             )}
           </datalist>
-
       	  <div class='fyi-diagram-container shadow-sm' id="treeWrapper">
         	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
       	  </div>
