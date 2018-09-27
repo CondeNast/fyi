@@ -36,8 +36,8 @@ class App extends Component {
           <div class='col-12 col-md-10 fyi-container'>
             <Switch>
               <Route exact path='/' component={FyiList} />
-              <Route exact path='/new' component={FyiNew} />
-              <Route path='/fyis/:fyiId/*' component={FyiViewer} />
+              <Route exact path='/fyis/new' component={FyiNew} />
+              <Route path='/fyis/:fyiId*' component={FyiViewer} />
             </Switch>
           </div>
 
