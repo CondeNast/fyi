@@ -25,6 +25,7 @@
     "build:client": "rm -rf public/frontend/build; eval \"`node src/scripts/startup.env.frontend.js`\";npm --prefix src/frontend run build",
     "build:client:staging": "rm -rf public/frontend/build-staging; NODE_ENV=staging npm run build:client;mv public/frontend/build public/frontend/build-staging",
     "build:client:production": "rm -rf public/frontend/build-production; NODE_ENV=production npm run build:client;mv public/frontend/build public/frontend/build-production",
+    "build:client:clean": "rm -rf public/frontend/build;rm -rf public/frontend/build-staging;rm -rf public/frontend/build-production",
     "build:client:all": "npm run build:client:staging; npm run build:client:production; npm run build:client",
     "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
     "lint": "standard --fix",

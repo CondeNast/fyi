@@ -22,7 +22,7 @@ let serveStatic
 if(env === 'staging') {
   serveStatic = express.static('public/frontend/build-staging')
 } else if(env === 'production') {
-  serveStatic = express.static('public/frontend/build-staging')
+  serveStatic = express.static('public/frontend/build-production')
 } else {
   serveStatic = express.static('public/frontend/build')
 }
