@@ -1,5 +1,7 @@
 const commands = require('probot-commands')
 const cors = require('cors')
+const cache = require('apicache').middleware
+const ttl = '5 minutes'
 
 // github events
 const repoCreated = require('./src/handlers/github/events/repoCreated')
@@ -72,8 +74,8 @@ module.exports = app => {
   // client api
   app.router.get('/fyis', switchFormat(getFyiList))
   app.router.get('/fyis/:id*', cors(), switchFormat(getFyiDependencies))
-  app.router.get('/deploys/:name', deploys)
-  app.router.get('/deploys', deploysAll)
+  app.router.get('/deploys/:name', cache(ttl), deploys)
+  app.router.get('/deploys', cache(ttl), deploysAll)
   app.router.post('/fyis', switchFormat(createFyi))
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
 

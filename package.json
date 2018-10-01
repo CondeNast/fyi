@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",
+    "apicache": "^1.2.3",
     "async-csv": "^1.0.1",
     "config": "^1.30.0",
     "cors": "^2.8.4",
