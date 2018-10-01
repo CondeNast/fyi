@@ -71,41 +71,23 @@ const fetchAll = async () => {
       sources: 'apps'
     }
 
-    // let buildName = `${org.toLowerCase()}_${repo.toLowerCase()}`
     dogapi.event.query(then, now, parameters, (err, res) => {
       if (err) {
         console.error(err)
         reject(err)
       }
-      // let prodDeployEvents = res.events.filter(
-      //   e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)
-      // )
-      // let stagDeployEvents = res.events.filter(
-      //   e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && (e.title.includes('-stag') || e.title.includes('-stg')) && e.text.includes(buildName)
-      // )
-      // let ciDeployEvents = res.events.filter(
-      //   e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && e.title.includes('-ci') && e.text.includes(buildName)
-      // )
-      // let deployEvents = res.events.map(
-      //   e => {
-      //     let key =
-      //   }
-      // )
+
       let events = res.events
 
       events = events.map((e) => {
-        // let app = '' //departures based app name
-        // let env = ''
-        // let build = ''
-        // let az = ''
-        // let date_happened_human = ''
-        // let status = ''
-
         let title = e.title
         let text = e.text
-        // let partsOfText =
 
-        //determine the org, repo, branch
+        if(title === 'server.start') {
+          return null
+        }
+
+        //determine the org, repo, branch from text
         let org, repo, branch
         let [,,orgRepoBranch] = text.split('/')
         let state = 0
@@ -113,24 +95,48 @@ const fetchAll = async () => {
           [org, repoBranch] = orgRepoBranch.split('_')
           state = 1
         } else {
-          org = 'condenast'
+          org = 'condenast' //TODO pick from config
           repoBranch = orgRepoBranch
           state = 2
         }
         [repo,branch] = repoBranch.split(':')
         branch = branch.replace('bld-','')
 
-        let date_happened_human = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
+        //determine app name, env, az from title
+        let titleWords = title.split(' ')
+        let status = titleWords[1].toLowerCase()
+        let project = titleWords[3]
 
+        let [az, appName=''] = project.split('/')
+        az = (az.split('__')[0]).toLowerCase().replace(/_/g,'-')
+
+        let appNameParts = appName.split('-')
+        appName = appNameParts.slice(0,appNameParts.length-1).join('-')
+
+        let env = appNameParts[appNameParts.length-1]
+        if(env.includes('ci')) {
+          env = 'ci'
+        } else if(env.includes('stag') || env.includes('stg')) {
+          env = 'staging'
+        } else if(env.includes('prod') || env.includes('prd')) {
+          env = 'production'
+        } else {
+          env = env
+        }
+
+        let date_happened = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
 
         return {
           text,
           title,
+          status,
+          appName,
           org,
           repo,
           branch,
-          // env,
-          date_happened_human,
+          env,
+          az,
+          date_happened,
           // 'datadog': e
         }
       })
