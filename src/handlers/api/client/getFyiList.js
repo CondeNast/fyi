@@ -26,7 +26,8 @@ async function getFyisByTag (...tags) {
         [Fyi.sequelize.Op.ne]: null
       },
       tags: { $contains: tags }
-    }
+    },
+    order: [['name', 'ASC']]
   })
   return fyis
 }
