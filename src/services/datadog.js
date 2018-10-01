@@ -95,7 +95,7 @@ const fetchAll = async () => {
           [org, repoBranch] = orgRepoBranch.split('_')
           state = 1
         } else {
-          org = 'condenast' //TODO pick from config
+          org = (require('config').github.subscribedOrgs[0]).toLowerCase()
           repoBranch = orgRepoBranch
           state = 2
         }
@@ -103,12 +103,12 @@ const fetchAll = async () => {
         branch = branch.replace('bld-','')
 
         //determine app name, env, az from title
-        let titleWords = title.split(' ')
-        let status = titleWords[1].toLowerCase()
-        let project = titleWords[3]
+        let titleParts = title.split(' ')
+        let status = titleParts[1].toLowerCase()
+        let project = titleParts[3]
 
-        let [az, appName=''] = project.split('/')
-        az = (az.split('__')[0]).toLowerCase().replace(/_/g,'-')
+        let [azEnv, appName] = project.split('/')
+        let az = (azEnv.split('__')[0]).toLowerCase().replace(/_/g,'-')
 
         let appNameParts = appName.split('-')
         appName = appNameParts.slice(0,appNameParts.length-1).join('-')
@@ -121,7 +121,7 @@ const fetchAll = async () => {
         } else if(env.includes('prod') || env.includes('prd')) {
           env = 'production'
         } else {
-          env = env
+          env = (azEnv.split('__')[1]).toLowerCase()
         }
 
         let date_happened = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
