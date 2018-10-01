@@ -1,9 +1,10 @@
 const dogapi = require('dogapi')
 const config = require('config')
 const enabled = config.get('datadog.enabled')
-if(!enabled) { module.exports = {isEnabled: () => false}; return; } 
+if(!enabled) { module.exports = {isEnabled: () => false}; return; }
 const apiKey = config.get('datadog.apiKey')
 const appKey = config.get('datadog.appKey')
+const moment = require('moment')
 
 const isEnabled = () => {
   return enabled === true
@@ -58,7 +59,91 @@ const fetch = async ({org, repo}) => {
   })
 }
 
+const fetchAll = async () => {
+  if (!isEnabled()) {
+    throw new Error('datadog is not enabled')
+  }
+  return new Promise((resolve, reject) => {
+    let now = parseInt(new Date().getTime() / 1000)
+    let then = now - (24 * 3600) // a day ago
+    let parameters = {
+      tags: 'puppetrole:kubernetes',
+      sources: 'apps'
+    }
+
+    // let buildName = `${org.toLowerCase()}_${repo.toLowerCase()}`
+    dogapi.event.query(then, now, parameters, (err, res) => {
+      if (err) {
+        console.error(err)
+        reject(err)
+      }
+      // let prodDeployEvents = res.events.filter(
+      //   e => e.title.startsWith('Deployment') && e.title.includes('__PRODUCTION') && e.text.includes(buildName)
+      // )
+      // let stagDeployEvents = res.events.filter(
+      //   e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && (e.title.includes('-stag') || e.title.includes('-stg')) && e.text.includes(buildName)
+      // )
+      // let ciDeployEvents = res.events.filter(
+      //   e => e.title.startsWith('Deployment') && e.title.includes('__NONPRODUCTION') && e.title.includes('-ci') && e.text.includes(buildName)
+      // )
+      // let deployEvents = res.events.map(
+      //   e => {
+      //     let key =
+      //   }
+      // )
+      let events = res.events
+
+      events = events.map((e) => {
+        // let app = '' //departures based app name
+        // let env = ''
+        // let build = ''
+        // let az = ''
+        // let date_happened_human = ''
+        // let status = ''
+
+        let title = e.title
+        let text = e.text
+        // let partsOfText =
+
+        //determine the org, repo, branch
+        let org, repo, branch
+        let [,,orgRepoBranch] = text.split('/')
+        let state = 0
+        if(orgRepoBranch.split('_').length == 2) {
+          [org, repoBranch] = orgRepoBranch.split('_')
+          state = 1
+        } else {
+          org = 'condenast'
+          repoBranch = orgRepoBranch
+          state = 2
+        }
+        [repo,branch] = repoBranch.split(':')
+        branch = branch.replace('bld-','')
+
+        let date_happened_human = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
+
+
+        return {
+          text,
+          title,
+          org,
+          repo,
+          branch,
+          // env,
+          date_happened_human,
+          // 'datadog': e
+        }
+      })
+
+      resolve(events)
+    })
+  }).then((events) => {
+    return events
+  })
+}
+
 module.exports = {
   isEnabled,
-  fetch
+  fetch,
+  fetchAll
 }
