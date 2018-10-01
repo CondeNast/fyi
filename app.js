@@ -18,15 +18,14 @@ const help = require('./src/handlers/github/commands/help')
 // client app
 const env = process.env.NODE_ENV || 'development'
 const express = require('express')
-let serveStatic
-if(env === 'staging') {
-  serveStatic = express.static('public/frontend/build-staging')
-} else if(env === 'production') {
-  serveStatic = express.static('public/frontend/build-production')
-} else {
-  serveStatic = express.static('public/frontend/build')
-}
 
+let serveStaticPath = 'public/frontend/build'
+if(env === 'staging') {
+  serveStaticPath = 'public/frontend/build-staging'
+} else if(env === 'production') {
+  serveStaticPath = 'public/frontend/build-production'
+}
+const serveStatic = express.static(serveStaticPath)
 
 // client api
 const createFyi = require('./src/handlers/api/client/createFyi')
@@ -95,7 +94,7 @@ let switchFormat = (handler) => {
   return (req, res) => {
     res.format({
       html: function () {
-        res.sendFile(require('path').resolve('public/frontend/build' + '/index.html'))
+        res.sendFile(require('path').resolve(serveStaticPath+'/index.html'))
       },
       json: function () {
         return handler.apply(this, [req, res])
