@@ -33,6 +33,7 @@ const getFyiList = require('./src/handlers/api/client/getFyiList')
 const getFyiDependencies = require('./src/handlers/api/client/getFyiDependencies')
 const updateFyiDependencies = require('./src/handlers/api/client/updateFyiDependencies')
 const deploys = require('./src/handlers/api/client/deploys')
+const deploysAll = require('./src/handlers/api/client/deploysAll')
 
 // jobs api
 const fyiAutoReminder = require('./src/handlers/api/jobs/fyiAutoReminder')
@@ -71,6 +72,7 @@ module.exports = app => {
   app.router.get('/fyis', switchFormat(getFyiList))
   app.router.get('/fyis/:id*', cors(), switchFormat(getFyiDependencies))
   app.router.get('/deploys/:name', deploys)
+  app.router.get('/deploys', deploysAll)
   app.router.post('/fyis', switchFormat(createFyi))
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
 
