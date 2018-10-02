@@ -33,25 +33,25 @@ This application has two parts:
 
   1. Run `cp secrets.json.example secrets.json` in your terminal
   1. Setup SMEE
-    1. Go to `https://smee.io/`
-    2. Start a new channel
-    3. In secrets.json, copy this smee channel url as the value for "webhook-proxy-url"
+      1. Go to `https://smee.io/`
+      2. Start a new channel
+      3. In secrets.json, copy this smee channel url as the value for "webhook-proxy-url"
   2. Setup a Github Org
-    1. Go to `https://github.com/organizations/new` to start a new organization
+      1. Go to `https://github.com/organizations/new` to start a new organization
   3. Setup a Github App
-    1. Go to `https://github.com/settings/apps/new` and create a new Github App
-    2. TODO - User authorization callback URL?
-    3. Set "Webhook URL" to the SMEE.io url from above
-    4. Set "Webhook secret" to `development`
-    5. In secrets.json, copy the GitHub private key as the value for "github-private-key"
+      1. Go to `https://github.com/settings/apps/new` and create a new Github App
+      2. TODO - User authorization callback URL?
+      3. Set "Webhook URL" to the SMEE.io url from above
+      4. Set "Webhook secret" to `development`
+      5. In secrets.json, copy the GitHub private key as the value for "github-private-key"
   4. Setup a FYI Admin repository
-    1. Go to `https://github.com/new` and create a new repository `fyi-admin`
+      1. Go to `https://github.com/new` and create a new repository `fyi-admin`
   5. Setup Confluence Space and Page
-    1. TODO
+      1. TODO
   6. Setup Slack (optional)
-    1. TODO
+      1. TODO
   7. Setup Datadog (optional)
-    1. TODO
+      1. TODO
 
 ### Step 2: Running With Docker (recommended)
   1. Build Docker Image: `docker build -t easy-fyi-image .`
