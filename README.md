@@ -1,4 +1,4 @@
-# easy-fyi
+# fyi
 
 [![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi) [![](http://fyi.conde.io/badge/arch-bot)](http://fyi.conde.io/link/arch-bot)
 
@@ -36,7 +36,7 @@ create a test account and test database in postgres
 `psql
 CREATE ROLE test_account LOGIN;
 GRANT <<Replace with your username>> TO test_account;
-CREATE DATABASE "easy-fyi-test";
+CREATE DATABASE "fyi-test";
 `
 
 

@@ -1,12 +1,12 @@
 {
-  "name": "easy-fyi",
+  "name": "fyi",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
   "private": true,
-  "repository": "https://github.com/CondeNast/easy-fyi.git",
-  "homepage": "https://github.com/CondeNast/easy-fyi",
-  "bugs": "https://github.com/CondeNast/easy-fyi/issues",
+  "repository": "https://github.com/CondeNast/fyi.git",
+  "homepage": "https://github.com/CondeNast/fyi",
+  "bugs": "https://github.com/CondeNast/fyi/issues",
   "keywords": [
     "probot",
     "github",
@@ -43,11 +43,11 @@
     "seed:data:development": "eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
     "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js",
     "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development",
-    "docker:build": "docker build -t easy-fyi-image .",
+    "docker:build": "docker build -t fyi-image .",
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
     "docker:clean-containers": "docker rm $(docker ps -a -f status=exited -q)",
-    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images easy-fyi-image -q)"
+    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images fyi-image -q)"
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",

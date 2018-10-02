@@ -23,7 +23,7 @@ module.exports = {
   'github': {
     'subscribedOrgs': ['choosenearme', 'mage-contest'],
     'adminOrg': 'choosenearme',
-    'adminRepo': 'fyis',
+    'adminRepo': 'fyi-admin',
     'adminUsers': ['johnkpaul', 'gautamarora']
   },
   'confluence': {
@@ -33,7 +33,7 @@ module.exports = {
   },
   'slack': {
     'enabled': true,
-    'channel': 'easy-fyi-dev'
+    'channel': 'fyi-dev'
   },
   'datadog': {
     'enabled': true

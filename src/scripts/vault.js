@@ -16,15 +16,15 @@ setTimeout(function renewToken () {
 }, refreshRate).unref()
 
 const env = process.env.NODE_ENV || 'development'
-let EASY_FYI_SECRET_PATH
+let FYI_SECRET_PATH
 
 if (env === 'production') {
-  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
+  FYI_SECRET_PATH = `secret/architecture/easy-fyi/production/production`
 } else {
-  EASY_FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
+  FYI_SECRET_PATH = `secret/architecture/easy-fyi/nonprod/${env}`
 }
 
-module.exports = vault.read(EASY_FYI_SECRET_PATH)
+module.exports = vault.read(FYI_SECRET_PATH)
                       .then((secrets) => secrets.data)
                       .catch((e) => {
                         let secrets = require('config').vault.secrets.data
