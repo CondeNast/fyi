@@ -2,7 +2,7 @@ let repl = require('repl')
 let models = require('../src/models')
 
 let replServer = repl.start({
-  prompt: 'easy-fyi-repl > '
+  prompt: 'fyi-repl > '
 })
 
 replServer.context.unwrap = (p) => {

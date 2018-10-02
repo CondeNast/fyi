@@ -2,7 +2,7 @@
   "github": {
     "subscribedOrgs": ["CondeNast","CondeNast-Copilot"],
     "adminOrg":"CondeNast",
-    "adminRepo":"fyis",
+    "adminRepo":"fyi-admin",
     "adminUsers": ["johnkpaul", "gautamarora"]
   },
   "confluence": {

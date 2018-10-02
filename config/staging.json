@@ -2,7 +2,7 @@
   "github": {
     "subscribedOrgs": ["choosenearme","mage-contest"],
     "adminOrg":"choosenearme",
-    "adminRepo":"fyis",
+    "adminRepo":"fyi-admin",
     "adminUsers": ["johnkpaul", "gautamarora"]
   },
   "confluence": {
