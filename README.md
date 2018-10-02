@@ -19,7 +19,7 @@ This application has two parts:
 
 [TODO - Demo Video Here]
 
-### 🔨Built Using
+### 🔨 Built Using
 
   1. Probot (Github App Framework)
   2. Create React App
