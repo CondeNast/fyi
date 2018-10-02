@@ -34,24 +34,16 @@ class FyiViewer extends Component {
     );
   }
   componentDidMount() {
-    let search = window.location.search.substring(1);
     let options = {
       headers: {
         "Accept": "application/json"
       },
     }
-    try{
-     search = this.props.match.params
-    }
-    catch(e){
-      search = {}
-    }
-      fetch(`/deploys`, options)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data)
-          this.setState({ data: {deploys: data} })
-        });
+    fetch(`/deploys`, options)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data: {deploys: data} })
+      });
     }
 }
 
