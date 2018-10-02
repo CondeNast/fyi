@@ -1,4 +1,4 @@
-# FYI
+# 💁 FYI
 
 Discover and Explore your Organization's System Architecture
 
@@ -8,7 +8,7 @@ _Proudly built by:_
 
 <a href="https://technology.condenast.com"><img src="https://user-images.githubusercontent.com/1215971/35070721-3f136cdc-fbac-11e7-81b4-e3aa5cc70a17.png" title="Conde Nast Technology" width=350/></a>
 
-## Introduction
+## 🤔 Introduction
 
 The FYI application was built by the Architecture Team at Condé Nast to stay on top of their growing technology portfolio of systems (sites, apps, apis) distributed across hundreds of repositories in multiple GitHub organizations.
 
@@ -19,7 +19,7 @@ This application has two parts:
 
 [TODO - Demo Video Here]
 
-### Built Using
+### 🔨Built Using
 
   1. Probot (Github App Framework)
   2. Create React App
@@ -27,9 +27,9 @@ This application has two parts:
   4. Vault
   5. Integrations with: Confluence, Slack, Datadog
 
-## Install
+## 👨‍🔧 Install
 
-### Step 1: Setting Up Services
+### 🔧 Step 1: Setting Up Services
 
   1. Run `cp secrets.json.example secrets.json` in your terminal
   1. Setup SMEE
@@ -53,38 +53,36 @@ This application has two parts:
   7. Setup Datadog (optional)
       1. TODO
 
-### Step 2: Running With Docker (recommended)
+### 🏃 Step 2: Running With Docker (recommended)
   1. Build Docker Image: `docker build -t easy-fyi-image .`
   2. Run Application: `docker-compose up`
   3. Open your browser and go to `http://localhost:4001`
 
-### Running Without Docker
+### 🚶 Running Without Docker
 
   1. `npm i`
   2. `npm run install:client`
   3. `npm start`
   4. Open your browser and go to `http://localhost:3001`
 
+## 🚀 Usage
 
-
-## Usage
-
-### Creating a new FYI
+### 🆕 Creating a new FYI
 TODO
 
-### Adding a dependency to FYI
+### 🔀 Adding a dependency to FYI
 TODO
 
-### Adding a Repository to FYI
+### 🈁 Adding a Repository to FYI
 TODO
 
-### Alerts for New Repository creation
+### ℹ️ Alerts for New Repository creation
 TODO
 
-## Thanks
+## 🙏 Thanks
 
 TODO
 
-## Contributors
+## 👨‍🏭 Contributors
 
 See the list of [contributors](https://github.com/CondeNast/fyi/contributors) who participated in writing this tool.
