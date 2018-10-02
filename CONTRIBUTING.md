@@ -1,41 +1,22 @@
-## Contributing
+# Contributing to FYI
 
-[fork]: /fork
-[pr]: /compare
-[style]: https://standardjs.com/
-[code-of-conduct]: CODE_OF_CONDUCT.md
+:+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
-Hi there! We're thrilled that you'd like to contribute to this project. Your help is essential for keeping it great.
+The following is a set of guidelines for contributing to FYI which is hosted in the [Condé Nast Organization](https://github.com/condenast) on GitHub. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
-Please note that this project is released with a [Contributor Code of Conduct][code-of-conduct]. By participating in this project you agree to abide by its terms.
+## Code of Conduct
 
-## Issues and PRs
+This project and everyone participating in it is governed by a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [opensource@condenast.com](mailto:opensource@condenast.com).
 
-If you have suggestions for how this project could be improved, or want to report a bug, open an issue! We'd love all and any contributions. If you have questions, too, we'd love to hear them.
+## How to contribute to FYI
 
-We'd also love PRs. If you're thinking of a large PR, we advise opening up an issue first to talk about it, though! Look at the links below if you're not sure how to open a PR.
+#### **Did you find a bug, want to add a feature, or have questions about the code?**
 
-## Submitting a pull request
+Open a [new issue](https://github.com/condenast/fyi/issues/new). Follow the provided template as a guideline.
 
-1. [Fork][fork] and clone the repository.
-1. Configure and install the dependencies: `npm install`.
-1. Make sure the tests pass on your machine: `npm test`, note: these tests also apply the linter, so there's no need to lint separately.
-1. Create a new branch: `git checkout -b my-branch-name`.
-1. Make your change, add tests, and make sure the tests still pass.
-1. Push to your fork and [submit a pull request][pr].
-1. Pat your self on the back and wait for your pull request to be reviewed and merged.
+#### **Did you write a patch that fixes a bug?**
 
-Here are a few things you can do that will increase the likelihood of your pull request being accepted:
+Open a new pull request. Follow the provided template as a guideline.
 
-- Follow the [style guide][style] which is using standard. Any linting errors should be shown when running `npm test`.
-- Write and update tests.
-- Keep your changes as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
-- Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
-
-Work in Progress pull requests are also welcome to get feedback early on, or if there is something blocked you.
-
-## Resources
-
-- [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/)
-- [Using Pull Requests](https://help.github.com/articles/about-pull-requests/)
-- [GitHub Help](https://help.github.com)
+### Attribution
+These Contributing Guidelines are adapted from the [Atom](https://github.com/atom/atom) Contributing Guidelines, available at https://github.com/atom/atom/blob/master/CONTRIBUTING.md and the [Rails](https://github.com/rails/rails/blob/master/CONTRIBUTING.md) Contributing Guidelines available at https://github.com/rails/rails/blob/master/CONTRIBUTING.md.
