@@ -1,5 +1,7 @@
 const commands = require('probot-commands')
 const cors = require('cors')
+const cache = require('apicache').middleware
+const ttl = '5 minutes'
 
 // github events
 const repoCreated = require('./src/handlers/github/events/repoCreated')
@@ -33,6 +35,7 @@ const getFyiList = require('./src/handlers/api/client/getFyiList')
 const getFyiDependencies = require('./src/handlers/api/client/getFyiDependencies')
 const updateFyiDependencies = require('./src/handlers/api/client/updateFyiDependencies')
 const deploys = require('./src/handlers/api/client/deploys')
+const deploysAll = require('./src/handlers/api/client/deploysAll')
 
 // jobs api
 const fyiAutoReminder = require('./src/handlers/api/jobs/fyiAutoReminder')
@@ -70,7 +73,8 @@ module.exports = app => {
   // client api
   app.router.get('/fyis', switchFormat(getFyiList))
   app.router.get('/fyis/:id*', cors(), switchFormat(getFyiDependencies))
-  app.router.get('/deploys/:name', deploys)
+  app.router.get('/deploys/:name', cache(ttl), deploys)
+  app.router.get('/deploys', cache(ttl), deploysAll)
   app.router.post('/fyis', switchFormat(createFyi))
   app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
 

@@ -37,6 +37,32 @@
   background-color:white;
 }
 
+.fyi-diagram-container svg text {
+  fill: #007bff;
+  stroke: transparent;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+.fyi-diagram-container svg .nodeBase .nodeNameBase {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.fyi-diagram-container svg .nodeBase circle {
+  fill:#6AAFD7;
+  stroke:#6AAFD7;
+}
+
+.fyi-diagram-container svg .leafNodeBase circle {
+  fill:#CFE6F2;
+  stroke:#B6DBEC;
+  stroke-width:1;
+}
+
+.fyi-diagram-container svg .linkBase {
+  stroke:#AFB7BB;
+}
+
 .fyi-info {
   /* background-color:pink; */
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import FyiNew from './FyiNew'
 import FyiList from './FyiList'
+import FyiDeployViewer from './FyiDeployViewer'
 import FyiViewer from './FyiViewer'
 import { Form, FormGroup, Label, Input, Modal, ModalHeader, ModalFooter, ModalBody, Nav, NavItem, NavLink, Navbar, NavbarBrand, NavbarToggler, Button, Collapse, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import './App.css'
@@ -87,6 +88,7 @@ class App extends Component {
           <div class='fyi-container'>
             <Switch>
               <Route exact path='/' component={FyiList} />
+              <Route exact path='/deploys' component={FyiDeployViewer} />
               <Route exact path='/fyis/new' component={FyiNew} />
               <Route path='/fyis/:fyiId*' component={FyiViewer} />
             </Switch>
