@@ -32,34 +32,38 @@ This application has two parts:
 ### 🔧 Step 1: Setting Up Services
 
   1. Run `cp secrets.json.example secrets.json` in your terminal
-  1. Setup SMEE
+  1. Create a web proxy url
       1. Go to `https://smee.io/`
       2. Start a new channel
       3. In secrets.json, copy this smee channel url as the value for "webhook-proxy-url"
-  2. Setup a Github Org
+  2. Create a Github Org
       1. Go to `https://github.com/organizations/new` to start a new organization
-  3. Setup a Github App
+  3. Create a Github App
       1. Go to `https://github.com/settings/apps/new` and create a new Github App
       2. TODO - User authorization callback URL?
       3. Set "Webhook URL" to the SMEE.io url from above
       4. Set "Webhook secret" to `development`
       5. In secrets.json, copy the GitHub private key as the value for "github-private-key"
-  4. Setup a FYI Admin repository
+  4. Create a FYI Admin repository
       1. Go to `https://github.com/new` and create a new repository `fyi-admin`
-  5. Setup Confluence Space and Page
+  5. Create a Confluence Space and Page
       1. TODO
-  6. Setup Slack (optional)
+  6. Configure Slack channel (optional)
       1. TODO
-  7. Setup Datadog (optional)
+  7. Configure Datadog events (optional)
       1. TODO
 
 ### 🏃 Step 2: Running With Docker (recommended)
+
+  0. Pre-requisites: Docker and Docker Compose
   1. Build Docker Image: `docker build -t easy-fyi-image .`
   2. Run Application: `docker-compose up`
   3. Open your browser and go to `http://localhost:4001`
 
 ### 🚶 Running Without Docker
 
+  0. Pre-requisites: Node v9+, Postgres SQL v10+
+  1. Create database called `easy-fyi-development`
   1. `npm i`
   2. `npm run install:client`
   3. `npm start`
