@@ -2,7 +2,7 @@
 
 Discover and Explore your Organization's System Architecture
 
-[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](LICENSE) [![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi) [![](http://fyi.conde.io/badge/arch-bot)](http://fyi.conde.io/link/arch-bot)
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](LICENSE) [![](http://fyi.conde.io/badge/56)](http://fyi.conde.io/link/56) [![](http://fyi.conde.io/badge/162)](http://fyi.conde.io/link/162)
 
 _Proudly built by:_
 
