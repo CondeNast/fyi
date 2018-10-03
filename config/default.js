@@ -2,7 +2,7 @@ let username = process.env.POSTGRES_USER || require('os').userInfo().username
 
 let secrets
 try {
-  secrets = require('../secrets.json')
+  secrets = require('./secrets.json')
 } catch(e) {
   secrets = {
     "data": null
