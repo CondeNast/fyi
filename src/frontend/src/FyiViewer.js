@@ -83,7 +83,7 @@ class FyiViewer extends Component {
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <Card className='shadow-sm fyi-tags'>
+          <Card className='shadow-sm fyi-tags' style={{display:"none"}}>
             <CardHeader>Tags</CardHeader>
               <CardBody className='tag-body'>
                 {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
@@ -124,6 +124,15 @@ class FyiViewer extends Component {
                 <small class='form-text text-muted'>Press enter to submit.</small>
               </CardBody>
             </Form>
+            <Form>
+              <CardBody>
+                <CardTitle><Label>Current Dependencies</Label></CardTitle>
+                  {this.state.data.children && this.state.data.children.map((dependent) =>
+                    <p>{dependent.name} <a data-dep-name={dependent.name} class="glyphicon glyphicon-trash" onClick={this._deleteDependency.bind(this)}>-</a></p>
+                  )}
+                
+              </CardBody>
+            </Form>
           </Card>
         </div>
       </div>
@@ -147,20 +156,21 @@ class FyiViewer extends Component {
           this.setState({ name: search.fyi, data, fyis: fyis.all})
         });
     }
+  _deleteDependency = (event) => {
+    let deletedDep = event.target.getAttribute('data-dep-name')
+    this.state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
+    this.setState(this.state)
+    saveFyi(this.state.data.name, this.state.data.children.map(c => c.name))
+    event.preventDefault()
+  }
   _handleKeyPressDep = (event) => {
     let newDependency = event.target.value
     if(newDependency !== "" && event.key === "Enter"){
       this.state.data.children.push({name: newDependency})
       this.setState(this.state)
       event.target.value = '';
-      fetch('/fyis/'+this.state.data.name, {method: "POST", headers: {
-        "Accept": "application/json"
-      }, body: JSON.stringify({
-        name: this.state.data.name,
-        dependencies: {
-          fyis: this.state.data.children.map(c => c.name)
-        }
-      })})
+      saveFyi(this.state.data.name, this.state.data.children.map(c => c.name))
+      event.preventDefault()
     }
   }
   _handleChangeOrg = (event) => {
@@ -184,4 +194,15 @@ class FyiViewer extends Component {
   }
 }
 
+function saveFyi(name, dependencies){
+    fetch('/fyis/'+name, {method: "POST", headers: {
+      "Accept": "application/json"
+    }, body: JSON.stringify({
+      name: name,
+      dependencies: {
+        fyis: dependencies
+      }
+    })})
+    
+}
 export default FyiViewer
