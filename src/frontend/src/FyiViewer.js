@@ -106,11 +106,23 @@ class FyiViewer extends Component {
             <CardHeader>Edit</CardHeader>
             <Form>
               <CardBody>
+                <CardTitle><Label>Current Dependencies</Label></CardTitle>
+                  <ul>
+                  {this.state.data.children && this.state.data.children.map((dependent) =>
+                    <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this._deleteDependency.bind(this)}>Disconnect</a></li>
+                  )}
+                  </ul>
+              </CardBody>
+            </Form>
+            <hr />
+            <Form>
+              <CardBody>
                 <CardTitle><Label>Add Dependency</Label></CardTitle>
                 <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} />
                 <small class='form-text text-muted'>Press enter to submit.</small>
               </CardBody>
             </Form>
+            <hr />
             <Form>
               <CardBody>
                 <CardTitle><Label>Add Repository</Label></CardTitle>
@@ -122,15 +134,6 @@ class FyiViewer extends Component {
                 <br />
                 <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} />
                 <small class='form-text text-muted'>Press enter to submit.</small>
-              </CardBody>
-            </Form>
-            <Form>
-              <CardBody>
-                <CardTitle><Label>Current Dependencies</Label></CardTitle>
-                  {this.state.data.children && this.state.data.children.map((dependent) =>
-                    <p>{dependent.name} <a data-dep-name={dependent.name} class="glyphicon glyphicon-trash" onClick={this._deleteDependency.bind(this)}>-</a></p>
-                  )}
-                
               </CardBody>
             </Form>
           </Card>
@@ -203,6 +206,6 @@ function saveFyi(name, dependencies){
         fyis: dependencies
       }
     })})
-    
+
 }
 export default FyiViewer

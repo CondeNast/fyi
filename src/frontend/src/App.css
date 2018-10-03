@@ -137,6 +137,20 @@
   color:black;
 }
 
+.fyi-current-dependency .remove-dependency-button {
+    visibility: hidden;
+    font-size:12px;
+    margin-left:0.5em;
+    text-decoration:underline;
+    opacity: 0;
+}
+
+.fyi-current-dependency:hover .remove-dependency-button {
+  visibility:visible;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
 .fyi-container {
   display:flex;
   flex-direction: column;
