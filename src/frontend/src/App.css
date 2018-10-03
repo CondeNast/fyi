@@ -37,6 +37,17 @@
   background-color:white;
 }
 
+
+/* WIP STYLING THE D3 DIAGRAM IN THE INTERIM
+/* We should be able to set react-d3-tree attributes for these elements to adjust
+/  the x and y attributes. here are the proposed values for the text elements, which
+/  as they are currently look a little wonky. this adjustment should line them up
+/  to the vertical center of each circle as well as provide a bit more room to the
+/  left of the text labels for the diagram.
+/  */
+/* <text class="nodeNameBase" text-anchor="start" x="15" y="-1" dy=".35em">Copilot</text> */
+/* <text class="nodeNameBase" text-anchor="start" x="15" y="-2" dy=".35em">vulcan</text> */
+
 .fyi-diagram-container svg text {
   fill: #007bff;
   stroke: transparent;
@@ -63,6 +74,7 @@
   stroke:#AFB7BB;
 }
 
+
 .fyi-info {
   /* background-color:pink; */
 }
@@ -84,6 +96,45 @@
 
 .fyi-toolpane .card + .card {
   margin-top:1em;
+}
+
+
+.fyi-tags .tag-body {
+  /* padding:1.1em; */
+  padding-top:1em;
+  padding-bottom:0.8em;
+}
+
+.fyi-tags .tag-body + .card-body {
+  padding-top:0;
+}
+
+.fyi-tags .badge {
+  position:relative;
+  padding:0.5em;
+  padding-bottom:0.55em;
+  padding-right:2em;
+  font-weight: normal;
+  margin-right:0.5em;
+  margin-bottom:0.5em;
+}
+
+.fyi-tags .remove-tag-button {
+  position:absolute;
+  top:0;
+  right:3px;
+  display:inline-block;
+  width:1em;
+  padding-top:0.17em;
+  font-size:1.5em;
+  height:100%;
+  margin-left:0.5em;
+  color:#0c5460;
+}
+
+.fyi-tags .remove-tag-button:hover {
+  text-decoration: none;
+  color:black;
 }
 
 .fyi-container {

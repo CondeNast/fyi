@@ -83,6 +83,25 @@ class FyiViewer extends Component {
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
+          <Card className='shadow-sm fyi-tags'>
+            <CardHeader>Tags</CardHeader>
+              <CardBody className='tag-body'>
+                {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
+                  return <Badge color='info'>
+                    {tag}
+                    <a class='remove-tag-button' href='#remove-tag'>×</a>
+                    </Badge>
+                })}
+              </CardBody>
+
+                <CardBody>
+                  <Form>
+                    <Input placeholder="New Tag" type="text" list="data" onKeyPress="#" size='sm'/>
+                    <small class='form-text text-muted'>Press enter to submit.</small>
+                    </Form>
+                </CardBody>
+          </Card>
+
           <Card className='shadow-sm'>
             <CardHeader>Edit</CardHeader>
             <Form>
