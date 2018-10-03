@@ -17,11 +17,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - **Fixed** for any bug fixes.
 - **Security** in case of vulnerabilities.
 
-[x.y.z]: https://github.com/CondeNast/TODO-repo/compare/1.0.0...x.y.z
+[x.y.z]: https://github.com/CondeNast/fyi/compare/1.0.0...x.y.zs
 -->
 
 ## [Unreleased]
 - Initial Release
 
 <!-- Update the Unreleased comparison range with each release -->
-[Unreleased]: https://github.com/CondeNast/TODO-repo/compare/x.y.z...master
+[Unreleased]: https://github.com/CondeNast/fyi/compare/x.y.z...master

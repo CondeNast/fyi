@@ -30,28 +30,40 @@ This application has two parts:
 ## 👨‍🔧 Install
 
 ### 🔧 Step 1: Setting Up Services
+The goal of this step is to setup the required services for the FYI application, and populate the files in the `config` directory.
 
-  1. Run `cp secrets.json.example secrets.json` in your terminal
-  1. Create a web proxy url
+  1. Create a secrets file
+      1. In your terminal, go to the `config` directory
+      2. Run `cp secrets.json.example secrets.json`
+  2. Create a web proxy url
       1. Go to `https://smee.io/`
       2. Start a new channel
-      3. In secrets.json, copy this smee channel url as the value for "webhook-proxy-url"
-  2. Create a Github Org
+      3. In `secrets.json`, copy this smee channel url as the value for `webhook-proxy-url`
+  3. Create a Github Org
+      0. _Note: In case you already have a organization, you can skip the next step_
       1. Go to `https://github.com/organizations/new` to start a new organization
-  3. Create a Github App
+      2. In `default.js`, add your org name to the `github.subscribedOrgs` list & `github.adminOrg`
+  4. Create a Github App
       1. Go to `https://github.com/settings/apps/new` and create a new Github App
-      2. TODO - User authorization callback URL?
-      3. Set "Webhook URL" to the SMEE.io url from above
-      4. Set "Webhook secret" to `development`
-      5. In secrets.json, copy the GitHub private key as the value for "github-private-key"
-  4. Create a FYI Admin repository
-      1. Go to `https://github.com/new` and create a new repository `fyi-admin`
-  5. Create a Confluence Space and Page
+      2. Set `Webhook URL` to the webhook proxy url from above
+      3. Set `Webhook secret` to `development`
+      4. In `secrets.json`, copy the GitHub private key as the value for `github-private-key`
+      5. Update your Github App's permissions:
+          1. Repository Administration - Read Only
+          2. Checks - Read and Write
+          3. TODO
+  5. Create a FYI Admin repository
+      1. Go to `https://github.com/new` and create a new repository in your organization called `fyi-admin`
+  6. Create a Confluence Space and Page
       1. TODO
-  6. Configure Slack channel (optional)
-      1. TODO
-  7. Configure Datadog events (optional)
-      1. TODO
+  7. Configure Slack channel (optional)
+      0. If you want to disable slack, update `default.js` for `slack.enabled` to be `false`
+      1. Install "Incoming Webhooks" for your Slack instance
+      2. Add a configuration for new incoming webhook for posting to your Slack channel
+      3. In `secrets.json`, copy the Slack webhook url as the value for `slack-webhook-url`
+      4. In `default.js`, set the channel name as value for `slack.channel`
+  8. Configure Datadog events (optional)
+      1. Not Supported - This integration has a very custom setup and is not currently supported.
 
 ### 🏃 Step 2: Running With Docker (recommended)
 
