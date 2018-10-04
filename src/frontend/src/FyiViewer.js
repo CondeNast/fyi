@@ -27,17 +27,26 @@ class FyiViewer extends Component {
 
           <hr />
 
-          <Card className="shadow-sm">
-            <CardHeader>Repositories</CardHeader>
-            <CardBody>
-              <ul>
-                {this.state.data.repos && this.state.data.repos.map((repo, index) =>
-                  <li><a href={`http://github.com/${repo}`}>{repo}</a></li>
-                )}
-              </ul>
-            </CardBody>
-          </Card>
+          <Card className='shadow-sm fyi-tags' >
+            <CardHeader>Tags</CardHeader>
+              <CardBody className='tag-body'>
+                {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
+                  return <Badge color='info'>
+                    {tag}
+                    <a class='remove-tag-button' href='#remove-tag' data-tag={tag} onClick={this._removeTag.bind(this)}>×</a>
+                    </Badge>
+                }, this)}
+              </CardBody>
 
+              <hr data-note='Add Tag' />
+
+                <CardBody>
+                  <Form>
+                    <Input placeholder="Tag Name" type="text" list="data" onKeyPress={this._handleKeyPressTag.bind(this)} size='sm'/>
+                    <small class='form-text text-muted'>Press enter to add</small>
+                    </Form>
+                </CardBody>
+          </Card>
         </div>
 
         <div class='fyi-details col-6 no-gutters'>
@@ -78,59 +87,53 @@ class FyiViewer extends Component {
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <Card className='shadow-sm fyi-tags' >
-            <CardHeader>Tags</CardHeader>
-              <CardBody className='tag-body'>
-                {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
-                  return <Badge color='info'>
-                    {tag}
-                    <a class='remove-tag-button' href='#remove-tag' data-tag={tag} onClick={this._removeTag.bind(this)}>×</a>
-                    </Badge>
-                }, this)}
-              </CardBody>
-
-                <CardBody>
-                  <Form>
-                    <Input placeholder="New Tag" type="text" list="data" onKeyPress={this._handleKeyPressTag.bind(this)} size='sm'/>
-                    <small class='form-text text-muted'>Press enter to submit.</small>
-                    </Form>
-                </CardBody>
-          </Card>
 
           <Card className='shadow-sm'>
-            <CardHeader>Edit</CardHeader>
-            <Form>
-              <CardBody>
-                <CardTitle><Label>Current Dependencies</Label></CardTitle>
+            <CardHeader>{this.state.data.name} Dependencies</CardHeader>
+
+              <CardBody className='with-list'>
+                <Form>
                   <ul>
                   {this.state.data.children && this.state.data.children.map((dependent) =>
                     <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this.__handleOnClickDeleteDependency.bind(this)}>Disconnect</a></li>
                   )}
                   </ul>
+                </Form>
               </CardBody>
-            </Form>
-            <hr />
-            <Form>
+              <hr data-note='Add Dependency' />
               <CardBody>
-                <CardTitle><Label>Add Dependency</Label></CardTitle>
-                <Input placeholder="FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} />
-                <small class='form-text text-muted'>Press enter to submit.</small>
+                <Form>
+                  <Input placeholder="Existing FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} size='sm'/>
+                  <small class='form-text text-muted'>Press enter to add</small>
+                </Form>
               </CardBody>
-            </Form>
-            <hr />
-            <Form>
-              <CardBody>
-                <CardTitle><Label>Add Repository</Label></CardTitle>
-                <Input placeholder="Repo Org" type="select" list="data" onChange={this._handleChangeOrg.bind(this)} >
+
+          </Card>
+
+          <Card className="shadow-sm">
+            <CardHeader>Related Repositories</CardHeader>
+            <CardBody className='with-list'>
+              <ul>
+                {this.state.data.repos && this.state.data.repos.map((repo, index) =>
+                  <li class='fyi-current-repo'><a href={`http://github.com/${repo}`}>{repo}</a> <a class="remove-repo-button text-danger" href="#" onClick=''>Disconnect</a></li>
+                )}
+              </ul>
+            </CardBody>
+
+            <hr data-note='Add Repository' />
+
+            <CardBody>
+              <Form>
+                <Input placeholder="Repo Org" type="select" list="data" onChange={this._handleChangeOrg.bind(this)} size='sm' >
                   {this.state.orgs && this.state.orgs.map((org) =>
                     <option value={`${org}`}>{org}</option>
                   )}
                 </Input>
-                <br />
-                <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} />
+                <small class='form-text text-muted'>Select GitHub organization</small>
+                <Input placeholder="Repo Name" type="text" onKeyPress={this._handleKeyPressRepo.bind(this)} size='sm'/>
                 <small class='form-text text-muted'>Press enter to submit.</small>
-              </CardBody>
-            </Form>
+              </Form>
+            </CardBody>
           </Card>
         </div>
       </div>

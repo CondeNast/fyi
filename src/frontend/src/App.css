@@ -94,9 +94,69 @@
   margin-bottom:1em;
 }
 
+.card-body small {
+  padding-left:0.3em;
+}
+
+.card small + input {
+  margin-top:1em;
+}
+
+.card hr {
+  position: relative;
+  margin: 0.5em 0.5em 0.25em 0.5em;
+}
+
+.card hr:before {
+  position:absolute;
+  text-transform: uppercase;
+  color:#AFB7BB;
+  letter-spacing:0.06em;
+  font-size: 10px;
+  top:-11px;
+  left:2em;
+  background-color: white;
+  padding:0.3em 0.6em;
+  display:block;
+  content: attr(data-note);
+
+}
+
+.card hr + .card-body:last-of-type {
+  /* background-color: pink; */
+  padding-bottom: 0.8em;
+}
+
 .fyi-toolpane .card + .card {
   margin-top:1em;
 }
+
+.card-header + .card-body.with-list {
+  padding-top:1.25em;
+}
+
+.card-body.with-list {
+  padding-left:0.5em;
+}
+
+.card-body.with-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-body li {
+  padding-left: 1em;
+  text-indent: -.6em;
+  list-style: none;
+}
+
+.card-body li::before {
+  content: "·";
+  padding-right:0.65em;
+  color: gray; /* or whatever color you prefer */
+}
+
 
 
 .fyi-tags .tag-body {
@@ -119,7 +179,7 @@
   margin-bottom:0.5em;
 }
 
-.fyi-tags .remove-tag-button {
+.fyi-tags .remove-tag-button  {
   position:absolute;
   top:0;
   right:3px;
@@ -137,7 +197,7 @@
   color:black;
 }
 
-.fyi-current-dependency .remove-dependency-button {
+.fyi-current-dependency .remove-dependency-button, .fyi-current-repo .remove-repo-button {
     visibility: hidden;
     font-size:12px;
     margin-left:0.5em;
@@ -145,7 +205,7 @@
     opacity: 0;
 }
 
-.fyi-current-dependency:hover .remove-dependency-button {
+.fyi-current-dependency:hover .remove-dependency-button, .fyi-current-repo:hover .remove-repo-button {
   visibility:visible;
   opacity: 1;
   transition: opacity 300ms;
