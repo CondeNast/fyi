@@ -49,9 +49,10 @@ The goal of this step is to setup the required services for the FYI application,
       3. Set `Webhook secret` to `development`
       4. In `secrets.json`, copy the GitHub private key as the value for `github-private-key`
       5. Update your Github App's permissions:
-          1. Repository Administration - Read Only
-          2. Checks - Read and Write
-          3. TODO
+          1. Read Only permission for: Repo Administration, Repo Metadata, Repo Webhooks, Commit Statuses, Org Members
+          2. Read and Write permission for: Checks, Repository Contents, Issues, Pull Requests,
+      6. Updates your Github Apps' event subscriptions:
+          1. Subscribe to events for: Repository, Issues, Issue Comments
   5. Create a FYI Admin repository
       1. Go to `https://github.com/new` and create a new repository in your organization called `fyi-admin`
   6. Create a Confluence Space and Page
