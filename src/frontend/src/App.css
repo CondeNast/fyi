@@ -74,6 +74,17 @@
   stroke:#AFB7BB;
 }
 
+.fyi-diagram-container svg .fyi-node {
+    background: gray;
+    color: white;
+    text-align: center;
+    left: -50px;
+    position: relative;
+    width: 100px;
+    top: -20px;
+    min-height: 50px;
+}
+
 
 .fyi-info {
   /* background-color:pink; */

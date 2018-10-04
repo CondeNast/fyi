@@ -103,7 +103,7 @@ class FyiViewer extends Component {
               <hr data-note='Add Dependency' />
               <CardBody>
                 <Form>
-                  <Input placeholder="Existing FYI Name" type="text" list="data" onKeyPress={this._handleKeyPressDep.bind(this)} size='sm'/>
+                  <Input placeholder="Existing FYI Name" type="text" list="list-of-fyis" onKeyPress={this._handleKeyPressDep.bind(this)} size='sm'/>
                   <small class='form-text text-muted'>Press enter to add</small>
                 </Form>
               </CardBody>

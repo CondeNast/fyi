@@ -44,8 +44,26 @@ export default class CenteredTree extends React.PureComponent {
           collapsible={false}
           onClick={this.handleClick.bind(this)}
           textLayout={textLayoutStyle}
+      allowForeignObjects
+	    nodeLabelComponent={{
+	      render: <NodeLabel className='fyi-node' />,
+	      foreignObjectWrapper: {
+		y: 0
+	      }
+      }}
         />
       </div>
     );
   }
 }
+class NodeLabel extends React.PureComponent {
+  render() {
+    const {className, nodeData} = this.props
+    return (
+      <div className={className}>
+	  {nodeData.name}
+      </div>
+    )
+  }
+}
+
