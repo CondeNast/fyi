@@ -1,52 +1,115 @@
-# fyi
+# 💁 FYI
 
-[![](http://fyi.conde.io/badge/easy-fyi)](http://fyi.conde.io/link/easy-fyi) [![](http://fyi.conde.io/badge/arch-bot)](http://fyi.conde.io/link/arch-bot)
+Discover and Explore your Organization's System Architecture
 
-## Project Brief
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](LICENSE) [![](http://fyi.conde.io/badge/56)](http://fyi.conde.io/link/56) [![](http://fyi.conde.io/badge/162)](http://fyi.conde.io/link/162)
 
-This application, and the accompanying work of the Architecture team is intended to facilitate and streamline 3 key goals.
+_Proudly built by:_
 
-1. **Ease of documenting system dependencies**
-We want it to be very easy for the product, engineering, and design teams to be able to document what systems we have within Conde Nast, and how they are connected. Historically, this has been attempted through many charts and diagrams and we are attempting to consolidate and bring significant automation to the process.
-2. **Ease of human discovery of existing/new systems**
-We want the people within product, engineering, and design to be able to, very easily and quickly, find information about systems within Conde Nast. At the very least, they should be able to find out, from only knowing the name of a system, 1) what it does and 2) where it fits into the landscape.
-3. **Ease of finding existing ways of doing something within our systems**
-We want to reduce effort and reuse existing work as much as possible. We want it to be straigthforward to find out what features and functionality existing systems already support and clear ways of how to integrate them into new work done by any team.
+<a href="https://technology.condenast.com"><img src="https://user-images.githubusercontent.com/1215971/35070721-3f136cdc-fbac-11e7-81b4-e3aa5cc70a17.png" title="Conde Nast Technology" width=350/></a>
 
-### Phases
+## 🤔 Introduction
 
-1. **Phase 1**
-Our first phase of work will be to go after the first goal. Our target audience is product, design and engineering leaders who we need to continue to document what systems we are creating. We will be making this as streamlined and easy as possible by automating many parts of the workflow. The Architecture team will also be requesting documentation about specific, key parts of our systems using this workflow.
-2. **Phase 2**
-Our second phase of work will be to focus on discovery. We want to make it easy for us to broadcast new update, additions and changes to our systems.
+The FYI application was built by the Architecture Team at Condé Nast to stay on top of their growing technology portfolio of systems (sites, apps, apis) distributed across hundreds of repositories in multiple GitHub organizations.
 
-### Glossary
+This application has two parts:
 
-1. **System**
-Any portion of our company that has software backing it. By way of example, Copilot, Salesforce, HAL, APIs of all sorts,
+  - a Github App to discover code repositories and request FYIs from developers
+  - a Web App to view interactive architecture diagrams with system dependencies and metrics
 
-### Requirements
+### 🔨 Built Using
 
-This package uses Node.JS v8+, probot and cn-vault. It assumes [Postgres.app](https://postgresapp.com/) is already installed for local development and a database schema is created with the name `easy-fyi-development`.
+  1. Probot (Github App Framework)
+  2. Create React App
+  3. Postgres SQL
+  4. Vault
+  5. Integrations with: Confluence, Slack, Datadog
 
-### Integration test setup
+## 👨‍🔧 Install
 
-create a test account and test database in postgres
+### 🔧 Step 1: Setting Up Services
+The goal of this step is to setup the required services for the FYI application, and populate the files in the `config` directory.
 
-`psql
-CREATE ROLE test_account LOGIN;
-GRANT <<Replace with your username>> TO test_account;
-CREATE DATABASE "fyi-test";
-`
+  1. Create a secrets file
+      1. In your terminal, go to the `config` directory
+      2. Run `cp secrets.json.example secrets.json`
+  2. Create a web proxy url
+      1. Go to `https://smee.io/`
+      2. Start a new channel
+      3. In `secrets.json`, copy this smee channel url as the value for `webhook-proxy-url`
+  3. Create a Github Org
+      0. _Note: In case you already have a organization, you can skip the next step_
+      1. Go to `https://github.com/organizations/new` to start a new organization
+      2. In `default.js`, add your org name to the `github.subscribedOrgs` list & `github.adminOrg`
+  4. Create a Github App
+      1. Go to `https://github.com/settings/apps/new` and create a new Github App
+      2. Set `Webhook URL` to the webhook proxy url from above
+      3. Set `Webhook secret` to `development`
+      4. In `secrets.json`, copy the GitHub private key as the value for `github-private-key`
+      5. Update your Github App's permissions:
+          1. Read Only permission for: Repo Administration, Repo Metadata, Repo Webhooks, Commit Statuses, Org Members
+          2. Read and Write permission for: Checks, Repository Contents, Issues, Pull Requests,
+      6. Updates your Github Apps' event subscriptions:
+          1. Subscribe to events for: Repository, Issues, Issue Comments
+  5. Create a FYI Admin repository
+      1. Go to `https://github.com/new` and create a new repository in your organization called `fyi-admin`
+  6. Create a Confluence Space and Page
+      1. TODO
+  7. Configure Slack channel (optional)
+      0. If you want to disable slack, update `default.js` for `slack.enabled` to be `false`
+      1. Install "Incoming Webhooks" for your Slack instance
+      2. Add a configuration for new incoming webhook for posting to your Slack channel
+      3. In `secrets.json`, copy the Slack webhook url as the value for `slack-webhook-url`
+      4. In `default.js`, set the channel name as value for `slack.channel`
+  8. Configure Datadog events (optional)
+      1. Not Supported - This integration has a very custom setup and is not currently supported.
 
+### 🏃 Step 2: Running With Docker (recommended)
 
-### Usage
+  0. Pre-requisites: Docker and Docker Compose
+  1. Build Docker Image: `docker build -t easy-fyi-image .`
+  2. Run Application: `docker-compose up`
+  3. Open your browser and go to `http://localhost:4001`
 
-```shell
+### 🚶 Running Without Docker
 
-$ npm i
-$ source ./node_modules/.bin/authenticate-vault
-$ npm run sequelize -- db:migrate
-$ npm start
+  0. Pre-requisites: Node v9+, Postgres SQL v10+
+  1. Create database called `easy-fyi-development`
+  1. `npm i`
+  2. `npm run install:client`
+  3. `npm start`
+  4. Open your browser and go to `http://localhost:3001`
 
-```
+## 🚀 Usage
+
+### 🆕 Creating a new FYI
+
+There are 2 ways to create a new FYI:
+
+  1. On the FYI homepage, click on the `New` button, add the FYI name and click `Submit`. This will create a FYI page for you to add dependencies, repositories and tags.
+  2. If a new repository is created or identified, then the `Request FYI` command by Admins will create a new FYI.
+
+### 🔀 Adding a Dependency to FYI
+
+A dependency for a FYI can only be from a set of other existing FYIs.
+A new dependency can be added through that FYI's detail page in the toolbar.
+
+### ℹ️ Adding a New Repository to FYI
+
+When a new repository is created in the GitHub organization, the bot automatically detects it and sends a notification to the Admins who can choose to `Request a new FYI` or `Request to link to FYI` from the repository owner directly through Github issues.
+
+### 🈁 Adding a Existing Repository to FYI
+
+A request to add an existing repository can be submitted through the FYI's detail page in the toolbar. This triggers a notification to the Admins who can choose to pass the request to the repository owner or skip it.
+
+### ⏹ Adding a Tag to FYI
+
+A new tag can be added through the FYI's detail page in the toolbar.
+
+## 🙏 Thanks
+
+We would like to thank the [Probot team and community](https://probot.github.io/) for giving us a solid foundation of code and inspiration on top of which we could build this application.
+
+## 👨‍🏭 Contributors
+
+See the list of [contributors](https://github.com/CondeNast/fyi/contributors) who participated in writing this tool.

@@ -1,8 +1,9 @@
 {
   "name": "fyi",
   "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
+  "description": "Web App and Github App for FYIs",
+  "main": "index.js",
+  "license": "Apache 2.0",
   "private": true,
   "repository": "https://github.com/CondeNast/fyi.git",
   "homepage": "https://github.com/CondeNast/fyi",
@@ -47,7 +48,8 @@
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
     "docker:clean-containers": "docker rm $(docker ps -a -f status=exited -q)",
-    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images fyi-image -q)"
+    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images fyi-image -q)",
+    "opensource-check": "opensource-check ."
   },
   "dependencies": {
     "@sindresorhus/slugify": "^0.3.0",
@@ -75,6 +77,7 @@
     "smee-client": "^1.0.1"
   },
   "devDependencies": {
+    "@condenast/opensource-check": "0.0.4",
     "concurrently": "^3.6.1",
     "dotenv": "^6.0.0",
     "jest": "^22.4.3",
