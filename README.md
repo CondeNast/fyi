@@ -86,8 +86,8 @@ The goal of this step is to setup the required services for the FYI application,
 
 There are 2 ways to create a new FYI:
 
-    1. On the FYI homepage, click on the `New` button, add the FYI name and click `Submit`. This will create a FYI page for you to add dependencies, repositories and tags.
-    2. If a new repository is created or identified, then the `Request FYI` command by Admins will create a new FYI.
+  1. On the FYI homepage, click on the `New` button, add the FYI name and click `Submit`. This will create a FYI page for you to add dependencies, repositories and tags.
+  2. If a new repository is created or identified, then the `Request FYI` command by Admins will create a new FYI.
 
 ### 🔀 Adding a Dependency to FYI
 
