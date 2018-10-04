@@ -40,7 +40,7 @@ class App extends Component {
 
         <div class='fyi-navigation'>
            <Navbar color="light" light expand="md">
-             <NavbarBrand href="/">Co/Lab FYI</NavbarBrand>
+             <NavbarBrand href="/">FYI</NavbarBrand>
              <NavbarToggler onClick={this.toggle} />
              <Collapse isOpen={this.state.isOpen} navbar>
                <Nav className="ml-auto" navbar>
