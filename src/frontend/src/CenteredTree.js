@@ -7,6 +7,16 @@ const containerStyles = {
   height: '100%',
 }
 
+const textLayoutStyle = {
+  // className:
+  // style:
+  // textAnchor:
+  x: 18,
+  y: -1,
+  // transform:
+  // dy:
+}
+
 export default class CenteredTree extends React.PureComponent {
   state = {}
   handleClick = (nodeData, event)  => {
@@ -30,10 +40,10 @@ export default class CenteredTree extends React.PureComponent {
           data={this.props.data}
           translate={this.state.translate}
           orientation={'vertical'}
-          zoomable={false}
+          zoomable={true}
           collapsible={false}
           onClick={this.handleClick.bind(this)}
-
+          textLayout={textLayoutStyle}
         />
       </div>
     );
