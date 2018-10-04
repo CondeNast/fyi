@@ -16,7 +16,15 @@ module.exports = async (request, response) => {
     try {
       data = JSON.parse(payload)
       let [fyi] = await Fyi.findOrCreate({where: {name: data.name}})
-      fyi.dependencies = data.dependencies
+
+      if(data.dependencies) {
+        fyi.dependencies = data.dependencies
+      }
+
+      if(data.tags) {
+        fyi.tags = data.tags
+      }
+
       await fyi.save()
       response.send(JSON.stringify({success: true}))
     } catch (e) {

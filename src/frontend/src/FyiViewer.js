@@ -41,18 +41,13 @@ class FyiViewer extends Component {
         </div>
 
         <div class='fyi-details col-6 no-gutters'>
-        <datalist id="data">
+        <datalist id="list-of-fyis">
           {this.state.fyis.map((fyi, index) =>
             <option value={fyi.name} key={index}/>
           )}
         </datalist>
         <datalist id="data-orgs">
         </datalist>
-          <datalist id="data">
-            {this.state.fyis.map((fyi, index) =>
-              <option value={fyi.name} key={index}/>
-            )}
-          </datalist>
       	  <div class='fyi-diagram-container shadow-sm' id="treeWrapper">
         	  { this.state.data.name ? <CenteredTree data={[this.state.data]} /> : <hr/> }
       	  </div>
@@ -83,20 +78,20 @@ class FyiViewer extends Component {
         </div>
 
         <div class='col-8 col-sm-3 fyi-toolpane'>
-          <Card className='shadow-sm fyi-tags' style={{display:"none"}}>
+          <Card className='shadow-sm fyi-tags' >
             <CardHeader>Tags</CardHeader>
               <CardBody className='tag-body'>
                 {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
                   return <Badge color='info'>
                     {tag}
-                    <a class='remove-tag-button' href='#remove-tag'>×</a>
+                    <a class='remove-tag-button' href='#remove-tag' data-tag={tag} onClick={this._removeTag.bind(this)}>×</a>
                     </Badge>
-                })}
+                }, this)}
               </CardBody>
 
                 <CardBody>
                   <Form>
-                    <Input placeholder="New Tag" type="text" list="data" onKeyPress="#" size='sm'/>
+                    <Input placeholder="New Tag" type="text" list="data" onKeyPress={this._handleKeyPressTag.bind(this)} size='sm'/>
                     <small class='form-text text-muted'>Press enter to submit.</small>
                     </Form>
                 </CardBody>
@@ -109,7 +104,7 @@ class FyiViewer extends Component {
                 <CardTitle><Label>Current Dependencies</Label></CardTitle>
                   <ul>
                   {this.state.data.children && this.state.data.children.map((dependent) =>
-                    <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this._deleteDependency.bind(this)}>Disconnect</a></li>
+                    <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this.__handleOnClickDeleteDependency.bind(this)}>Disconnect</a></li>
                   )}
                   </ul>
               </CardBody>
@@ -159,12 +154,29 @@ class FyiViewer extends Component {
           this.setState({ name: search.fyi, data, fyis: fyis.all})
         });
     }
-  _deleteDependency = (event) => {
+  __handleOnClickDeleteDependency = (event) => {
     let deletedDep = event.target.getAttribute('data-dep-name')
     this.state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
     this.setState(this.state)
     saveFyi(this.state.data.name, this.state.data.children.map(c => c.name))
     event.preventDefault()
+  }
+  _removeTag = (event) => {
+    let removedTag = event.target.getAttribute('data-tag')
+    this.state.data.tags = this.state.data.tags.filter( (c) => c !== removedTag)
+    this.setState(this.state)
+    saveFyi(this.state.data.name, this.state.data.children.map(c => c.name), this.state.data.tags)
+    event.preventDefault()
+  }
+  _handleKeyPressTag = (event) => {
+    let newTag = event.target.value
+    if(newTag !== "" && event.key === "Enter"){
+      this.state.data.tags.push(newTag)
+      this.setState(this.state)
+      event.target.value = '';
+      saveFyi(this.state.data.name, this.state.data.children.map(c => c.name), this.state.data.tags)
+      event.preventDefault()
+    }
   }
   _handleKeyPressDep = (event) => {
     let newDependency = event.target.value
@@ -197,15 +209,17 @@ class FyiViewer extends Component {
   }
 }
 
-function saveFyi(name, dependencies){
+function saveFyi(name, dependencies=[], tags=[]){
     fetch('/fyis/'+name, {method: "POST", headers: {
       "Accept": "application/json"
     }, body: JSON.stringify({
       name: name,
+      tags: tags,
       dependencies: {
         fyis: dependencies
       }
     })})
 
 }
+
 export default FyiViewer
