@@ -17,8 +17,6 @@ This application has two parts:
   - a Github App to discover code repositories and request FYIs from developers
   - a Web App to view interactive architecture diagrams with system dependencies and metrics
 
-[TODO - Demo Video Here]
-
 ### 🔨 Built Using
 
   1. Probot (Github App Framework)
@@ -85,20 +83,32 @@ The goal of this step is to setup the required services for the FYI application,
 ## 🚀 Usage
 
 ### 🆕 Creating a new FYI
-TODO
 
-### 🔀 Adding a dependency to FYI
-TODO
+There are 2 ways to create a new FYI:
 
-### 🈁 Adding a Repository to FYI
-TODO
+    1. On the FYI homepage, click on the `New` button, add the FYI name and click `Submit`. This will create a FYI page for you to add dependencies, repositories and tags.
+    2. If a new repository is created or identified, then the `Request FYI` command by Admins will create a new FYI.
 
-### ℹ️ Alerts for New Repository creation
-TODO
+### 🔀 Adding a Dependency to FYI
+
+A dependency for a FYI can only be from a set of other existing FYIs.
+A new dependency can be added through that FYI's detail page in the toolbar.
+
+### ℹ️ Adding a New Repository to FYI
+
+When a new repository is created in the GitHub organization, the bot automatically detects it and sends a notification to the Admins who can choose to `Request a new FYI` or `Request to link to FYI` from the repository owner directly through Github issues.
+
+### 🈁 Adding a Existing Repository to FYI
+
+A request to add an existing repository can be submitted through the FYI's detail page in the toolbar. This triggers a notification to the Admins who can choose to pass the request to the repository owner or skip it.
+
+### ⏹ Adding a Tag to FYI
+
+A new tag can be added through the FYI's detail page in the toolbar.
 
 ## 🙏 Thanks
 
-TODO
+We would like to thank the [Probot team and community](https://probot.github.io/) for giving us a solid foundation of code and inspiration on top of which we could build this application.
 
 ## 👨‍🏭 Contributors
 
