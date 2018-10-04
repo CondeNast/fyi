@@ -29,65 +29,53 @@
   margin-left:1em;
 }
 
+
+
+
+/*
+/* DIAGRAM STYLES
+*/
+
 .fyi-diagram-container {
-  /* diagram styles */
   height:450px;
   border-radius: 5px;
   border:1px solid lightgray;
   background-color:white;
 }
 
-
-/* WIP STYLING THE D3 DIAGRAM IN THE INTERIM
-/* We should be able to set react-d3-tree attributes for these elements to adjust
-/  the x and y attributes. here are the proposed values for the text elements, which
-/  as they are currently look a little wonky. this adjustment should line them up
-/  to the vertical center of each circle as well as provide a bit more room to the
-/  left of the text labels for the diagram.
-/  */
-/* <text class="nodeNameBase" text-anchor="start" x="15" y="-1" dy=".35em">Copilot</text> */
-/* <text class="nodeNameBase" text-anchor="start" x="15" y="-2" dy=".35em">vulcan</text> */
-
-.fyi-diagram-container svg text {
-  fill: #007bff;
-  stroke: transparent;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+.fyi-node {
+  position: relative;
+  background-color:#f1f8ff;
+  border:1px solid #c8e1ff;
+  border-radius:3px;
+  padding:0.3em;
+  padding-top:0.2em;
+  color: #0366d6;
+  text-align: center;
+  left: -60px;
+  width: 120px;
+  top: -15px;
+  min-height: 30px;
+  transition: background-color 300ms;
 }
 
-.fyi-diagram-container svg .nodeBase .nodeNameBase {
-  font-size: 18px;
-  font-weight: bold;
+.fyi-node:hover {
+  background-color:#c8e1ff;
 }
 
-.fyi-diagram-container svg .nodeBase circle {
-  fill:#6AAFD7;
-  stroke:#6AAFD7;
+/* the last node on a branch  */
+.leafNodeBase .fyi-node {
+  background-color:#fafbfc;
+  border:1px solid #e1e4e8;
+  color:#6a737d;
+}
+.leafNodeBase .fyi-node:hover {
+  background-color:#e1e4e8;
 }
 
-.fyi-diagram-container svg .leafNodeBase circle {
-  fill:#CFE6F2;
-  stroke:#B6DBEC;
-  stroke-width:1;
-}
-
+/* the line that connects nodes  */
 .fyi-diagram-container svg .linkBase {
-  stroke:#AFB7BB;
-}
-
-.fyi-diagram-container svg .fyi-node {
-    background: gray;
-    color: white;
-    text-align: center;
-    left: -50px;
-    position: relative;
-    width: 100px;
-    top: -20px;
-    min-height: 50px;
-}
-
-
-.fyi-info {
-  /* background-color:pink; */
+  stroke:#c8e1ff;
 }
 
 .fyi-sidebar {
@@ -100,10 +88,14 @@
 }
 
 .fyi-toolpane {
-  /* padding-top:1em; */
   padding-bottom:3em;
   margin-bottom:1em;
 }
+
+
+/*
+/* CARD STYLES
+*/
 
 .card-body small {
   padding-left:0.3em;
@@ -163,15 +155,14 @@
 }
 
 .card-body li::before {
-  content: "·";
+  content: "·"; /* this is an interpunct, not a bullet */
   padding-right:0.65em;
-  color: gray; /* or whatever color you prefer */
+  color: gray;
 }
 
 
 
 .fyi-tags .tag-body {
-  /* padding:1.1em; */
   padding-top:1em;
   padding-bottom:0.8em;
 }
@@ -226,10 +217,6 @@
   display:flex;
   flex-direction: column;
   align-content: stretch;
-
-  /* background-color:white; */
-  /* border-radius: 5px; */
-  /* box-shadow: 0 0.125em 0.313em rgba(50, 50, 93, 0.09), 0 0.063em 0.125em rgba(0, 0, 0, 0.07); */
   padding-top:1em;
 }
 
