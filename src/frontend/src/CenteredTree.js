@@ -20,7 +20,9 @@ const textLayoutStyle = {
 export default class CenteredTree extends React.PureComponent {
   state = {}
   handleClick = (nodeData, event)  => {
-    window.location.assign(window.location.href.replace(/fyis.*/,  `fyis/${nodeData.fyiId}/${encodeURIComponent(nodeData.name)}`))
+    if(!decodeURIComponent(window.location.href).includes(nodeData.name)) {
+       window.location.assign(window.location.href.replace(/fyis.*/,  `fyis/${nodeData.fyiId}/${encodeURIComponent(nodeData.name)}`))
+    }
   }
 
   componentDidMount() {
