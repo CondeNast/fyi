@@ -33,7 +33,7 @@ const serveStatic = express.static(serveStaticPath)
 const createFyi = require('./src/handlers/api/client/createFyi')
 const getFyiList = require('./src/handlers/api/client/getFyiList')
 const getFyiDependencies = require('./src/handlers/api/client/getFyiDependencies')
-const updateFyiDependencies = require('./src/handlers/api/client/updateFyiDependencies')
+const updateFyi = require('./src/handlers/api/client/updateFyi')
 const deploys = require('./src/handlers/api/client/deploys')
 const deploysAll = require('./src/handlers/api/client/deploysAll')
 
@@ -76,7 +76,7 @@ module.exports = app => {
   app.router.get('/deploys/:name', cache(ttl), deploys)
   app.router.get('/deploys', cache(ttl), deploysAll)
   app.router.post('/fyis', switchFormat(createFyi))
-  app.router.post('/fyis/*', switchFormat(updateFyiDependencies))
+  app.router.post('/fyis/*', switchFormat(updateFyi))
 
   // jobs api
   app.router.post('/autodrip', fyiAutoDrip(app))

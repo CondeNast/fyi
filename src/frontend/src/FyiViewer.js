@@ -33,7 +33,7 @@ class FyiViewer extends Component {
                 {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
                   return <Badge color='info'>
                     {tag}
-                    <a class='remove-tag-button' href='#remove-tag' data-tag={tag} onClick={this._removeTag.bind(this)}>×</a>
+                    <a class='remove-tag-button' href='#' data-tag={tag} onClick={this._handleOnClickDeleteTag.bind(this)}>×</a>
                     </Badge>
                 }, this)}
               </CardBody>
@@ -95,7 +95,7 @@ class FyiViewer extends Component {
                 <Form>
                   <ul>
                   {this.state.data.children && this.state.data.children.map((dependent) =>
-                    <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this.__handleOnClickDeleteDependency.bind(this)}>Disconnect</a></li>
+                    <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this._handleOnClickDeleteDependency.bind(this)}>Disconnect</a></li>
                   )}
                   </ul>
                 </Form>
@@ -115,7 +115,7 @@ class FyiViewer extends Component {
             <CardBody className='with-list'>
               <ul>
                 {this.state.data.repos && this.state.data.repos.map((repo, index) =>
-                  <li class='fyi-current-repo'><a href={`http://github.com/${repo}`}>{repo}</a> <a class="remove-repo-button text-danger" href="#" onClick=''>Disconnect</a></li>
+                  <li class='fyi-current-repo'><a href={`http://github.com/${repo}`}>{repo}</a> <a data-repo-name={repo} class="remove-repo-button text-danger" href="#" onClick={this._handleOnClickDeleteRepository.bind(this)}>Disconnect</a></li>
                 )}
               </ul>
             </CardBody>
@@ -124,7 +124,7 @@ class FyiViewer extends Component {
 
             <CardBody>
               <Form>
-                <Input placeholder="Repo Org" type="select" list="data" onChange={this._handleChangeOrg.bind(this)} size='sm' >
+                <Input placeholder="Repo Org" type="select" list="data" onChange={this._handleOnChangeOrg.bind(this)} size='sm' >
                   {this.state.orgs && this.state.orgs.map((org) =>
                     <option value={`${org}`}>{org}</option>
                   )}
@@ -157,18 +157,25 @@ class FyiViewer extends Component {
           this.setState({ name: search.fyi, data, fyis: fyis.all})
         });
     }
-  __handleOnClickDeleteDependency = (event) => {
+  _handleOnClickDeleteDependency = (event) => {
     let deletedDep = event.target.getAttribute('data-dep-name')
     this.state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
     this.setState(this.state)
-    saveFyi(this.state.data.name, this.state.data.children.map(c => c.name))
+    saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
     event.preventDefault()
   }
-  _removeTag = (event) => {
+  _handleOnClickDeleteRepository = (event) => {
+    let deletedRepo = event.target.getAttribute('data-repo-name')
+    this.state.data.repos = this.state.data.repos.filter( (r) => r !== deletedRepo)
+    this.setState(this.state)
+    saveFyi({name: this.state.data.name, repos: this.state.data.repos})
+    event.preventDefault()
+  }
+  _handleOnClickDeleteTag = (event) => {
     let removedTag = event.target.getAttribute('data-tag')
     this.state.data.tags = this.state.data.tags.filter( (c) => c !== removedTag)
     this.setState(this.state)
-    saveFyi(this.state.data.name, this.state.data.children.map(c => c.name), this.state.data.tags)
+    saveFyi({name: this.state.data.name, tags: this.state.data.tags})
     event.preventDefault()
   }
   _handleKeyPressTag = (event) => {
@@ -177,7 +184,7 @@ class FyiViewer extends Component {
       this.state.data.tags.push(newTag)
       this.setState(this.state)
       event.target.value = '';
-      saveFyi(this.state.data.name, this.state.data.children.map(c => c.name), this.state.data.tags)
+      saveFyi({name: this.state.data.name, tags:this.state.data.tags})
       event.preventDefault()
     }
   }
@@ -187,11 +194,11 @@ class FyiViewer extends Component {
       this.state.data.children.push({name: newDependency})
       this.setState(this.state)
       event.target.value = '';
-      saveFyi(this.state.data.name, this.state.data.children.map(c => c.name))
+      saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
       event.preventDefault()
     }
   }
-  _handleChangeOrg = (event) => {
+  _handleOnChangeOrg = (event) => {
     this.state.org = event.target.value
   }
   _handleKeyPressRepo = (event) => {
@@ -212,17 +219,17 @@ class FyiViewer extends Component {
   }
 }
 
-function saveFyi(name, dependencies=[], tags=[]){
+function saveFyi({name, deps, tags, repos}){
     fetch('/fyis/'+name, {method: "POST", headers: {
       "Accept": "application/json"
     }, body: JSON.stringify({
       name: name,
       tags: tags,
       dependencies: {
-        fyis: dependencies
-      }
+        fyis: deps
+      },
+      repositories: repos
     })})
-
 }
 
 export default FyiViewer
