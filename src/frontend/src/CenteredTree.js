@@ -25,7 +25,13 @@ export default class CenteredTree extends React.PureComponent {
 
   componentDidMount() {
     const dimensions = this.treeContainer.getBoundingClientRect();
+    const tree = this.props.data[0]
+    const howManyNodesWide = treeMaxWidth(this.props.data[0])
+    const howManyNodesHigh = treeHeight(this.props.data[0])
+
+    let zoom = 1
     this.setState({
+      zoom: zoom,
       translate: {
         x: dimensions.width / 2,
         y: dimensions.height / 6
@@ -41,6 +47,7 @@ export default class CenteredTree extends React.PureComponent {
           translate={this.state.translate}
           orientation={'vertical'}
           zoomable={true}
+          zoom={this.state.zoom}
           collapsible={false}
           onClick={this.handleClick.bind(this)}
           textLayout={textLayoutStyle}
@@ -67,3 +74,40 @@ class NodeLabel extends React.PureComponent {
   }
 }
 
+
+function treeHeight(tree) {
+  if(tree.children && tree.children.length !== 0) {
+    return 1 + Math.max(...tree.children.map(treeHeight))
+  }
+  else {
+    return 1;
+  }
+}
+
+function treeMaxWidth(tree){
+  let widths = []
+  let height = treeHeight(tree)
+  for(let i = 0;i <= height; i++){ 
+     widths.push(getLevel(tree, i).length)
+  }
+  return Math.max(...widths)
+}
+
+function getLevel(tree, level){
+  if(level === 0) { return [tree] }
+  let ret = getNextLevel([tree])
+  for(let i = 0;i < level - 1; i++){
+    ret = getNextLevel(ret)
+  }
+  return ret
+}
+ 
+function getNextLevel(trees){
+    return trees.map((n) => n.children).reduce(
+      function(accumulator, currentValue) {
+	return accumulator.concat(currentValue);
+      },
+      []
+    )
+
+}
