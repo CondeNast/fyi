@@ -29,12 +29,26 @@ export default class CenteredTree extends React.PureComponent {
     const howManyNodesWide = treeMaxWidth(this.props.data[0])
     const howManyNodesHigh = treeHeight(this.props.data[0])
 
-    let zoom = 1
+    // default diagram position
+    var zoom = 1;
+    var xPoint = dimensions.width / 2 // the x position of the center of the primary point
+    var yPoint = dimensions.height / 6 // the y position of the center of the primary point
+
+    // positioning logic, given tree width dimension
+    if (howManyNodesWide > 5) {
+      zoom = 0.6;
+
+    } else if (howManyNodesWide >= 3) {
+      zoom = 0.8;
+      // other positioning logic can be used in these statements
+      // yPoint = dimensions.height / 4.5
+    }
+
     this.setState({
       zoom: zoom,
       translate: {
-        x: dimensions.width / 2,
-        y: dimensions.height / 6
+        x: xPoint,
+        y: yPoint
       }
     });
   }
@@ -87,7 +101,7 @@ function treeHeight(tree) {
 function treeMaxWidth(tree){
   let widths = []
   let height = treeHeight(tree)
-  for(let i = 0;i <= height; i++){ 
+  for(let i = 0;i <= height; i++){
      widths.push(getLevel(tree, i).length)
   }
   return Math.max(...widths)
@@ -101,7 +115,7 @@ function getLevel(tree, level){
   }
   return ret
 }
- 
+
 function getNextLevel(trees){
     return trees.map((n) => n.children).reduce(
       function(accumulator, currentValue) {
