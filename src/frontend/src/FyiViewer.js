@@ -60,6 +60,9 @@ class FyiViewer extends Component {
   }
 
   updateFyisFromConfluence = () => {
+    let data = this.state.data
+    data.content = 'Reloading from Confluence...'
+    this.setState( { data })
     fetch('/updateFromConfluence/', { method: "POST", headers: {"Accept": "application/json"},body: JSON.stringify({})})
     .then(this.loadFyis)
   }
