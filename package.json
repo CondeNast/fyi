@@ -69,6 +69,7 @@
     "probot": "^7.0.0",
     "probot-commands": "^1.0.1",
     "probot-metadata": "git+https://git@github.com/gautamarora/metadata.git",
+    "react-page-visibility": "^3.0.0",
     "react-truncate-html": "^0.1.7",
     "request-promise-native": "^1.0.5",
     "sequelize": "^4.37.10",

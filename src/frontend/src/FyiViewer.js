@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, Label, Input, ListGroup, ListGroupItem, Badge, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, } from 'reactstrap'
 import CenteredTree from './CenteredTree';
 import Truncate from 'react-truncate-html';
+import PageVisibility from 'react-page-visibility';
 
 class FyiViewer extends Component {
   constructor(props) {
@@ -9,24 +10,77 @@ class FyiViewer extends Component {
     this.state = {
       data: {},
       fyis: [],
-      orgs: process.env.REACT_APP_SUBSCRIBED_ORGS.split(',')
+      orgs: process.env.REACT_APP_SUBSCRIBED_ORGS.split(','),
+      editButtonClicked: false
     }
   }
+
+  componentDidMount() {
+    this.loadFyis()
+  }
+
+  handleVisibilityChange = isVisible => {
+    if(isVisible && this.state.editButtonClicked) {
+      this.updateFyisFromConfluence()
+      this.setState({ editButtonClicked: false });
+    }
+  }
+
+  loadFyis = () => {
+    let search = {}
+    let options = {
+      headers: {
+        "Accept": "application/json"
+      },
+    }
+    try {
+     search = this.props.match.params
+    }
+    catch(e) {
+      console.error('search not found')
+      return
+    }
+    Promise.all([fetch(`/fyis/${search.fyiId}/whatever`, options) , fetch('/fyis', options)])
+      .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
+        this.setState({ name: search.fyi, data, fyis: fyis.all})
+    });
+  }
+
+  saveFyi = ({name, deps, tags, repos}) => {
+    fetch('/fyis/'+name, {method: "POST", headers: {
+      "Accept": "application/json"
+    }, body: JSON.stringify({
+      name: name,
+      tags: tags,
+      dependencies: {
+        fyis: deps
+      },
+      repositories: repos
+    })})
+  }
+
+  updateFyisFromConfluence = () => {
+    fetch('/updateFromConfluence/', { method: "POST", headers: {"Accept": "application/json"},body: JSON.stringify({})})
+    .then(this.loadFyis)
+  }
+
   render() {
     return (
       <div class='viewer'>
         <div class='fyi-info col-3'>
+          <PageVisibility onChange={this.handleVisibilityChange}>
           <Card className="shadow-sm">
             <CardHeader>About</CardHeader>
             <CardBody>
               <CardTitle>{this.state.data.name}</CardTitle>
               <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
               { this.state.data.content ?
-                <Button outline color="secondary" size="sm" href={this.state.data.link}>View in Confluence</Button> :
-                <Button outline color="primary" size="sm" href={this.state.data.editLink}>Write in Confluence</Button>
+                <Button outline color="secondary" size="sm" onClick={this._handleOnClickViewButton}>View in Confluence</Button> :
+                <Button outline color="primary" size="sm" onClick={this._handleOnClickEditButton}>Write in Confluence</Button>
               }
             </CardBody>
           </Card>
+          </PageVisibility>
 
           <hr />
 
@@ -142,43 +196,25 @@ class FyiViewer extends Component {
       </div>
     );
   }
-  componentDidMount() {
-    let search = window.location.search.substring(1);
-    let options = {
-      headers: {
-        "Accept": "application/json"
-      },
-    }
-    try{
-     search = this.props.match.params
-    }
-    catch(e){
-      search = {}
-    }
-      Promise.all([fetch(`/fyis/${search.fyiId}/whatever`, options) , fetch('/fyis', options)])
-        .then(([response, response2]) => Promise.all([ response.json(), response2.json()])).then( ([data, fyis]) => {
-          this.setState({ name: search.fyi, data, fyis: fyis.all})
-        });
-    }
   _handleOnClickDeleteDependency = (event) => {
     let deletedDep = event.target.getAttribute('data-dep-name')
     this.state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
     this.setState(this.state)
-    saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
+    this.saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
     event.preventDefault()
   }
   _handleOnClickDeleteRepository = (event) => {
     let deletedRepo = event.target.getAttribute('data-repo-name')
     this.state.data.repos = this.state.data.repos.filter( (r) => r !== deletedRepo)
     this.setState(this.state)
-    saveFyi({name: this.state.data.name, repos: this.state.data.repos})
+    this.saveFyi({name: this.state.data.name, repos: this.state.data.repos})
     event.preventDefault()
   }
   _handleOnClickDeleteTag = (event) => {
     let removedTag = event.target.getAttribute('data-tag')
     this.state.data.tags = this.state.data.tags.filter( (c) => c !== removedTag)
     this.setState(this.state)
-    saveFyi({name: this.state.data.name, tags: this.state.data.tags})
+    this.saveFyi({name: this.state.data.name, tags: this.state.data.tags})
     event.preventDefault()
   }
   _handleKeyPressTag = (event) => {
@@ -187,7 +223,7 @@ class FyiViewer extends Component {
       this.state.data.tags.push(newTag)
       this.setState(this.state)
       event.target.value = '';
-      saveFyi({name: this.state.data.name, tags:this.state.data.tags})
+      this.saveFyi({name: this.state.data.name, tags:this.state.data.tags})
       event.preventDefault()
     }
   }
@@ -197,7 +233,7 @@ class FyiViewer extends Component {
       this.state.data.children.push({name: newDependency})
       this.setState(this.state)
       event.target.value = '';
-      saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
+      this.saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
       event.preventDefault()
     }
   }
@@ -220,19 +256,15 @@ class FyiViewer extends Component {
       event.target.value = '';
     }
   }
-}
+  _handleOnClickViewButton = (event) => {
+    window.open(this.state.data.link, '_blank')
+  }
 
-function saveFyi({name, deps, tags, repos}){
-    fetch('/fyis/'+name, {method: "POST", headers: {
-      "Accept": "application/json"
-    }, body: JSON.stringify({
-      name: name,
-      tags: tags,
-      dependencies: {
-        fyis: deps
-      },
-      repositories: repos
-    })})
+  _handleOnClickEditButton = (event) => {
+    this.setState({ editButtonClicked: true })
+    window.open(this.state.data.editLink, '_blank')
+  }
+
 }
 
 export default FyiViewer
