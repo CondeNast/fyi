@@ -29,18 +29,24 @@ class FyiList extends Component {
     this.setState(Object.assign({}, this.state, {key}))
   }
   render() {
-    const systemItems = this.state.systems.map((fyi) =>
-        <Card className="shadow-sm">
-          <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>
-          <CardBody>
-            <CardTitle>{fyi.name}</CardTitle>
-            <CardText><Truncate lines={4} dangerouslySetInnerHTML={{ __html: fyi.content}} /></CardText>
-            {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
-              return <Badge color='light' pill>{tag}</Badge>
-            })}
-            <CardText>{fyi.link}</CardText>
-          </CardBody>
-        </Card>
+    const systemItems = this.state.systems.map((fyi) => {
+        let fyiContent = fyi.content
+        var fyiContentMatch = fyiContent.match(/<p>([\s\S]*)?<\/p>/i)||[];
+        let fyiContentIntroText = fyiContentMatch[1] || fyiContent;
+        return (
+          <Card className="shadow-sm">
+            <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>
+            <CardBody>
+              <CardTitle>{fyi.name}</CardTitle>
+              <CardText><Truncate lines={3} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText>
+              {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
+                return <Badge color='light' pill>{tag}</Badge>
+              })}
+              <CardText>{fyi.link}</CardText>
+            </CardBody>
+          </Card>
+        )
+      }
     );
 
     const allItems = this.state.all.map((fyi) =>
