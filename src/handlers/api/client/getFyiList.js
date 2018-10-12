@@ -5,14 +5,19 @@ module.exports = async (request, response) => {
     let systems = await getFyisByTag('system')
     let all = await getFyisByTag()
     response.send(JSON.stringify({
-      systems: systems.map((e) => ({
-        id: e.id,
-        name: e.name,
-        content: e.content,
-        createdAt: e.createdAt,
-        tags: e.tags
+      systems: systems.map((fyi) => ({
+        id: fyi.id,
+        name: fyi.name,
+        content: fyi.content,
+        contentIntro: fyi.contentIntro,
+        createdAt: fyi.createdAt,
+        tags: fyi.tags
       })),
-      all: all.map((e) => ({id: e.id, name: e.name}))
+      all: all.map((fyi) => ({
+        id: fyi.id,
+        name: fyi.name,
+        contentIntro: fyi.contentIntro
+      }))
     }))
   } catch (e) {
     return response.send(JSON.stringify({error: e.message, success: false}))
