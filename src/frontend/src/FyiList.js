@@ -32,7 +32,7 @@ class FyiList extends Component {
     const systemItems = this.state.systems.map((fyi) => {
         let fyiContent = fyi.content
         var fyiContentMatch = fyiContent.match(/<p>([\s\S]*)?<\/p>/i)||[];
-        let fyiContentIntroText = fyiContentMatch[1] || fyiContent;
+        let fyiContentIntroText = fyiContentMatch.length > 0 ? fyiContentMatch[1] : fyiContent;
         return (
           <Card className="shadow-sm">
             <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>
