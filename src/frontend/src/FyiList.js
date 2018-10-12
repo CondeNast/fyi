@@ -28,11 +28,12 @@ class FyiList extends Component {
   handleSelect(key) {
     this.setState(Object.assign({}, this.state, {key}))
   }
+  
   render() {
     const systemItems = this.state.systems.map((fyi) => {
         let fyiContent = fyi.content
         var fyiContentMatch = fyiContent.match(/<p>([\s\S]*)?<\/p>/i)||[];
-        let fyiContentIntroText = fyiContentMatch.length > 0 ? fyiContentMatch[1] : fyiContent;
+        let fyiContentIntroText = fyiContentMatch.length > 0 ? fyiContentMatch[1] : `<br/><br/><br/>`;
         return (
           <Card className="shadow-sm">
             <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>

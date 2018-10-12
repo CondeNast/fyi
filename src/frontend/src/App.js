@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import FyiNew from './FyiNew'
 import FyiList from './FyiList'
 import FyiDeployViewer from './FyiDeployViewer'
 import FyiViewer from './FyiViewer'
@@ -12,15 +11,13 @@ serviceWorker.unregister()
 class App extends Component {
   constructor (props) {
     super(props)
-
+    this.newFYITextInputRef = React.createRef();
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.toggleFYIModal = this.toggleFYIModal.bind(this);
-
     this.state = {
       dropdownOpen: false,
       modal: false
     };
-
   }
 
   toggleFYIModal() {
@@ -34,6 +31,31 @@ class App extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
+
+  newFYICreateEvent = (event) => {
+    let fyiName = this.newFYITextInputRef.current.value
+    if(fyiName) {
+      fetch('/fyis', {method: "POST", headers: {
+        "Accept": "application/json"
+      }, body: JSON.stringify({
+        fyiName,
+      })})
+        .then(response => {
+          response.json().then(data => {
+            console.log(data)
+            let fyiId = data.fyiId
+            let parts = window.location.href.split('/')
+            parts.splice(-1,1)
+            parts.push('fyis')
+            parts.push(fyiId)
+            let newPath = parts.join('/')
+            window.location.href = newPath
+          })
+        })
+    }
+    event.preventDefault();
+  }
+
   render () {
     return (
       <div class= 'App'>
@@ -44,39 +66,6 @@ class App extends Component {
              <NavbarToggler onClick={this.toggle} />
              <Collapse isOpen={this.state.isOpen} navbar>
                <Nav className="ml-auto" navbar>
-                 <NavItem>
-                   <NavLink href="/systems">Systems</NavLink>
-                 </NavItem>
-                 <NavItem>
-                   <NavLink href="directory">Directory</NavLink>
-                 </NavItem>
-                 <UncontrolledDropdown nav inNavbar>
-                   <DropdownToggle nav caret>
-                     Resources
-                   </DropdownToggle>
-                   <DropdownMenu right>
-                     <DropdownItem>
-                       Jira
-                     </DropdownItem>
-                     <DropdownItem>
-                       Confluence
-                     </DropdownItem>
-                     <DropdownItem divider />
-                     <DropdownItem>
-                       Condé Nast GitHub
-                     </DropdownItem>
-                     <DropdownItem>
-                       Copilot Github
-                     </DropdownItem>
-                     <DropdownItem divider />
-                     <DropdownItem>
-                       Verso Components
-                     </DropdownItem>
-                     <DropdownItem>
-                       Verso Docs
-                     </DropdownItem>
-                   </DropdownMenu>
-                 </UncontrolledDropdown>
                <Button color="primary" className='create-fyi' onClick={this.toggleFYIModal}>New</Button>
                </Nav>
              </Collapse>
@@ -84,12 +73,10 @@ class App extends Component {
          </div>
 
         <div class='app-container container-fluid'>
-
           <div class='fyi-container'>
             <Switch>
               <Route exact path='/' component={FyiList} />
               <Route exact path='/deploys' component={FyiDeployViewer} />
-              <Route exact path='/fyis/new' component={FyiNew} />
               <Route path='/fyis/:fyiId*' component={FyiViewer} />
             </Switch>
           </div>
@@ -102,12 +89,13 @@ class App extends Component {
             <Form>
               <FormGroup>
                 <Label>Name</Label>
-                <Input placeholder="My FYI Name" type="text" />              </FormGroup>
+                <Input innerRef={this.newFYITextInputRef} placeholder="My FYI Name" type="text" />
+              </FormGroup>
             </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" outline onClick={this.toggleFYIModal}>Cancel</Button>
-            <Button color="primary" onClick={this.toggleFYIModal}>Get Started</Button>{' '}
+            <Button color="primary" onClick={this.newFYICreateEvent}>Get Started</Button>
           </ModalFooter>
         </Modal>
 
