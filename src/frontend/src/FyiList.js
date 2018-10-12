@@ -10,16 +10,19 @@ class FyiCard extends Component {
   }
   render() {
     let fyi = this.props.fyi
-    if(!fyi.contentIntro) {
+
+    if(this.props.style === 'mosaic' && !fyi.contentIntro) {
       return null
     }
+
+    let fyiContentIntroText = fyi.contentIntro ? `<p>${fyi.contentIntro}</p>` : `<br/><br/><br/><br/>`
 
     return (
       <Card className="shadow-sm">
         <CardBody>
           <CardTitle>{fyi.name}</CardTitle>
-            { this.props.style === 'grid' ? <CardText><Truncate lines={6} dangerouslySetInnerHTML={{ __html: `<p>${fyi.contentIntro}</p>`}} /></CardText> : '' }
-            { this.props.style === 'mosaic' ? <CardText dangerouslySetInnerHTML={{ __html: `${fyi.contentIntro}`}}/> : '' }
+            { this.props.style === 'grid' ? <CardText><Truncate lines={8} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText> : '' }
+            { this.props.style === 'mosaic' ? <CardText dangerouslySetInnerHTML={{ __html: fyiContentIntroText}}/> : '' }
           {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
             return <Badge color='light' pill>{tag}</Badge>
           })}
