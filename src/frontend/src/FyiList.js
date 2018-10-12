@@ -4,6 +4,33 @@ import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardHeader, CardText,
 import classnames from 'classnames';
 import Truncate from 'react-truncate-html';
 
+class FyiCard extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    let fyi = this.props.fyi
+    if(!fyi.contentIntro) {
+      return null
+    }
+
+    return (
+      <Card className="shadow-sm">
+        <CardBody>
+          <CardTitle>{fyi.name}</CardTitle>
+            { this.props.style === 'grid' ? <CardText><Truncate lines={6} dangerouslySetInnerHTML={{ __html: `<p>${fyi.contentIntro}</p>`}} /></CardText> : '' }
+            { this.props.style === 'mosaic' ? <CardText dangerouslySetInnerHTML={{ __html: `${fyi.contentIntro}`}}/> : '' }
+          {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
+            return <Badge color='light' pill>{tag}</Badge>
+          })}
+          <CardText>{fyi.link}</CardText>
+        </CardBody>
+        <CardFooter><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>See Details</Link></CardFooter>
+      </Card>
+    )
+  }
+}
+
 class FyiList extends Component {
   constructor (props) {
     super(props);
@@ -28,33 +55,12 @@ class FyiList extends Component {
   handleSelect(key) {
     this.setState(Object.assign({}, this.state, {key}))
   }
-  
-  render() {
-    const systemItems = this.state.systems.map((fyi) => {
-        let fyiContent = fyi.content
-        var fyiContentMatch = fyiContent.match(/<p>([\s\S]*)?<\/p>/i)||[];
-        let fyiContentIntroText = fyiContentMatch.length > 0 ? fyiContentMatch[1] : `<br/><br/><br/>`;
-        return (
-          <Card className="shadow-sm">
-            <CardHeader><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></CardHeader>
-            <CardBody>
-              <CardTitle>{fyi.name}</CardTitle>
-              <CardText><Truncate lines={3} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText>
-              {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
-                return <Badge color='light' pill>{tag}</Badge>
-              })}
-              <CardText>{fyi.link}</CardText>
-            </CardBody>
-          </Card>
-        )
-      }
-    );
 
-    const allItems = this.state.all.map((fyi) =>
-      <tr>
-        <td key={fyi}><Link to={"/fyis/"+fyi.id + "/" + fyi.name}>{fyi.name}</Link></td>
-      </tr>
-    );
+  render() {
+    const systemItems = this.state.systems.map((fyi) => <FyiCard style='grid' fyi={fyi} key={fyi.id}/>);
+
+    const allItems = this.state.all.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
+
     return (
       <div>
         <Nav tabs>
@@ -80,16 +86,7 @@ class FyiList extends Component {
             <div class="card-columns">{systemItems}</div>
           </TabPane>
           <TabPane tabId='2'>
-            <table class="table table-sm table-striped">
-              <thead>
-                <tr>
-                  <th>FYI</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allItems}
-              </tbody>
-            </table>
+            <div class="card-columns">{allItems}</div>
           </TabPane>
         </TabContent>
       </div>

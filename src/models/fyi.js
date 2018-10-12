@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
           return '/'
         }
       },
+      contentIntro: function () {
+        let content = this.content || ''
+        let contentMatch = content.match(/(<p[^>]*>.*?<\/p>)/i) || []
+        let contentIntro = contentMatch.length > 0 ? contentMatch[1] : null
+        return contentIntro
+      },
       contentUrl: function () {
         return this.confluenceApiData._links.self + '?expand=body.storage'
       },
