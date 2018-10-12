@@ -11,10 +11,6 @@ class FyiCard extends Component {
   render() {
     let fyi = this.props.fyi
 
-    if(this.props.style === 'mosaic' && !fyi.contentIntro) {
-      return null
-    }
-
     let fyiContentIntroText = fyi.contentIntro ? `<p>${fyi.contentIntro}</p>` : `<br/><br/><br/><br/>`
 
     return (
@@ -62,7 +58,12 @@ class FyiList extends Component {
   render() {
     const systemItems = this.state.systems.map((fyi) => <FyiCard style='grid' fyi={fyi} key={fyi.id}/>);
 
-    const allItems = this.state.all.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
+    // const allItems = this.state.all.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
+    const completed = this.state.all.filter((fyi) => fyi.contentIntro !== null);
+    const empty = this.state.all.filter((fyi) => fyi.contentIntro === null);
+
+    const completedItems = completed.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
+    const emptyItems = empty.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
 
     return (
       <div>
@@ -89,7 +90,10 @@ class FyiList extends Component {
             <div class="card-columns">{systemItems}</div>
           </TabPane>
           <TabPane tabId='2'>
-            <div class="card-columns">{allItems}</div>
+            <div class="card-columns">{completedItems}</div>
+            <br/>
+            <h4> Incomplete FYIs </h4>
+            <div class="card-columns">{emptyItems}</div>
           </TabPane>
         </TabContent>
       </div>
