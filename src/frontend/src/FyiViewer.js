@@ -68,6 +68,9 @@ class FyiViewer extends Component {
   }
 
   render() {
+    let fyiContent = this.state.data.content || ''
+    var fyiContentMatch = fyiContent.match(/<p>([\s\S]*)?<\/p>/i)||[];
+    let fyiContentIntroText = fyiContentMatch.length > 0 ? fyiContentMatch[1] : fyiContent;
     return (
       <PageVisibility onChange={this.handleVisibilityChange}>
         <div class='viewer'>
@@ -76,7 +79,7 @@ class FyiViewer extends Component {
               <CardHeader>About</CardHeader>
               <CardBody>
                 <CardTitle>{this.state.data.name}</CardTitle>
-                <CardText><Truncate lines={5} dangerouslySetInnerHTML={{ __html: this.state.data.content}} /></CardText>
+                <CardText><Truncate lines={4} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText>
                 { this.state.data.content ?
                   <div class="btn-toolbar">
                     <div class="mr-2"><Button outline color="primary" size="sm" onClick={this._handleOnClickViewButton}>View in Confluence</Button></div>
