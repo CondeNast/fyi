@@ -86,7 +86,7 @@ class App extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggleFYIModal} className={this.props.className}>
           <ModalHeader toggle={this.newFYIModalEvent}>Create an FYI</ModalHeader>
           <ModalBody>
-            <Form>
+            <Form onSubmit={this.newFYICreateEvent}>
               <FormGroup>
                 <Label>Name</Label>
                 <Input innerRef={this.newFYITextInputRef} placeholder="My FYI Name" type="text" />
@@ -95,7 +95,7 @@ class App extends Component {
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" outline onClick={this.toggleFYIModal}>Cancel</Button>
-            <Button color="primary" onClick={this.newFYICreateEvent}>Get Started</Button>
+            <Button color="primary" onClick={this.newFYICreateEvent}>Create</Button>
           </ModalFooter>
         </Modal>
 
