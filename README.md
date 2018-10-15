@@ -38,9 +38,8 @@ The goal of this step is to setup the required services for the FYI application,
       2. Start a new channel
       3. In `secrets.json`, copy this smee channel url as the value for `webhook-proxy-url`
   3. Create a Github Org
-      0. _Note: In case you already have a organization, you can skip the next step_
-      1. Go to `https://github.com/organizations/new` to start a new organization
-      2. In `default.js`, add your org name to the `github.subscribedOrgs` list & `github.adminOrg`
+      1. If you do not have a GiHub organization, go to `https://github.com/organizations/new` to start a new one
+      2. In `default.js`, add your organization name to the `github.subscribedOrgs` list & `github.adminOrg`
   4. Create a Github App
       1. Go to `https://github.com/settings/apps/new` and create a new Github App
       2. Set `Webhook URL` to the webhook proxy url from above
@@ -56,11 +55,11 @@ The goal of this step is to setup the required services for the FYI application,
   6. Create a Confluence Space and Page
       1. TODO
   7. Configure Slack channel (optional)
-      0. If you want to disable slack, update `default.js` for `slack.enabled` to be `false`
-      1. Install "Incoming Webhooks" for your Slack instance
-      2. Add a configuration for new incoming webhook for posting to your Slack channel
-      3. In `secrets.json`, copy the Slack webhook url as the value for `slack-webhook-url`
-      4. In `default.js`, set the channel name as value for `slack.channel`
+      1. If you want to disable slack, update `default.js` for `slack.enabled` to be `false`
+      2. Install "Incoming Webhooks" for your Slack instance
+      3. Add a configuration for new incoming webhook for posting to your Slack channel
+      4. In `secrets.json`, copy the Slack webhook url as the value for `slack-webhook-url`
+      5. In `default.js`, set the channel name as value for `slack.channel`
   8. Configure Datadog events (optional)
       1. Not Supported - This integration has a very custom setup and is not currently supported.
 
