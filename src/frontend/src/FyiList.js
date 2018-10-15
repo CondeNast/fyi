@@ -92,8 +92,13 @@ class FyiList extends Component {
           <TabPane tabId='2'>
             <div class="card-columns">{completedItems}</div>
             <br/>
-            <h4> Incomplete FYIs </h4>
-            <div class="card-columns">{emptyItems}</div>
+            { empty.length > 0 ?
+              (<div>
+                  <h4> Incomplete FYIs </h4>
+                  <div class="card-columns">{emptyItems}</div>
+               </div>)
+              : ''
+            }
           </TabPane>
         </TabContent>
       </div>
