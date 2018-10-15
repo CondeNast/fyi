@@ -25,9 +25,13 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       contentIntro: function () {
+        //select the first paragraph as the intro
         let content = this.content || ''
         let contentMatch = content.match(/(<p[^>]*>.*?<\/p>)/i) || []
-        let contentIntro = contentMatch.length > 0 ? contentMatch[1] : null
+        let contentIntro = contentMatch.length > 0 ? contentMatch[1] : ''
+        //replace relative urls with aboluste urls
+        let re = new RegExp("href=\\\"\/wiki", "g")
+        contentIntro = contentIntro.replace(re, `href=\"${this.confluenceApiData._links.base}`)
         return contentIntro
       },
       contentUrl: function () {
