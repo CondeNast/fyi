@@ -42,7 +42,6 @@ class App extends Component {
       })})
         .then(response => {
           response.json().then(data => {
-            console.log(data)
             let fyiId = data.fyiId
             let parts = window.location.href.split('/')
             parts.splice(-1,1)
