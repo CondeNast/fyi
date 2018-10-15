@@ -30,8 +30,10 @@ module.exports = (sequelize, DataTypes) => {
         let contentMatch = content.match(/(<p[^>]*>.*?<\/p>)/i) || []
         let contentIntro = contentMatch.length > 0 ? contentMatch[1] : ''
         //replace relative urls with aboluste urls
-        let re = new RegExp("href=\\\"\/wiki", "g")
-        contentIntro = contentIntro.replace(re, `href=\"${this.confluenceApiData._links.base}`)
+        if(contentIntro) {
+          let re = new RegExp("href=\\\"\/wiki", "g")
+          contentIntro = contentIntro.replace(re, `href=\"${this.confluenceApiData._links.base}`)
+        }
         return contentIntro
       },
       contentUrl: function () {
