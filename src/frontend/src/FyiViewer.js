@@ -154,7 +154,7 @@ class FyiViewer extends Component {
           <div class='col-8 col-sm-3 fyi-toolpane'>
 
             <Card className='shadow-sm'>
-              <CardHeader>Dependencies</CardHeader>
+              <CardHeader>Direct Dependencies</CardHeader>
 
                 <CardBody className='with-list'>
                   <Form>
