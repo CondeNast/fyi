@@ -1,6 +1,6 @@
 # 💁 FYI
 
-Discover and Explore your Organization's System Architecture
+Discover, Document and Explore your organization's System Architecture
 
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg?style=flat)](LICENSE) [![](http://fyi.conde.io/badge/56)](http://fyi.conde.io/link/56) [![](http://fyi.conde.io/badge/162)](http://fyi.conde.io/link/162)
 
@@ -30,6 +30,13 @@ This application has two parts:
 ### 🔧 Step 1: Setting Up Services
 The goal of this step is to setup the required services for the FYI application, and populate the files in the `config` directory.
 
+__A note about configurations__
+The configuration is split across 2 files: `default.js` and `secrets.json`.
+`default.js` stores non-sensitive configuration settings and feature flags. Since we use `node-config`, these defaults can be overidden by the environment specific files: `staging.json` and `production.json`.
+`secrets.json` stores sensitive account information like app keys and api tokens. The application first tries to use `node-vault` to connect to a Vault instance and get the secrets, incase it fails to do so, it uses the `secrets.json`. The instructions below guide you towards creating your own `secrets.json` to start the application. If you later want to move it to a secure and shareable location, consider setting up Vault and moving the secrets there.
+
+Lets get started...
+
   1. Create a secrets file
       1. In your terminal, go to the `config` directory
       2. Run `cp secrets.json.example secrets.json`
@@ -50,10 +57,15 @@ The goal of this step is to setup the required services for the FYI application,
           2. Read and Write permission for: Checks, Repository Contents, Issues, Pull Requests,
       6. Updates your Github Apps' event subscriptions:
           1. Subscribe to events for: Repository, Issues, Issue Comments
-  5. Create a FYI Admin repository
+  5. Create a FYI Admin GitHub repository
       1. Go to `https://github.com/new` and create a new repository in your organization called `fyi-admin`
-  6. Create a Confluence Space and Page
-      1. TODO
+  6. Create a Confluence Account, Space and Page
+      1. If you do not have a Confluence account, sign up for a free account here: https://www.atlassian.com/software/confluence/try
+      2. After account creation, you will be prompted to create a space
+      3. After space creation, you will be prompted to create a page. On this page, using "Insert More Content" dropdown, select "Other Macros" and add "Children Display".
+      4. In `default.js`, add your Confluence Site name (only the part before .attlassian.net) as `hostname`, your Confluence Space name as `spaceKey`, and your Confluence Page id as `fyiPageId`.
+      5. Now create a Confluence API token here: https://id.atlassian.com/manage/api-tokens
+      6. In `secrets.json`, add you Confluence account email as `confluence-username` and API token as `confluence-access-token`
   7. Configure Slack channel (optional)
       1. If you want to disable slack, update `default.js` for `slack.enabled` to be `false`
       2. Install "Incoming Webhooks" for your Slack instance
@@ -61,7 +73,7 @@ The goal of this step is to setup the required services for the FYI application,
       4. In `secrets.json`, copy the Slack webhook url as the value for `slack-webhook-url`
       5. In `default.js`, set the channel name as value for `slack.channel`
   8. Configure Datadog events (optional)
-      1. Not Supported - This integration has a very custom setup and is not currently supported.
+      1. This integration is a WIP. For now, disable this integration, update `default.js` for `datadog.enabled` to be `false`
 
 ### 🏃 Step 2: Running With Docker (recommended)
 

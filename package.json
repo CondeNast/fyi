@@ -9,10 +9,15 @@
   "homepage": "https://github.com/CondeNast/fyi",
   "bugs": "https://github.com/CondeNast/fyi/issues",
   "keywords": [
+    "fyi",
+    "architecture",
+    "docs",
     "probot",
+    "create-react-app",
     "github",
-    "probot-app",
-    "fyi"
+    "confluence",
+    "slack",
+    "datadog"
   ],
   "contributors": [
     "John K. Paul <john@johnkpaul.com>",
