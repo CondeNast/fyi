@@ -16,9 +16,9 @@ module.exports = async (context, command, app) => {
   const adminRepo = context.payload.repository.name
   const adminIssue = context.payload.issue.number
   let fyiName
-  if(_fyiName) {
+  if (_fyiName) {
     fyiName = _fyiName
-  } else if(command.arguments) {
+  } else if (command.arguments) {
     fyiName = command.arguments
   } else {
     fyiName = repo

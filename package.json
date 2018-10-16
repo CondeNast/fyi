@@ -96,10 +96,13 @@
   },
   "standard": {
     "env": [
-      "jest"
+      "jest",
+      "node"
     ],
     "ignore": [
-      "/src/frontend/**/*.js"
+      "/src/frontend/**/*.js",
+      "/src/services/slack.js",
+      "/src/services/datadog.js"
     ]
   },
   "jest": {

@@ -10,7 +10,7 @@ module.exports = async (request, response) => {
 
     let deploysUrl = `${request.protocol}://${request.get('host')}/deploys`
     let deploysResponse = await fetch(`${deploysUrl}/${fyi.name}`)
-    let deploys = await deploysResponse.json();
+    let deploys = await deploysResponse.json()
 
     response.send(JSON.stringify({
       fyiId: fyi.id,
@@ -31,11 +31,10 @@ module.exports = async (request, response) => {
 async function getSecondLevel (children) {
   return children.map(async (dep) => {
     let [fyi] = await Fyi.findOrCreate({where: {name: dep}})
-    let newChildren;
-    if(fyi.dependencies.fyis.length !== 0){
+    let newChildren
+    if (fyi.dependencies.fyis.length !== 0) {
       newChildren = await Promise.all(await getSecondLevel(fyi.dependencies.fyis))
-    }
-    else{
+    } else {
       newChildren = fyi.dependencies.fyis.map((dep) => {
         return {name: dep, fyiId: dep.id}
       })

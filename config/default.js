@@ -3,9 +3,9 @@ let username = process.env.POSTGRES_USER || require('os').userInfo().username
 let secrets
 try {
   secrets = require('./secrets.json')
-} catch(e) {
+} catch (e) {
   secrets = {
-    "data": null
+    'data': null
   }
 }
 
@@ -29,7 +29,7 @@ module.exports = {
   'confluence': {
     'fyiPageId': '367493172',
     'spaceKey': '~111165544',
-    'hostname': 'cnissues',
+    'hostname': 'cnissues'
   },
   'slack': {
     'enabled': true,

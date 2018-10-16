@@ -22,9 +22,9 @@ const env = process.env.NODE_ENV || 'development'
 const express = require('express')
 
 let serveStaticPath = 'public/frontend/build'
-if(env === 'staging') {
+if (env === 'staging') {
   serveStaticPath = 'public/frontend/build-staging'
-} else if(env === 'production') {
+} else if (env === 'production') {
   serveStaticPath = 'public/frontend/build-production'
 }
 const serveStatic = express.static(serveStaticPath)
@@ -98,7 +98,7 @@ let switchFormat = (handler) => {
   return (req, res) => {
     res.format({
       html: function () {
-        res.sendFile(require('path').resolve(serveStaticPath+'/index.html'))
+        res.sendFile(require('path').resolve(serveStaticPath + '/index.html'))
       },
       json: function () {
         return handler.apply(this, [req, res])
