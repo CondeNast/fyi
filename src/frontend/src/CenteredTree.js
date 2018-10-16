@@ -27,9 +27,9 @@ export default class CenteredTree extends React.PureComponent {
 
   componentDidMount() {
     const dimensions = this.treeContainer.getBoundingClientRect();
-    const tree = this.props.data[0]
+    // const tree = this.props.data[0]
     const howManyNodesWide = treeMaxWidth(this.props.data[0])
-    const howManyNodesHigh = treeHeight(this.props.data[0])
+    // const howManyNodesHigh = treeHeight(this.props.data[0])
 
     // default diagram position
     var zoom = 1;

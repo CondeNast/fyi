@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import FyiList from './FyiList'
 import FyiDeployViewer from './FyiDeployViewer'
 import FyiViewer from './FyiViewer'
-import { Form, FormGroup, Label, Input, Modal, ModalHeader, ModalFooter, ModalBody, Nav, NavItem, NavLink, Navbar, NavbarBrand, NavbarToggler, Button, Collapse, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Modal, ModalHeader, ModalFooter, ModalBody, Nav, Navbar, NavbarBrand, NavbarToggler, Button, Collapse } from 'reactstrap'
 import './App.css'
 import * as serviceWorker from './registerServiceWorker.js'
 serviceWorker.unregister()

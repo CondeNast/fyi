@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Label, Input, ListGroup, ListGroupItem, Badge, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, } from 'reactstrap'
-import CenteredTree from './CenteredTree';
-import Truncate from 'react-truncate-html';
+import { ListGroup, ListGroupItem } from 'reactstrap'
 
 class FyiViewer extends Component {
   constructor(props) {
@@ -18,14 +16,15 @@ class FyiViewer extends Component {
             <h6 className='text-muted'>Latest Activity</h6>
             <ListGroup className='shadow-sm'>
               {this.state.data.deploys && this.state.data.deploys.events.map(deployment => {
-                if(!deployment)
-                  return
-                return (
-                  <ListGroupItem color='light'>
-                    <strong>{}/{deployment.repo}:</strong> Deployed to {deployment.env.toUpperCase()}<br />
-                    <small class='text-muted'>{deployment.date_happened}</small>
-                  </ListGroupItem>
-                )
+                if(deployment) {
+                  return (
+                    <ListGroupItem color='light'>
+                      <strong>{}/{deployment.repo}:</strong> Deployed to {deployment.env.toUpperCase()}<br />
+                      <small class='text-muted'>{deployment.date_happened}</small>
+                    </ListGroupItem>
+                  )
+                }
+                return null
               })}
             </ListGroup>
           </div>
