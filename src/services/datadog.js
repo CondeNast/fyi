@@ -83,48 +83,45 @@ const fetchAll = async () => {
         let title = e.title
         let text = e.text
 
-        if(title === 'server.start') {
+        if (title === 'server.start') {
           return null
         }
 
-        //determine the org, repo, branch from text
-        let org, repo, branch
-        let [,,orgRepoBranch] = text.split('/')
-        let state = 0
-        if(orgRepoBranch.split('_').length == 2) {
+        // determine the org, repo, branch from text
+        let org, repo, branch, repoBranch
+        let [,, orgRepoBranch] = text.split('/')
+        if (orgRepoBranch.split('_').length === 2) {
           [org, repoBranch] = orgRepoBranch.split('_')
-          state = 1
         } else {
           org = (require('config').github.subscribedOrgs[0]).toLowerCase()
           repoBranch = orgRepoBranch
-          state = 2
         }
-        [repo,branch] = repoBranch.split(':')
-        branch = branch.replace('bld-','')
+        [repo, branch] = repoBranch.split(':')
+        branch = branch.replace('bld-', '')
 
-        //determine app name, env, az from title
+        // determine app name, env, az from title
         let titleParts = title.split(' ')
         let status = titleParts[1].toLowerCase()
         let project = titleParts[3]
 
         let [azEnv, appName] = project.split('/')
-        let az = (azEnv.split('__')[0]).toLowerCase().replace(/_/g,'-')
+        let az = (azEnv.split('__')[0]).toLowerCase().replace(/_/g, '-')
 
         let appNameParts = appName.split('-')
-        appName = appNameParts.slice(0,appNameParts.length-1).join('-')
+        appName = appNameParts.slice(0, appNameParts.length - 1).join('-')
 
-        let env = appNameParts[appNameParts.length-1]
-        if(env.includes('ci')) {
+        let env = appNameParts[appNameParts.length - 1]
+        if (env.includes('ci')) {
           env = 'ci'
-        } else if(env.includes('stag') || env.includes('stg')) {
+        } else if (env.includes('stag') || env.includes('stg')) {
           env = 'staging'
-        } else if(env.includes('prod') || env.includes('prd')) {
+        } else if (env.includes('prod') || env.includes('prd')) {
           env = 'production'
         } else {
           env = (azEnv.split('__')[1]).toLowerCase()
         }
 
-        let date_happened = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
+        let dateHappened = moment.unix(e.date_happened).tz('America/New_York').format('MMMM Do YYYY, h:mm:ss a z')
 
         return {
           text,
@@ -136,7 +133,7 @@ const fetchAll = async () => {
           branch,
           env,
           az,
-          date_happened,
+          date_happened: dateHappened
           // 'datadog': e
         }
       })

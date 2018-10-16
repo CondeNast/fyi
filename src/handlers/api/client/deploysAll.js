@@ -1,5 +1,3 @@
-const Fyi = require('../../../models').Fyi
-const moment = require('moment')
 const datadog = require('../../../services/datadog')
 
 module.exports = async (request, response) => {
