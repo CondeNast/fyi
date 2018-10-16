@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, Badge} from 'reactstrap'
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, CardText, CardFooter, CardBody, CardTitle, Badge} from 'reactstrap'
 import classnames from 'classnames';
 import Truncate from 'react-truncate-html';
 
 class FyiCard extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let fyi = this.props.fyi
 
@@ -17,8 +14,8 @@ class FyiCard extends Component {
       <Card className="shadow-sm">
         <CardBody>
           <CardTitle>{fyi.name}</CardTitle>
-            { this.props.style === 'grid' ? <CardText><Truncate lines={8} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText> : '' }
-            { this.props.style === 'mosaic' ? <CardText dangerouslySetInnerHTML={{ __html: fyiContentIntroText}}/> : '' }
+            { this.props.order === 'grid' ? <CardText><Truncate lines={8} dangerouslySetInnerHTML={{ __html: fyiContentIntroText}} /></CardText> : '' }
+            { this.props.order === 'mosaic' ? <CardText dangerouslySetInnerHTML={{ __html: fyiContentIntroText}}/> : '' }
           {fyi.tags && fyi.tags.filter((t) => !(['system','drip'].includes(t))).map(function(tag, index){
             return <Badge color='light' pill>{tag}</Badge>
           })}
@@ -56,14 +53,14 @@ class FyiList extends Component {
   }
 
   render() {
-    const systemItems = this.state.systems.map((fyi) => <FyiCard style='grid' fyi={fyi} key={fyi.id}/>);
+    const systemItems = this.state.systems.map((fyi) => <FyiCard order='grid' fyi={fyi} key={fyi.id}/>);
 
     // const allItems = this.state.all.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
     const completed = this.state.all.filter((fyi) => fyi.contentIntro !== null);
     const empty = this.state.all.filter((fyi) => fyi.contentIntro === null);
 
-    const completedItems = completed.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
-    const emptyItems = empty.map((fyi) => <FyiCard style='mosaic' fyi={fyi} key={fyi.id}/>);
+    const completedItems = completed.map((fyi) => <FyiCard order='mosaic' fyi={fyi} key={fyi.id}/>);
+    const emptyItems = empty.map((fyi) => <FyiCard order='mosaic' fyi={fyi} key={fyi.id}/>);
 
     return (
       <div>

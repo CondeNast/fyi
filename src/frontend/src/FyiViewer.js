@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, Label, Input, ListGroup, ListGroupItem, Badge, Card, CardHeader, CardText, CardFooter, CardBody, CardTitle, } from 'reactstrap'
+import { Button, Form, Input, ListGroup, ListGroupItem, Badge, Card, CardHeader, CardText, CardBody, CardTitle, } from 'reactstrap'
 import CenteredTree from './CenteredTree';
 import Truncate from 'react-truncate-html';
 import PageVisibility from 'react-page-visibility';
@@ -98,6 +98,7 @@ class FyiViewer extends Component {
                   {this.state.data.tags && this.state.data.tags.filter((t) => !(['drip'].includes(t))).map(function(tag, index){
                     return <Badge color='info'>
                       {tag}
+                      {/* eslint-disable-next-line */}
                       <a class='remove-tag-button' href='#' data-tag={tag} onClick={this._handleOnClickDeleteTag.bind(this)}>×</a>
                       </Badge>
                   }, this)}
@@ -141,6 +142,7 @@ class FyiViewer extends Component {
                             </ListGroupItem>
                           )
                         }
+                        return null
                       })
                     })}
                   </ListGroup>)
@@ -160,7 +162,10 @@ class FyiViewer extends Component {
                   <Form>
                     <ul>
                     {this.state.data.children && this.state.data.children.map((dependent) =>
-                      <li class='fyi-current-dependency'><a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this._handleOnClickDeleteDependency.bind(this)}>Disconnect</a></li>
+                      <li class='fyi-current-dependency'>
+                        {/* eslint-disable-next-line */}
+                        <a href={"/fyis/"+dependent.fyiId + "/" + dependent.name}>{dependent.name}</a> <a data-dep-name={dependent.name} class="remove-dependency-button text-danger" href="#" onClick={this._handleOnClickDeleteDependency.bind(this)}>Disconnect</a>
+                      </li>
                     )}
                     </ul>
                   </Form>
@@ -180,7 +185,10 @@ class FyiViewer extends Component {
               <CardBody className='with-list'>
                 <ul>
                   {this.state.data.repos && this.state.data.repos.map((repo, index) =>
-                    <li class='fyi-current-repo'><a href={`http://github.com/${repo}`}>{repo}</a> <a data-repo-name={repo} class="remove-repo-button text-danger" href="#" onClick={this._handleOnClickDeleteRepository.bind(this)}>Disconnect</a></li>
+                    <li class='fyi-current-repo'>
+                      {/* eslint-disable-next-line */}
+                      <a href={`http://github.com/${repo}`}>{repo}</a> <a data-repo-name={repo} class="remove-repo-button text-danger" href="#" onClick={this._handleOnClickDeleteRepository.bind(this)}>Disconnect</a>
+                    </li>
                   )}
                 </ul>
               </CardBody>
@@ -207,50 +215,57 @@ class FyiViewer extends Component {
   }
   _handleOnClickDeleteDependency = (event) => {
     let deletedDep = event.target.getAttribute('data-dep-name')
-    this.state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
-    this.setState(this.state)
-    this.saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
+    let state = this.state
+    state.data.children = this.state.data.children.filter( (c) => c.name !== deletedDep)
+    this.setState(state)
+    this.saveFyi({name: state.data.name, deps: state.data.children.map(c => c.name)})
     event.preventDefault()
   }
   _handleOnClickDeleteRepository = (event) => {
     let deletedRepo = event.target.getAttribute('data-repo-name')
-    this.state.data.repos = this.state.data.repos.filter( (r) => r !== deletedRepo)
-    this.setState(this.state)
-    this.saveFyi({name: this.state.data.name, repos: this.state.data.repos})
+    let state = this.state
+    state.data.repos = this.state.data.repos.filter( (r) => r !== deletedRepo)
+    this.setState(state)
+    this.saveFyi({name: state.data.name, repos: state.data.repos})
     event.preventDefault()
   }
   _handleOnClickDeleteTag = (event) => {
     let removedTag = event.target.getAttribute('data-tag')
-    this.state.data.tags = this.state.data.tags.filter( (c) => c !== removedTag)
-    this.setState(this.state)
-    this.saveFyi({name: this.state.data.name, tags: this.state.data.tags})
+    let state = this.state
+    state.data.tags = this.state.data.tags.filter( (c) => c !== removedTag)
+    this.setState(state)
+    this.saveFyi({name: state.data.name, tags: state.data.tags})
     event.preventDefault()
   }
   _handleKeyPressTag = (event) => {
     let newTag = event.target.value
+    let state = this.state
     if(newTag !== "" && event.key === "Enter"){
-      this.state.data.tags.push(newTag)
-      this.setState(this.state)
+      state.data.tags.push(newTag)
+      this.setState(state)
       event.target.value = '';
-      this.saveFyi({name: this.state.data.name, tags:this.state.data.tags})
+      this.saveFyi({name: state.data.name, tags:state.data.tags})
       event.preventDefault()
     }
   }
   _handleKeyPressDep = (event) => {
     let newDependency = event.target.value
+    let state = this.state
     if(newDependency !== "" && event.key === "Enter"){
-      this.state.data.children.push({name: newDependency})
-      this.setState(this.state)
+      state.data.children.push({name: newDependency})
+      this.setState(state)
       event.target.value = '';
-      this.saveFyi({name: this.state.data.name, deps: this.state.data.children.map(c => c.name)})
+      this.saveFyi({name: state.data.name, deps: state.data.children.map(c => c.name)})
       event.preventDefault()
     }
   }
   _handleOnChangeOrg = (event) => {
-    this.state.org = event.target.value
+    let state = this.state
+    state.org = event.target.value
+    this.setState(state)
   }
   _handleKeyPressRepo = (event) => {
-    if(event.key == 'Enter') {
+    if(event.key === 'Enter') {
       event.preventDefault();
       let org = this.state.org ? this.state.org : this.state.orgs[0]
       let repo = event.target.value
