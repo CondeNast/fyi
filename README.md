@@ -31,6 +31,7 @@ This application has two parts:
 The goal of this step is to setup the required services for the FYI application, and populate the files in the `config` directory.
 
 __A note about configurations__
+
 The configuration is split across 2 files: `default.js` and `secrets.json`.
 `default.js` stores non-sensitive configuration settings and feature flags. Since we use `node-config`, these defaults can be overidden by the environment specific files: `staging.json` and `production.json`.
 `secrets.json` stores sensitive account information like app keys and api tokens. The application first tries to use `node-vault` to connect to a Vault instance and get the secrets, incase it fails to do so, it uses the `secrets.json`. The instructions below guide you towards creating your own `secrets.json` to start the application. If you later want to move it to a secure and shareable location, consider setting up Vault and moving the secrets there.
