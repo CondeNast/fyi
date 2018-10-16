@@ -8,8 +8,10 @@
     "react-d3-tree": "^1.10.6",
     "react-dom": "^16.5.2",
     "react-ga": "^2.5.3",
+    "react-page-visibility": "^3.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
+    "react-scripts": "2.0.3",
+    "react-truncate-html": "^0.1.7",
     "reactstrap": "^6.4.0"
   },
   "scripts": {
@@ -19,5 +21,11 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3000/"
+  "proxy": "http://localhost:3000/",
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
