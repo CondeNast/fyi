@@ -6,8 +6,8 @@ services:
       - ./src:/app/src
     restart: always
     ports:
-      - "3001:3000"
-      - "3002:3001"
+      - "3000:3000"
+      - "3001:3001"
     environment:
       VAULT_ADDR: http://vault:8200
       VAULT_TOKEN: myroot
@@ -21,8 +21,6 @@ services:
   postgres:
     image: postgres
     restart: always
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
     ports:
       - "5433:5432"
     environment:

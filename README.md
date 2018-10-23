@@ -39,31 +39,33 @@ The configuration is split across 2 files: `default.js` and `secrets.json`.
 Lets get started...
 
   1. Create a secrets file
-      1. In your terminal, go to the `config` directory
-      2. Run `cp secrets.json.example secrets.json`
+      1. Run `cp config/secrets.json.example config/secrets.json`
   2. Create a web proxy url
-      1. Go to `https://smee.io/`
-      2. Start a new channel
-      3. In `secrets.json`, copy this smee channel url as the value for `webhook-proxy-url`
+      1. Go to `https://smee.io/new`
+      2. In `secrets.json`, copy this smee channel url as the value for `webhook-proxy-url`
   3. Create a Github Org
       1. If you do not have a GiHub organization, go to `https://github.com/organizations/new` to start a new one
       2. In `default.js`, add your organization name to the `github.subscribedOrgs` list & `github.adminOrg`
-  4. Create a Github App
+  4. Create & Install a Github App
       1. Go to `https://github.com/settings/apps/new` and create a new Github App
+      2. Set `Application Name` as per your choice, can be something like `archbot-test-<random number>`
+      2. Set `Homepage URL` as per your choice, this will not be required for the application to work
       2. Set `Webhook URL` to the webhook proxy url from above
-      3. Set `Webhook secret` to `development`
-      4. In `secrets.json`, copy the GitHub private key as the value for `github-private-key`
-      5. Update your Github App's permissions:
+      3. Set `Webhook secret` as per your choice and then in `secrets.json` copy this as the value for `webhook-secret`
+      4. Update your Github App's permissions:
           1. Read Only permission for: Repo Administration, Repo Metadata, Repo Webhooks, Commit Statuses, Org Members
           2. Read and Write permission for: Checks, Repository Contents, Issues, Pull Requests,
-      6. Updates your Github Apps' event subscriptions:
+      5. Updates your Github Apps' event subscriptions:
           1. Subscribe to events for: Repository, Issues, Issue Comments
+      6. For "Where can this GitHub App be installed?", choose "Any Account"
+      7. After creating the application, generate a private key. In `secrets.json` copy the GitHub private key as the value for `github-private-key`
+      8. Head over to `https://github.com/settings/apps/<your github app name>/installations` and install this application to your organization
   5. Create a FYI Admin GitHub repository
-      1. Go to `https://github.com/new` and create a new repository in your organization called `fyi-admin`
+      1. Go to `https://github.com/organizations/<your github org name>/repositories/new` and create a new repository called `fyi-admin`
   6. Create a Confluence Account, Space and Page
       1. If you do not have a Confluence account, sign up for a free account here: https://www.atlassian.com/software/confluence/try
-      2. After account creation, you will be prompted to create a space
-      3. After space creation, you will be prompted to create a page. On this page, using "Insert More Content" dropdown, select "Other Macros" and add "Children Display".
+      2. After account creation, you will be prompted to create a space (you can name it Arch)
+      3. After space creation, you will be prompted to create a page (you can name it FYIs). On this page, using "Insert More Content" dropdown, select "Other Macros" and add "Children Display".
       4. In `default.js`, add your Confluence Site name (only the part before .attlassian.net) as `hostname`, your Confluence Space name as `spaceKey`, and your Confluence Page id as `fyiPageId`.
       5. Now create a Confluence API token here: https://id.atlassian.com/manage/api-tokens
       6. In `secrets.json`, add you Confluence account email as `confluence-username` and API token as `confluence-access-token`
@@ -79,9 +81,9 @@ Lets get started...
 ### 🏃 Step 2: Running With Docker (recommended)
 
   0. Pre-requisites: Docker and Docker Compose
-  1. Build Docker Image: `docker build -t easy-fyi-image .`
+  1. Build Docker Image: `docker build -t fyi-image .`
   2. Run Application: `docker-compose up`
-  3. Open your browser and go to `http://localhost:4001`
+  3. Open your browser and go to `http://localhost:3001`
 
 ### 🚶 Running Without Docker
 
