@@ -1,0 +1,41 @@
+version: '3.1'
+services:
+  web:
+    image: fyi-image
+    volumes:
+      - ./src:/app/src
+    restart: always
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      VAULT_ADDR: http://vault:8200
+      VAULT_TOKEN: myroot
+      POSTGRES_USER: easyfyi
+      POSTGRES_PASSWORD: null
+      POSTGRES_DB: easy-fyi-development
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: easyfyi
+      POSTGRES_PASSWORD: null
+      POSTGRES_DB: easy-fyi-development
+  postgres-migration:
+    image: fyi-image
+    command: ["./wait-for-it/wait-for-it.sh", "postgresql:5432", "--", "npm", "run", "sequelize:migrate"]
+    environment:
+      VAULT_ADDR: http://vault:8200
+      POSTGRES_USER: easyfyi
+      POSTGRES_PASSWORD: null
+      POSTGRES_DB: easy-fyi-development
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgres

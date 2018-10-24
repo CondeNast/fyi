@@ -1,0 +1,8 @@
+public/frontend/build/*
+public/frontend/build-staging/*
+public/frontend/build-production/*
+node_modules
+coverage
+backup
+*.pem
+secrets.json

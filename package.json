@@ -1,0 +1,110 @@
+{
+  "name": "fyi",
+  "version": "1.0.0",
+  "description": "Web App and Github App for FYIs",
+  "main": "index.js",
+  "license": "Apache 2.0",
+  "private": true,
+  "repository": "https://github.com/CondeNast/fyi.git",
+  "homepage": "https://github.com/CondeNast/fyi",
+  "bugs": "https://github.com/CondeNast/fyi/issues",
+  "keywords": [
+    "fyi",
+    "architecture",
+    "docs",
+    "probot",
+    "create-react-app",
+    "github",
+    "confluence",
+    "slack",
+    "datadog"
+  ],
+  "contributors": [
+    "John K. Paul <john@johnkpaul.com>",
+    "Gautam Arora <gautamsarora@gmail.com>"
+  ],
+  "scripts": {
+    "dev:server": "nodemon --exec \"npm start\"",
+    "dev:client": "eval \"`node src/scripts/startup.env.frontend.js`\";npm start --prefix=src/frontend",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "install:client": "npm --prefix src/frontend install",
+    "build:client": "rm -rf public/frontend/build; eval \"`node src/scripts/startup.env.frontend.js`\";npm --prefix src/frontend run build",
+    "build:client:staging": "rm -rf public/frontend/build-staging; NODE_ENV=staging npm run build:client;mv public/frontend/build public/frontend/build-staging",
+    "build:client:production": "rm -rf public/frontend/build-production; NODE_ENV=production npm run build:client;mv public/frontend/build public/frontend/build-production",
+    "build:client:clean": "rm -rf public/frontend/build;rm -rf public/frontend/build-staging;rm -rf public/frontend/build-production",
+    "build:client:all": "npm run build:client:staging; npm run build:client:production; npm run build:client",
+    "start": "eval \"`node src/scripts/startup.env.js`\";probot run ./app.js",
+    "lint": "standard --fix",
+    "test": "",
+    "repl": "eval `node src/scripts/startup.env.js`;node --trace-warnings repl",
+    "sequelize": "eval `node src/scripts/startup.env.js`;sequelize",
+    "sequelize:migrate": "eval `node src/scripts/startup.env.js`;sequelize db:migrate",
+    "sequelize:migrate:undo": "eval `node src/scripts/startup.env.js`;sequelize db:migrate:undo",
+    "seed:data:production": "NODE_ENV=production eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
+    "seed:data:development": "eval `node src/scripts/startup.env.js`;node src/scripts/seed.js",
+    "seed:data:repos-csv": "eval `node src/scripts/startup.env.js`;node src/scripts/seed-repos-from-csv/repos.js",
+    "sequelize:migrate_and_seed": "npm run sequelize:migrate && npm run seed:data:development",
+    "docker:build": "docker build -t fyi-image .",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down",
+    "docker:clean-containers": "docker rm $(docker ps -a -f status=exited -q)",
+    "docker:clean-images": "docker rmi $(docker images --filter 'dangling=true' -q);docker rmi $(docker images fyi-image -q)",
+    "opensource-check": "opensource-check ."
+  },
+  "dependencies": {
+    "@sindresorhus/slugify": "^0.3.0",
+    "apicache": "^1.2.3",
+    "async-csv": "^1.0.1",
+    "config": "^1.30.0",
+    "cors": "^2.8.4",
+    "dogapi": "^2.8.3",
+    "gh-badges": "^1.3.0",
+    "handlebars": "^4.0.11",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
+    "node-fetch": "^2.2.0",
+    "node-vault": "^0.9.0",
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "probot": "^7.3.1",
+    "probot-commands": "^1.0.1",
+    "probot-metadata": "git+https://git@github.com/gautamarora/metadata.git",
+    "react-page-visibility": "^3.0.0",
+    "react-truncate-html": "^0.1.7",
+    "request-promise-native": "^1.0.5",
+    "sequelize": "^4.37.10",
+    "sequelize-cli": "^4.0.0",
+    "slackify-html": "^1.0.1",
+    "smee-client": "^1.0.1"
+  },
+  "devDependencies": {
+    "@condenast/opensource-check": "0.0.4",
+    "babel-jest": "^23.6.0",
+    "concurrently": "^3.6.1",
+    "dotenv": "^6.0.0",
+    "eslint": "5.6.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.17.2",
+    "pryjs": "^1.0.3",
+    "standard": "^10.0.3"
+  },
+  "engines": {
+    "node": ">= 8.3.0"
+  },
+  "standard": {
+    "env": [
+      "jest",
+      "node"
+    ],
+    "ignore": [
+      "/src/frontend/**/*.js",
+      "/src/services/slack.js",
+      "/src/services/datadog.js"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/frontend/*"
+    ]
+  }
+}

@@ -1,0 +1,287 @@
+.App {
+  background-color:#FDFCFC;
+  padding:0;
+  padding-bottom:0;
+  height:100vh;
+  font-size:14px;
+}
+
+.app-container {
+  height:100%;
+}
+
+.viewer {
+  flex:1;
+  display:flex;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.viewer::-webkit-scrollbar {
+    display: none;
+}
+
+.fyi-navigation {
+  /* position:fixed; */
+}
+
+.create-fyi {
+  margin-left:1em;
+}
+
+
+
+
+/*
+/* DIAGRAM STYLES
+*/
+
+.fyi-diagram-container {
+  height:450px;
+  border-radius: 5px;
+  border:1px solid lightgray;
+  background-color:white;
+}
+
+.fyi-node {
+  position: relative;
+  background-color:#f1f8ff;
+  border:1px solid #c8e1ff;
+  border-radius:3px;
+  padding:0.3em;
+  padding-top:0.2em;
+  color: #0366d6;
+  text-align: center;
+  left: -60px;
+  width: 120px;
+  top: -15px;
+  min-height: 30px;
+  transition: background-color 300ms;
+}
+
+.fyi-node:hover {
+  background-color:#c8e1ff;
+}
+
+/* the last node on a branch  */
+.leafNodeBase .fyi-node {
+  background-color:#fafbfc;
+  border:1px solid #e1e4e8;
+  color:#6a737d;
+}
+.leafNodeBase .fyi-node:hover {
+  background-color:#e1e4e8;
+}
+
+/* the line that connects nodes  */
+.fyi-diagram-container svg .linkBase {
+  stroke:#c8e1ff;
+}
+
+.fyi-sidebar {
+  margin-top:2em;
+  padding-right: 2em;
+}
+
+.fyi-details {
+  padding:0;
+}
+
+.fyi-toolpane {
+  padding-bottom:3em;
+  margin-bottom:1em;
+}
+
+
+/*
+/* CARD STYLES
+*/
+
+.card-body small {
+  padding-left:0.3em;
+}
+
+.card small + input {
+  margin-top:1em;
+}
+
+.card hr {
+  position: relative;
+  margin: 0.5em 0.5em 0.25em 0.5em;
+}
+
+.card hr:before {
+  position:absolute;
+  text-transform: uppercase;
+  color:#AFB7BB;
+  letter-spacing:0.06em;
+  font-size: 10px;
+  top:-11px;
+  left:2em;
+  background-color: white;
+  padding:0.3em 0.6em;
+  display:block;
+  content: attr(data-note);
+
+}
+
+.card hr + .card-body:last-of-type {
+  /* background-color: pink; */
+  padding-bottom: 0.8em;
+}
+
+.fyi-toolpane .card + .card {
+  margin-top:1em;
+}
+
+.card-header + .card-body.with-list {
+  padding-top:1.25em;
+}
+
+.card-body.with-list {
+  padding-left:0.5em;
+}
+
+.card-body.with-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-body li {
+  padding-left: 1em;
+  text-indent: -.6em;
+  list-style: none;
+}
+
+.card-body li::before {
+  content: "·"; /* this is an interpunct, not a bullet */
+  padding-right:0.65em;
+  color: gray;
+}
+
+
+
+.fyi-tags .tag-body {
+  padding-top:1em;
+  padding-bottom:0.8em;
+}
+
+.fyi-tags .tag-body + .card-body {
+  padding-top:0;
+}
+
+.fyi-tags .badge {
+  position:relative;
+  padding:0.5em;
+  padding-bottom:0.55em;
+  padding-right:2em;
+  font-weight: normal;
+  margin-right:0.5em;
+  margin-bottom:0.5em;
+}
+
+.fyi-tags .remove-tag-button  {
+  position:absolute;
+  top:0;
+  right:3px;
+  display:inline-block;
+  width:1em;
+  padding-top:0.17em;
+  font-size:1.5em;
+  height:100%;
+  margin-left:0.5em;
+  color:#0c5460;
+}
+
+.fyi-tags .remove-tag-button:hover {
+  text-decoration: none;
+  color:black;
+}
+
+.fyi-current-dependency .remove-dependency-button, .fyi-current-repo .remove-repo-button {
+    visibility: hidden;
+    font-size:12px;
+    margin-left:0.5em;
+    text-decoration:underline;
+    opacity: 0;
+}
+
+.fyi-current-dependency:hover .remove-dependency-button, .fyi-current-repo:hover .remove-repo-button {
+  visibility:visible;
+  opacity: 1;
+  transition: opacity 300ms;
+}
+
+.fyi-container {
+  display:flex;
+  flex-direction: column;
+  align-content: stretch;
+  padding-top:1em;
+}
+
+.fyi-activity-list {
+  font-size:12px;
+  margin-top:2em;
+  padding-bottom:3em;
+}
+
+.fyi-activity-list .list-group-item {
+  padding:0.75em 1.25em;
+  position:relative;
+}
+
+.fyi-activity-list .list-group-item .btn {
+  position:absolute;
+  right:10px;
+  bottom:15px;
+  font-size: 10px;
+}
+
+.card ul {
+  margin:0;
+  padding:0;
+  padding-left:1em;
+}
+
+.card-columns {
+  margin-top:1em;
+}
+
+.card-header {
+  display:block;
+}
+
+.card-header .badge {
+  float:right;
+  margin-top:1px;
+  padding:0.5em 0.6em 0.6em 0.6em;
+  font-size:9px;
+  font-weight: normal;
+}
+
+.fyi-container .table th {
+  border-top:0;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 576px) {
+  .app-container {
+    display:flex;
+    flex-direction: column;
+  }
+
+  .fyi-container {
+    flex:1;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    flex-direction: row;
+  }
+
+  .fyi-container {
+    height:100%;
+  }
+}

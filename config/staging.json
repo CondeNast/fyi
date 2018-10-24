@@ -1,0 +1,12 @@
+{
+  "github": {
+    "subscribedOrgs": ["choosenearme","mage-contest"],
+    "adminOrg":"choosenearme",
+    "adminRepo":"fyi-admin",
+    "adminUsers": ["johnkpaul", "gautamarora"]
+  },
+  "confluence": {
+    "fyiPageId": "367493172",
+    "spaceKey": "~111165544"
+  }
+}
