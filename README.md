@@ -58,8 +58,9 @@ Lets get started...
       5. Updates your Github Apps' event subscriptions:
           1. Subscribe to events for: Repository, Issues, Issue Comments
       6. For "Where can this GitHub App be installed?", choose "Any Account"
-      7. After creating the application, generate a private key. In `secrets.json` copy the GitHub private key as the value for `github-private-key`
-      8. Head over to `https://github.com/settings/apps/<your github app name>/installations` and install this application to your organization
+      7. After the App is created, the ID will be listed in the About section. In `.env` file, copy this ID as the value for `APP_ID`
+      8. Generate a private key and download it. In order to use this key in our code, we will need to replace the carriage returns with `\n`. Run this command on your key file: `sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' <your-key-file>.pem`. In `secrets.json` copy the output of the `sed` command as the value for `github-private-key`
+      9. Head over to `https://github.com/settings/apps/<your github app name>/installations` and install this application to your organization
   5. Create a FYI Admin GitHub repository
       1. Go to `https://github.com/organizations/<your github org name>/repositories/new` and create a new repository called `fyi-admin`
   6. Create a Confluence Account, Space and Page
