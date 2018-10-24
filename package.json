@@ -102,10 +102,6 @@
       "/src/services/datadog.js"
     ]
   },
-  "jest": {
-    "notify": true,
-    "globalSetup": "./tests/unit/global-setup.js"
-  },
   "nodemonConfig": {
     "ignore": [
       "src/frontend/*"
