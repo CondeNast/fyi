@@ -1,4 +1,4 @@
-CnNodeBuild( project: "fyi", nodeVersion: "node-v6.14.4", npmVersion: "3.10.10" ) {
+CnNodeBuild( project: "fyi", nodeVersion: "node-v8.11.3", npmVersion: "5.6.0" ) {
     sh "npm install"
     sh "npm run install:client"
     sh "npm run build:client:all"
