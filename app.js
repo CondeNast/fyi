@@ -5,6 +5,7 @@ const ttl = '5 minutes'
 
 // github events
 const repoCreated = require('./src/handlers/github/events/repoCreated')
+const memberRemoved = require('./src/handlers/github/events/memberRemoved')
 const fyiSubmitted = require('./src/handlers/github/events/fyiSubmitted')
 
 // github commands
@@ -55,6 +56,7 @@ module.exports = app => {
 
   // github events
   app.on('repository.created', (context) => repoCreated(context, app))
+  app.on('*', (context) => memberRemoved(context, app))
   app.on('issues.closed', (context) => fyiSubmitted(context, app))
 
   // github commands
