@@ -24,7 +24,7 @@ module.exports = {
     'subscribedOrgs': ['choosenearme', 'mage-contest'],
     'adminOrg': 'choosenearme',
     'adminRepo': 'fyi-admin',
-    'adminUsers': ['johnkpaul', 'gautamarora']
+    'adminUsers': ['johnkpaul', 'pgoldrbx']
   },
   'confluence': {
     'fyiPageId': '367493172',

@@ -3,7 +3,7 @@
     "subscribedOrgs": ["CondeNast","CondeNast-Copilot"],
     "adminOrg":"CondeNast",
     "adminRepo":"fyi-admin",
-    "adminUsers": ["johnkpaul", "gautamarora"]
+    "adminUsers": ["johnkpaul", "pgoldrbx"]
   },
   "confluence": {
     "fyiPageId": "123212691",
