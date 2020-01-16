@@ -55,9 +55,9 @@ module.exports = app => {
   app.log('🤖  Arch Bot is listening...')
 
   // github events
-  app.on('repository.created', (context) => repoCreated(context, app))
+  //app.on('repository.created', (context) => repoCreated(context, app))
   app.on('*', (context) => memberRemoved(context, app))
-  app.on('issues.closed', (context) => fyiSubmitted(context, app))
+  //app.on('issues.closed', (context) => fyiSubmitted(context, app))
 
   // github commands
   commands(app, 'request', async (context, command) => fyiRequested(context, command, app))

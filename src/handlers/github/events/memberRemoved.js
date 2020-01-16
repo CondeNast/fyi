@@ -7,7 +7,7 @@ const messaging = require('../../../messaging')
 const Event = require('../../../models').Event
 
 module.exports = async (context, app) => {
-  if (context.payload.action !== "member_removed") return
+  if (shouldDiscardWebhook(context)) return
 
   let { adminOrg, adminRepo, adminUsers } = configGH
     // start - calculate probot metadata
@@ -67,3 +67,9 @@ module.exports = async (context, app) => {
   context.log(`${LOG_PREFIX} member_removed event logged`)
 }
 
+function shouldDiscardWebhook(context) {
+
+  const org = context.payload.organization.login
+  if (context.payload.action !== "member_removed") return true
+  if (!configGH.subscribedOrgs.includes(org)) return true
+}
