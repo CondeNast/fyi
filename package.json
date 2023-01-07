@@ -78,12 +78,12 @@
     "smee-client": "^1.0.1"
   },
   "devDependencies": {
-    "@condenast/opensource-check": "0.0.4",
+    "@condenast/opensource-check": "0.0.5",
     "babel-jest": "^23.6.0",
     "concurrently": "^3.6.1",
     "dotenv": "^6.0.0",
     "eslint": "5.6.0",
-    "jest": "^23.6.0",
+    "jest": "^29.3.1",
     "nodemon": "^1.18.9",
     "pryjs": "^1.0.3",
     "standard": "^10.0.3"
