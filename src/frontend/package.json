@@ -10,7 +10,7 @@
     "react-ga": "^2.5.3",
     "react-page-visibility": "^3.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.0.3",
+    "react-scripts": "5.0.1",
     "react-truncate-html": "^0.1.7",
     "reactstrap": "^6.4.0"
   },
